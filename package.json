@@ -1,0 +1,30 @@
+{
+    "name": "e6-hub-vue",
+    "version": "0.1.0",
+    "description": "A yiff downloader bruh",
+    "main": "background.js",
+    "repository": "https://github.com/Saektide/e6-hub-vue.git",
+    "author": "Saektide <real.saektide@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "request": "^2.88.0",
+        "request-progress": "^3.0.0",
+        "request-promise-native": "^1.0.8",
+        "tailwindcss-transitions": "^2.1.0",
+        "vue": "^2.6.10",
+        "vue-router": "^3.1.3",
+        "vuex": "^3.1.2"
+    },
+    "devDependencies": {
+        "@vue/cli-service": "^4.0.5",
+        "tailwindcss": "^1.1.3",
+        "vue-cli-plugin-electron-builder": "^1.4.2",
+        "vue-template-compiler": "^2.6.10",
+        "electron": "^7.1.2"
+    },
+    "scripts": {
+        "dev": "vue-cli-service electron:serve",
+        "build": "vue-cli-service electron:build",
+        "postinstall": "electron-builder install-app-deps"
+    }
+}

@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900&display=swap');
+
+::-webkit-scrollbar {
+    background: transparent;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #667eea;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    border-radius: 9px;
+}
+
+body {
+    margin: 0;
+    font-family: Poppins;
+    overflow: hidden;
+}
+
+#topbar {
+    -webkit-app-region: drag;
+}
+
+#topbar * {
+    -webkit-app-region: no-drag;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: all .15s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+#post_details {
+    text-shadow: 0 2px 5px rgba(0,0,0,.7);
+    background: linear-gradient(0deg, #2d3748 10%, transparent);
+}
