@@ -32,11 +32,6 @@ export default {
         Sidebar,
         Titlebar
     },
-    watch: {
-        $route (to, from) {
-            
-        }
-    },
     methods: {
         addDownloadPost(postData) {
             if (this.downloadsQueue.findIndex(post_id => post_id.id == postData.id) > -1) {
@@ -110,7 +105,6 @@ export default {
         });
     }
 }
-
 </script>
 
 <style src="./assets/app.css"/>
