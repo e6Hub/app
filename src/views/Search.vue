@@ -51,14 +51,10 @@ export default {
     },
     methods: {
         searchPosts(e) {
-            
             let self = this;
-
             this.posts = [];
             this.errors = [];
             this.fetching = true;
-
-            console.log(`Fetching :: ${this.tags}`)
 
             _({
                 uri: 'https://e621.net/post/index.json',
@@ -94,9 +90,6 @@ export default {
                 name: 'postView',
                 params: { post: thisPost }
             })
-        },
-        updatedqueue(post) {
-            console.log(`[Search] Quede UPDATED`);
         }
     }
 }

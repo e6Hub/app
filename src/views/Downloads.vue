@@ -27,17 +27,6 @@
 <script>
 export default {
     name: 'downloads',
-    data() {
-        return {
-            
-        }
-    },
-    mounted() {
-        console.log(`[Downloads] mounted.`);
-    },
-    beforeDestroy() {
-        this.$events.$off('downloadpost');
-    },
     methods: {
         viewPost(postid) {
             let thisPost = JSON.parse(localStorage.posts).find(post_id => post_id.id == postid);

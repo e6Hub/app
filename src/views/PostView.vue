@@ -41,9 +41,6 @@
 export default {
     name: 'postView',
     props: [ 'post' ],
-    mounted() {
-        let self = this;
-    },
     methods: {
         openExternal(e) {
             e.preventDefault();

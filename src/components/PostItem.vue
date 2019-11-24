@@ -26,9 +26,6 @@
 <script>
 export default {
     name: 'PostItem',
-    props: ['preview_url', 'rating', 'id', 'score', 'favs'],
-    data() {
-        return {};
-    }
+    props: ['preview_url', 'rating', 'id', 'score', 'favs']
 }
 </script>>

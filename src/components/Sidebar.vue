@@ -28,17 +28,6 @@
 
 <script>
 export default {
-    name: 'Sidebar',
-    data() {
-        return {
-
-        }
-    },
-    methods: {
-
-    },
-    mounted() {
-        console.log(this.$parent.downloadsQueue.length);
-    }
+    name: 'Sidebar'
 }
 </script>
