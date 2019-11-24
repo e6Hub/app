@@ -2,7 +2,6 @@ const { BrowserWindow } = require('electron').remote
 
 class Main {
     constructor() {
-        console.log('OK');
         this.window = BrowserWindow.getAllWindows()[0];
     }
 
