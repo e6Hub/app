@@ -4,7 +4,9 @@ import { app, protocol, BrowserWindow } from "electron"
 import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib'
 
 const isDev = process.env.NODE_ENV !== 'production';
-protocol.registerStandardSchemes(['app'], { secure: true });
+protocol.registerSchemesAsPrivileged([{
+    scheme: 'app', privileges: {standard: true, secure: true}
+}]);
 
 app.on('ready', async () => {
     await installVueDevtools();
@@ -25,7 +27,7 @@ app.on('ready', async () => {
         if (!process.env.IS_TEST) win.webContents.openDevTools()
     } else {
         createProtocol('app');
-        win.loadURL('app://./index.html')
+        win.loadURL('app://./index.html/')
     }
 
     win.on('closed', () => {
