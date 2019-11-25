@@ -1,5 +1,5 @@
 <template>
-    <div id="downloads-container" class="inline-block flex-wrap w-full p-6">
+    <div id="downloads-container" class="inline-block w-full p-6">
         <h2 class="text-2xl font-bold uppercase text-gray-600">Downloads</h2>
         <ul id="downloads-panels" class="flex flex-warp">
             <li id="download-active" class="flex m-3 bg-gray-700 overflow-hidden w-1/2 h-32 rounded relative" v-for="post in this.$parent.downloadsQueue" v-bind:key="post.id">
