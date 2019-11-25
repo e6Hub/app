@@ -29,6 +29,10 @@ export default new Router({
             name: 'postView',
             props: true,
             component: () => import('@/views/PostView.vue')
+        },
+        {
+            path: '*',
+            redirect: '/'
         }
     ]
   })
