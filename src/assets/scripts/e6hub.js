@@ -8,17 +8,17 @@ class Main {
     onload() {
         let selfWin = this.window;
         
-        document.querySelector('#close-app').onclick = () => {
+        document.getElementById('close-app').onclick = () => {
             selfWin.close();
         };
 
-        document.querySelector('#maximize-app').onclick = () => {
+        document.getElementById('maximize-app').onclick = () => {
             selfWin.isMaximized()
             ? selfWin.restore()
             : selfWin.maximize();
         };
 
-        document.querySelector('#minimize-app').onclick = () => {
+        document.getElementById('minimize-app').onclick = () => {
             selfWin.minimize();
         }
     }
