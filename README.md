@@ -1,6 +1,7 @@
-![e6Hub](https://e6hub.github.io/assets/img/e6hub_3_icon.png)
+# e6Hub
+[![Build status](https://ci.appveyor.com/api/projects/status/eawhvp0h2215rqhj?svg=true)](https://ci.appveyor.com/project/Saektide/app)
+[![CodeFactor](https://www.codefactor.io/repository/github/e6hub/app/badge)](https://www.codefactor.io/repository/github/e6hub/app)
 
-# :book: e6Hub
 This is an app for explore and download posts on e621.net. It uses e621's API so and it's powered by Vue.js. Feel free to contribute to this project!
 
 ### :thought_balloon: Keep in mind...
