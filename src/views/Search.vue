@@ -57,7 +57,6 @@ export default {
     },
     methods: {
         searchPosts(e) {
-            let self = this;
             this.posts = [];
             this.errors = [];
             this.fetching = true;
