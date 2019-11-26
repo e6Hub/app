@@ -15,6 +15,6 @@ install:
   - yarn
 
 build_script:
-  - yarn build
+  - yarn pbuild
 
 test: off
