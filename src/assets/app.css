@@ -47,3 +47,7 @@ body {
     text-shadow: 0 2px 5px rgba(0,0,0,.7);
     background: linear-gradient(0deg, #2d3748 10%, transparent);
 }
+
+.checkbox-label input:checked + svg {
+    display: block !important;
+}

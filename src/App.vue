@@ -19,18 +19,38 @@ import Main from '@/assets/scripts/e6hub.js';
 import * as d from 'request-progress';
 import * as r from 'request';
 import fs from 'fs';
+import { ipcRenderer } from 'electron';
 
 export default {
     name: 'App',
     data() {
         return {
             downloadsQueue: [],
-            downloaded: []
+            downloaded: [],
+            tags: null,
+            state: null,
+            rpc: {
+                type: 'IDLE',
+                tags: null
+            }
         }
     },
     components: {
         Sidebar,
         Titlebar
+    },
+    watch: {
+        $route(to, from) {
+            if (to.name == 'postView') {
+                this.postid = to.params.post.id;
+                this.$events.$emit('state-changed-rpc', {type: 'WATCHING'});
+            }
+
+            if (from.name == 'postView') {
+                this.postid = null;
+                this.$events.$emit('state-changed-rpc', {type: 'SEARCHING'});
+            }
+        }
     },
     methods: {
         addDownloadPost(postData) {
@@ -56,6 +76,11 @@ export default {
         let self = this;
         this.$nextTick(function () {
             Main.onload();
+
+            // Emit ready to RPC
+            ipcRenderer.send('RPC_ready', JSON.parse(localStorage.settings).rpc);
+
+            // Define keybinds
             
             document.body.addEventListener('keydown', function (e) {
                 let key = e.keyCode
@@ -64,6 +89,8 @@ export default {
                         switch (self.$route.name) {
                             case 'search':
                                 self.$route.matched[0].instances.default.posts = [];
+                                self.tags = null;
+                                self.$events.$emit('state-changed-rpc', {type: 'IDLE'});
                             break;
                             case 'postView':
                                 self.$router.push({name: 'search'});
@@ -101,6 +128,28 @@ export default {
                     self.downloadsQueue.splice(indx, 1);
                 })
                 .pipe(fs.createWriteStream(`${require('os').userInfo().homedir}/Documents/E6-Downloads/${p.id}.${p.file_ext}`));
+            });
+
+            self.$events.$on('updated-rpc', function(rpcObj) {
+                ipcRenderer.send('RPC_settingsChanged', rpcObj, self.rpc);
+                if (rpcObj.enabled) self.$events.$emit('state-changed-rpc', {type: self.rpc.type});
+            })
+
+            self.$events.$on('state-changed-rpc', function(st) {
+                self.rpc.type = st.type;
+
+                if (self.tags) {
+                    if (JSON.parse(localStorage.settings).rpc.showSearching) self.rpc.tags = self.tags;
+                    else self.rpc.tags = 'Something';
+                } else self.rpc.tags = null;
+
+                if (st.type == 'WATCHING' && !JSON.parse(localStorage.settings).rpc.showWatching) return;
+
+                if (self.postid && JSON.parse(localStorage.settings).rpc.showWatching) self.rpc.postid = self.postid;
+                else self.rpc.postid = null;
+
+                if (!JSON.parse(localStorage.settings).rpc.enabled) return;
+                ipcRenderer.send('RPC_status', self.rpc);
             })
         });
     }

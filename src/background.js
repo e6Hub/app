@@ -1,7 +1,8 @@
 'use strict';
 
-import { app, protocol, BrowserWindow } from "electron"
-import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib'
+import { app, protocol, BrowserWindow, ipcMain } from 'electron';
+import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib';
+import * as DiscordRPC from 'discord-rpc';
 
 const isDev = process.env.NODE_ENV !== 'production';
 protocol.registerSchemesAsPrivileged([{
@@ -35,3 +36,64 @@ app.on('ready', async () => {
     });
 });
 
+// RPC
+
+const CID = '642758973631758336';
+const appRPC = new DiscordRPC.Client({transport: 'ipc'});
+
+let actObj = {
+    details: 'Idle',
+    state: 'It just started!',
+    largeImageKey: 'main',
+    largeImageText: 'Idle',
+    instance: false
+}
+
+appRPC.on('ready', () => {
+    ipcMain.on('RPC_ready', (event, _rpc) => {
+        if (_rpc.enabled) {
+            appRPC.setActivity(actObj);
+        } else {
+            appRPC.clearActivity();
+        }
+    });
+
+    ipcMain.on('RPC_settingsChanged', (event, _rpc) => {
+        if (!_rpc.enabled) return appRPC.clearActivity();
+        appRPC.setActivity(actObj);
+    });
+
+    ipcMain.on('RPC_clear', (event) => {
+        appRPC.clearActivity();
+    });
+
+    ipcMain.on('RPC_status', (event, _rpcStatus) => {
+        switch (_rpcStatus.type) {
+            case 'SEARCHING':
+                actObj.details = 'Looking for...';
+                actObj.state = `${_rpcStatus.tags}`;
+                actObj.largeImageText = 'Looking for';
+            break;
+            case 'WATCHING':
+                actObj.details = 'Watching post';
+                actObj.state = `${_rpcStatus.postid}`;
+                actObj.largeImageText = 'Watching';
+            break;
+            case 'IDLE':
+                actObj.details = 'Idle';
+                actObj.state = `It just started!`;
+                actObj.largeImageText = 'Idle';
+            break;
+            default:
+                actObj.details = 'Unknown';
+                actObj.state = 'Seems your settings are wrong...';
+                actObj.largeImageText = 'Oops!';
+            break;
+        }
+        appRPC.setActivity(actObj);
+    }) 
+});
+
+appRPC.login({ clientId: CID }).catch((err) => {
+    console.error(`F 'cause :: ${err}`);
+});

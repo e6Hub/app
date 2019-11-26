@@ -42,12 +42,18 @@ export default {
         return {
             posts: [],
             errors: [],
-            tags: null,
             fetching: false
         }
     },
-    mounted() {
-        let self = this;
+    computed: {
+        tags: {
+            get() {
+                return this.$parent.tags;
+            },
+            set(t) {
+                this.$parent.tags = t;
+            }
+        }
     },
     methods: {
         searchPosts(e) {
@@ -82,6 +88,7 @@ export default {
                 this.posts.push(post);
             });
             localStorage.posts = JSON.stringify(this.posts);
+            this.$events.$emit('state-changed-rpc', {type: 'SEARCHING'});
         },
         viewPost(postid) {
             let thisPost = JSON.parse(localStorage.posts).find(post_id => post_id.id == postid);
