@@ -22,15 +22,15 @@ class Main {
             selfWin.minimize();
         }
 
-        if (!JSON.parse(localStorage.settings)) {
-            let newSettings = {
+        if (!localStorage.settings) {
+            localStorage.settings = JSON.stringify({
                 rpc: {
                     enabled: false,
                     showShowing: false,
                     showWatching: false
                 },
                 downloadLocation: require('os').userInfo().homedir
-            }
+            });
         }
     }
 }

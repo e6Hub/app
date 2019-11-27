@@ -1,6 +1,6 @@
 {
-  "name": "e6-hub-vue",
-  "version": "0.2.0",
+  "name": "e6-hub",
+  "version": "3.0.0",
   "description": "A yiff downloader bruh",
   "author": "Saektide <real.saektide@gmail.com>",
   "scripts": {
@@ -15,6 +15,7 @@
   "main": "background.js",
   "dependencies": {
     "discord-rpc": "^3.1.0",
+    "electron-updater": "^4.2.0",
     "request": "^2.88.0",
     "request-progress": "^3.0.0",
     "request-promise-native": "^1.0.8",
@@ -31,5 +32,5 @@
     "vue-template-compiler": "^2.6.10"
   },
   "license": "MIT",
-  "repository": "https://github.com/Saektide/e6-hub-vue.git"
+  "repository": "https://github.com/e6Hub/app.git"
 }

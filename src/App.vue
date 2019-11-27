@@ -32,7 +32,8 @@ export default {
             rpc: {
                 type: 'IDLE',
                 tags: null
-            }
+            },
+            pendingUpdate: false
         }
     },
     components: {
@@ -76,6 +77,10 @@ export default {
         let self = this;
         this.$nextTick(function () {
             Main.onload();
+
+            ipcRenderer.on('updateAlert', function(event, ver) {
+                self.pendingUpdate = true;
+            });
 
             // Emit ready to RPC
             ipcRenderer.send('RPC_ready', JSON.parse(localStorage.settings).rpc);

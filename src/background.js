@@ -3,11 +3,27 @@
 import { app, protocol, BrowserWindow, ipcMain } from 'electron';
 import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib';
 import * as DiscordRPC from 'discord-rpc';
+import { autoUpdater as updater } from 'electron-updater';
 
 const isDev = process.env.NODE_ENV !== 'production';
 protocol.registerSchemesAsPrivileged([{
     scheme: 'app', privileges: {standard: true, secure: true}
 }]);
+
+// Updater
+
+updater.on('checking-for-update', () => {
+    console.info('[Updater] Checking for update...')
+    win.webContents.send('updateCheck');
+});
+
+updater.on('update-downloaded', (info) => {
+    win.webContents.send('updateAlert', info.version);
+});
+
+ipcMain.on('restartForUpdate', (event) => {
+    updater.quitAndInstall(true, true);
+});
 
 app.on('ready', async () => {
     await installVueDevtools();
@@ -30,6 +46,8 @@ app.on('ready', async () => {
         createProtocol('app');
         win.loadURL('app://./index.html/')
     }
+
+    updater.checkForUpdatesAndNotify();
 
     win.on('closed', () => {
         win = null
