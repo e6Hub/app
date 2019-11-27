@@ -1,6 +1,7 @@
 <template>
     <div id="settings-container" class="inline-block w-full p-6">
         <h2 class="text-2xl font-bold uppercase text-gray-600">Settings</h2>
+        <DownloadSettings/>
         <RPCSettings/>
         <div id="app-version">
             <h3 class="text-base font-bold uppercase text-gray-500">App version</h3>
@@ -10,12 +11,14 @@
 </template>
 
 <script>
+import DownloadSettings from './Settings/Downloads.Settings.vue';
 import RPCSettings from './Settings/DiscordRPC.Settings.vue';
 
 export default {
     name: 'settings',
     components: {
-        RPCSettings
+        RPCSettings,
+        DownloadSettings
     }
 }
 </script>

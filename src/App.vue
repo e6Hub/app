@@ -127,7 +127,7 @@ export default {
                     self.downloaded.push(self.downloadsQueue[indx]);
                     self.downloadsQueue.splice(indx, 1);
                 })
-                .pipe(fs.createWriteStream(`${require('os').userInfo().homedir}/Documents/E6-Downloads/${p.id}.${p.file_ext}`));
+                .pipe(fs.createWriteStream(`${JSON.parse(localStorage.settings).downloadLocation}/${p.id}.${p.file_ext}`));
             });
 
             self.$events.$on('updated-rpc', function(rpcObj) {
