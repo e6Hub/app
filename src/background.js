@@ -13,8 +13,19 @@ protocol.registerSchemesAsPrivileged([{
 // Updater
 
 updater.on('checking-for-update', () => {
-    console.info('[Updater] Checking for update...')
     win.webContents.send('updateCheck');
+});
+
+updater.on('update-available', () => {
+    win.webContents.send('updateAvailable');
+});
+
+updater.on('download-progress', (p) => {
+    win.webContents.send('updateProgress', p);
+})
+
+updater.on('update-not-available', () => {
+    win.webContents.send('updateUpToDate');
 });
 
 updater.on('update-downloaded', (info) => {
@@ -23,6 +34,10 @@ updater.on('update-downloaded', (info) => {
 
 ipcMain.on('restartForUpdate', (event) => {
     updater.quitAndInstall(true, true);
+});
+
+ipcMain.on('checkForUpdates', (event) => {
+    updater.checkForUpdates();
 });
 
 app.on('ready', async () => {
@@ -47,7 +62,7 @@ app.on('ready', async () => {
         win.loadURL('app://./index.html/')
     }
 
-    updater.checkForUpdatesAndNotify();
+    updater.checkForUpdates();
 
     win.on('closed', () => {
         win = null

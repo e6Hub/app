@@ -16,8 +16,8 @@ module.exports = {
                 },
                 publish: {
                     provider: "github",
-                    owner: "Saektide",
-                    repo: "e6-hub-vue"
+                    owner: "e6Hub",
+                    repo: "app"
                 }
             }
         }

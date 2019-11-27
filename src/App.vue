@@ -33,7 +33,7 @@ export default {
                 type: 'IDLE',
                 tags: null
             },
-            pendingUpdate: false
+            updateState: null
         }
     },
     components: {
@@ -78,8 +78,30 @@ export default {
         this.$nextTick(function () {
             Main.onload();
 
-            ipcRenderer.on('updateAlert', function(event, ver) {
-                self.pendingUpdate = true;
+            if (process.env.NODE_ENV !== 'production') {
+                console.log(`dev build detected`);
+                self.updateState = 'dev';
+            }
+
+            ipcRenderer.on('updateCheck', function(event) {
+                self.updateState = 'checking';
+            });
+
+            ipcRenderer.on('updateAlert', function(event) {
+                self.updateState = 'pendingRestart';
+            });
+
+            ipcRenderer.on('updateUpToDate', function(event) {
+                self.updateState = 'uptodate';
+            });
+
+            ipcRenderer.on('updateAvailable', function(event, ver) {
+                self.updateState = 'downloading';
+            });
+
+            ipcRenderer.on('updateProgress', function(event, progress) {
+                self.updateState = 'downloading';
+                console.log(progress);
             });
 
             // Emit ready to RPC
