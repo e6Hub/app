@@ -17,16 +17,15 @@
                     <button type="submit" id="search-posts-btn" class="bg-indigo-500 p-1 px-3 rounded">Search posts</button>
                 </form>
             </div>
-            
-            <ul v-if="posts.length" id="posts-list" ref="posts_container" class="flex flex-wrap justify-center p-2 w-full h-24 overflow-y-auto flex-1">
+            <div id="posts-empty" class="text-center py-8 text-gray-600" v-if="!posts.length">
+                <span v-if="fetching">Loading...</span>
+                <span v-else>No posts to see here...</span>
+            </div>
+            <ul id="posts-list" ref="posts_container" class="flex flex-wrap justify-center p-2 w-full h-24 overflow-y-auto flex-1">
                 <li v-for="(post, index) in posts" v-bind:key="index" class="m-4 mb-8 max-w-xl w-32 cursor-pointer hover:opacity-75 transition-100" @click="viewPost(post.id)">
                     <PostItem :preview_url="post.preview_url" :rating="post.rating" :score="post.score" :id="post.id" :favs="post.fav_count"/>
                 </li>
             </ul>
-            <div id="posts-empty" class="text-center py-8 text-gray-600" v-else>
-                <span v-if="fetching">Loading...</span>
-                <span v-else>No posts to see here...</span>
-            </div>
         </div>
     </div>
 </template>
@@ -34,6 +33,7 @@
 <script>
 import PostItem from '@/components/PostItem.vue';
 import * as _ from 'request-promise-native';
+import { version as appVer } from '../../package.json';
 
 export default {
     replace: false,
@@ -42,7 +42,8 @@ export default {
         return {
             posts: [],
             errors: [],
-            fetching: false
+            fetching: false,
+            page: 1
         }
     },
     computed: {
@@ -56,8 +57,9 @@ export default {
         }
     },
     methods: {
-        searchPosts(e) {
-            this.posts = [];
+        searchPosts(e, cont = false) {
+            if (!cont) this.posts = [];
+            if (!cont) this.page = 1;
             this.errors = [];
             this.fetching = true;
 
@@ -65,10 +67,11 @@ export default {
                 uri: 'https://e621.net/post/index.json',
                 qs: {
                     tags: this.tags,
-                    limit: 80
+                    limit: 40,
+                    page: this.page
                 },
                 headers: {
-                    'User-Agent': 'e6Hub/3.0.0 canary (by AerysSaektide on e621)'
+                    'User-Agent': `e6Hub/${appVer} (by AerysSaektide on e621)`
                 },
                 json: true
             }).then((d) => {
@@ -79,7 +82,7 @@ export default {
                 this.fetching = false;
             });
 
-            e.preventDefault();
+            if (e) e.preventDefault();
         },
         displayPosts(postsData) {
             this.fetching = false;
@@ -88,6 +91,16 @@ export default {
             });
             localStorage.posts = JSON.stringify(this.posts);
             this.$events.$emit('state-changed-rpc', {type: 'SEARCHING'});
+
+            document.getElementById('posts-list').addEventListener('scroll', (e) => {
+                let el = e.target;
+                let lmt = el.scrollHeight - el.offsetHeight;
+                let scrl = el.scrollTop;
+                if (scrl > lmt - 150 && !this.fetching) {
+                    ++this.page;
+                    this.searchPosts(null, true);
+                }
+            });
         },
         viewPost(postid) {
             let thisPost = JSON.parse(localStorage.posts).find(post_id => post_id.id == postid);
