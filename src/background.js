@@ -10,6 +10,8 @@ protocol.registerSchemesAsPrivileged([{
     scheme: 'app', privileges: {standard: true, secure: true}
 }]);
 
+let win;
+
 // Updater
 
 updater.on('checking-for-update', () => {
@@ -43,7 +45,7 @@ ipcMain.on('checkForUpdates', (event) => {
 app.on('ready', async () => {
     await installVueDevtools();
 
-    let win = new BrowserWindow({
+    win = new BrowserWindow({
         webPreferences: {
             nodeIntegration: true
         },
