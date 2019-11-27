@@ -21,6 +21,17 @@ class Main {
         document.getElementById('minimize-app').onclick = () => {
             selfWin.minimize();
         }
+
+        if (!JSON.parse(localStorage.settings)) {
+            let newSettings = {
+                rpc: {
+                    enabled: false,
+                    showShowing: false,
+                    showWatching: false
+                },
+                downloadLocation: require('os').userInfo().homedir
+            }
+        }
     }
 }
 

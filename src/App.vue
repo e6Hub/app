@@ -81,7 +81,6 @@ export default {
             ipcRenderer.send('RPC_ready', JSON.parse(localStorage.settings).rpc);
 
             // Define keybinds
-            
             document.body.addEventListener('keydown', function (e) {
                 let key = e.keyCode
                 switch (key) {
