@@ -114,12 +114,14 @@ export default {
                     case 27: // Escape
                         switch (self.$route.name) {
                             case 'search':
-                                self.$route.matched[0].instances.default.posts = [];
-                                self.tags = null;
-                                self.$events.$emit('state-changed-rpc', {type: 'IDLE'});
+                                if (self.$route.matched[0].instances.default.posts.length) {
+                                    self.$route.matched[0].instances.default.posts = [];
+                                    self.tags = null;
+                                    self.$events.$emit('state-changed-rpc', {type: 'IDLE'});
+                                }
                             break;
                             case 'postView':
-                                self.$router.push({name: 'search'});
+                                self.$router.go(-1);
                             break;
                         }
                     break;
