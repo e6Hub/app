@@ -25,12 +25,12 @@
                 <li v-for="(post, index) in posts" v-bind:key="index" class="m-4 mb-8 max-w-xl w-32 cursor-pointer hover:opacity-75 transition-100" @click="viewPost(post.id)">
                     <PostItem :preview_url="post.preview_url" :rating="post.rating" :score="post.score" :id="post.id" :favs="post.fav_count"/>
                 </li>
-                <div id="posts-nomore" class="text-center py-8 text-gray-600" v-if="lastPage">
+                <div id="posts-nomore" class="text-center py-8 text-gray-600 w-full" v-if="lastPage">
                     <span>No more posts here</span>
                 </div>
             </ul>
             <div id="posts-notfound" class="text-center py-8 text-gray-600" v-if="noPosts">
-                <span>Oh? no posts that matches with "{{tags}}"</span>
+                <span>Oh? no posts that matches with your tags</span>
             </div>
         </div>
     </div>
