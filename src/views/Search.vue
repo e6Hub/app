@@ -25,7 +25,13 @@
                 <li v-for="(post, index) in posts" v-bind:key="index" class="m-4 mb-8 max-w-xl w-32 cursor-pointer hover:opacity-75 transition-100" @click="viewPost(post.id)">
                     <PostItem :preview_url="post.preview_url" :rating="post.rating" :score="post.score" :id="post.id" :favs="post.fav_count"/>
                 </li>
+                <div id="posts-nomore" class="text-center py-8 text-gray-600" v-if="lastPage">
+                    <span>No more posts here</span>
+                </div>
             </ul>
+            <div id="posts-notfound" class="text-center py-8 text-gray-600" v-if="noPosts">
+                <span>Oh? no posts that matches with "{{tags}}"</span>
+            </div>
         </div>
     </div>
 </template>
@@ -43,7 +49,9 @@ export default {
             posts: [],
             errors: [],
             fetching: false,
-            page: 1
+            page: 1,
+            lastPage: false,
+            noPosts: false
         }
     },
     computed: {
@@ -62,6 +70,8 @@ export default {
             if (!cont) this.page = 1;
             this.errors = [];
             this.fetching = true;
+            this.noPosts = false;
+            this.lastPage = false;
 
             _({
                 uri: 'https://e621.net/post/index.json',
@@ -75,6 +85,8 @@ export default {
                 },
                 json: true
             }).then((d) => {
+                if (!this.posts.length && !d.length) this.noPosts = true;
+                else if (this.posts.length && d.length < 40) this.lastPage = true;
                 this.displayPosts(d);
             }).catch(err => {
                 this.errors.push('An unexpected error ocurred! Check the Dev Console');
@@ -86,6 +98,7 @@ export default {
         },
         displayPosts(postsData) {
             this.fetching = false;
+            if (!postsData.length) return; 
             postsData.forEach(post => {
                 this.posts.push(post);
             });
@@ -93,6 +106,7 @@ export default {
             this.$events.$emit('state-changed-rpc', {type: 'SEARCHING'});
 
             document.getElementById('posts-list').addEventListener('scroll', (e) => {
+                if (this.lastPage) return;
                 let el = e.target;
                 let lmt = el.scrollHeight - el.offsetHeight;
                 let scrl = el.scrollTop;

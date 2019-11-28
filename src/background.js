@@ -129,6 +129,10 @@ appRPC.on('ready', () => {
     }) 
 });
 
-appRPC.login({ clientId: CID }).catch((err) => {
-    console.error(`F 'cause :: ${err}`);
-});
+function connectRPC() {
+    appRPC.login({ clientId: CID }).catch((err) => {
+        connectRPC();
+    });
+}
+
+connectRPC();
