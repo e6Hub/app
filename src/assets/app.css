@@ -30,7 +30,7 @@ body {
     -webkit-app-region: drag;
 }
 
-#topbar * {
+#topbar > #window-buttons {
     -webkit-app-region: no-drag;
 }
 
