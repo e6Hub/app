@@ -12,7 +12,10 @@ module.exports = {
                 nsis: {
                     installerLanguages: "en_US",
                     installerIcon: "./e6h_ins.ico",
-                    uninstallerIcon: "./e6h_unins.ico"
+                    uninstallerIcon: "./e6h_unins.ico",
+                    oneClick: false,
+                    runAfterFinish: false,
+                    allowToChangeInstallationDirectory: true
                 },
                 publish: {
                     provider: "github",
