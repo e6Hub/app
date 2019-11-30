@@ -2,7 +2,7 @@
     <div id="sidebar" class="w-16 bg-gray-900 inset-y-0 left-0 h-full">
         <ul class="flex flex-wrap justify-center">
             <li id="goto-search" class="flex mb-3">
-                <router-link to="/" class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700 text-white hover:bg-gray-600 cursor-pointer transition-250">
+                <router-link to="/search" class="w-12 h-12 flex items-center justify-center rounded-full bg-gray-700 text-white hover:bg-gray-600 cursor-pointer transition-250">
                     <i class="material-icons">search</i>
                 </router-link>
             </li>

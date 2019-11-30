@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Search from '@/views/Search.vue'
-
 Vue.use(Router);
 
 export default new Router({
@@ -10,9 +8,9 @@ export default new Router({
     base: process.env.BASE_URL,
     routes: [
         {
-            path: '/',
+            path: '/search',
             name: 'search',
-            component: Search
+            component: () => import('@/views/Search.vue')
         },
         {
             path: '/downloads',
@@ -22,7 +20,25 @@ export default new Router({
         {
             path: '/settings',
             name: 'settings',
-            component: () => import('@/views/Settings.vue')
+            component: () => import('@/views/Settings.vue'),
+            children: [
+                {
+                    path: 'downloadsSettings',
+                    component: () => import('@/views/Settings/Downloads.Settings.vue')
+                },
+                {
+                    path: 'RPCSettings',
+                    component: () => import('@/views/Settings/DiscordRPC.Settings.vue')
+                },
+                {
+                    path: 'appVersion',
+                    component: () => import('@/views/Settings/AppVersion.Settings.vue')
+                },
+                {
+                    path: '',
+                    component: () => import('@/views/Settings/Downloads.Settings.vue')
+                }
+            ]
         },
         {
             path: '/postview',
@@ -32,7 +48,7 @@ export default new Router({
         },
         {
             path: '*',
-            redirect: '/'
+            redirect: '/search'
         }
     ]
   })

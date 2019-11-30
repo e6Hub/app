@@ -1,6 +1,6 @@
 <template>
     <div id="rpc-settings">
-        <h3 class="text-base font-bold uppercase text-gray-500">Discord RPC</h3>
+        <h3 class="text-2xl font-bold uppercase text-gray-500 mb-4">Discord RPC</h3>
         <label class="flex checkbox-label my-2">
             <div class="bg-gray-600 rounded shadow w-6 h-6 p-1 flex justify-center items-center mr-4">
                 <input type="checkbox" class="hidden" v-model="enabledComp">
