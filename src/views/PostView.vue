@@ -12,6 +12,11 @@
                 <img :src="post.sample_url" :alt="post.id" class="rounded">
             </div>
             <div id="postview-details" class="m-4 mt-0 w-1/4">
+                <div id="postview-actions" class="mb-4">
+                    <button v-if="!this.$parent.downloadsQueue.find(p => p.id == post.id) && !this.$parent.downloaded.find(p => p.id == post.id)" id="postview-download-btn" @click="downloadPost" class="bg-green-400 py-2 w-full rounded hover:bg-green-500 shadow-lg hover:shadow-xl transition-100">Download</button>
+                    <button v-else-if="this.$parent.downloadsQueue.find(p => p.id == post.id) && !this.$parent.downloaded.find(p => p.id == post.id)" id="postview-downloading-btn" class="bg-indigo-400 py-2 w-full rounded hover:bg-indigo-500 shadow-lg hover:shadow-xl transition-100">Downloading</button>
+                    <button v-else-if="!this.$parent.downloadsQueue.find(p => p.id == post.id) && this.$parent.downloaded.find(p => p.id == post.id)" id="postview-downloaded-btn" class="bg-gray-600 py-2 w-full rounded hover:bg-gray-700 shadow-lg hover:shadow-xl transition-100">Downloaded</button>
+                </div>
                 <ul id="postview-details-list" class="flex flex-col">
                     <li v-if="post.artist.length > 1" id="artists" class="bg-gray-700 p-3 rounded mb-2 break-all">
                         <h4 class="uppercase text-gray-500 font-bold mb-1">Artists</h4>
@@ -45,6 +50,9 @@ export default {
         openExternal(e) {
             e.preventDefault();
             require("electron").shell.openExternal(e.target.getAttribute('href'));
+        },
+        downloadPost() {
+            this.$parent.addDownloadPost(this.post);
         }
     }
 }

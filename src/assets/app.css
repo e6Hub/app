@@ -51,3 +51,7 @@ body {
 .checkbox-label input:checked + svg {
     display: block !important;
 }
+
+li#download-done {
+    max-width: 45%;
+}

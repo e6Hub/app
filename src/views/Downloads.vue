@@ -4,7 +4,7 @@
         <div id="no-downloads-found" v-if="!this.$parent.downloadsQueue.length" class="text-center my-4">
             Wanna download something? <router-link tag="a" to="/" class="text-indigo-200">go ahead!</router-link>
         </div>
-        <ul id="downloads-panels" class="flex flex-warp">
+        <ul id="downloads-panels" class="flex flex-wrap">
             <li id="download-active" class="flex m-3 bg-gray-700 overflow-hidden w-1/2 h-32 rounded relative" v-for="post in this.$parent.downloadsQueue" v-bind:key="post.id">
                 <img :src="post.preview_url" :alt="post.id" class="h-full">
                 <div id="postdetails" class="absolute right-0 top-0 m-4">
@@ -20,7 +20,7 @@
         </ul>
         <div id="downloaded-posts-container" v-if="this.$parent.downloaded.length">
             <h2 class="text-2xl font-bold uppercase text-gray-600">Downloaded posts</h2>
-            <ul id="downloaded-panels" class="flex flex-warp">
+            <ul id="downloaded-panels" class="flex flex-wrap">
                 <li id="download-done" class="flex m-3 bg-gray-700 overflow-hidden w-1/2 h-32 rounded relative cursor-pointer" v-for="(downloadedPost, index) in this.$parent.downloaded" :key="index" @click="viewPost(downloadedPost.id)">
                     <img :src="downloadedPost.preview_url" :alt="downloadedPost.id" class="h-full">
                     <div id="postdetails" class="absolute right-0 top-0 m-4">
