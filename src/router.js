@@ -24,6 +24,7 @@ export default new Router({
             children: [
                 {
                     path: 'downloadsSettings',
+                    alias: '',
                     component: () => import('@/views/Settings/Downloads.Settings.vue')
                 },
                 {
@@ -33,10 +34,6 @@ export default new Router({
                 {
                     path: 'appVersion',
                     component: () => import('@/views/Settings/AppVersion.Settings.vue')
-                },
-                {
-                    path: '',
-                    component: () => import('@/views/Settings/Downloads.Settings.vue')
                 }
             ]
         },

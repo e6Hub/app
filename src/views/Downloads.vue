@@ -1,11 +1,19 @@
 <template>
     <div id="downloads-container" class="inline-block w-full p-6">
         <h2 class="text-2xl font-bold uppercase text-gray-600">Downloads</h2>
+        <div id="no-downloads-found" v-if="!this.$parent.downloadsQueue.length" class="text-center my-4">
+            Wanna download something? <router-link tag="a" to="/" class="text-indigo-200">go ahead!</router-link>
+        </div>
         <ul id="downloads-panels" class="flex flex-warp">
             <li id="download-active" class="flex m-3 bg-gray-700 overflow-hidden w-1/2 h-32 rounded relative" v-for="post in this.$parent.downloadsQueue" v-bind:key="post.id">
                 <img :src="post.preview_url" :alt="post.id" class="h-full">
                 <div id="postdetails" class="absolute right-0 top-0 m-4">
                     <span id="postid">{{post.id}}</span><br/>
+                    <div id="favs" class="flex items-center text-pink-400">
+                        <i class="material-icons text-sm mr-1">favorite_border</i><span>{{post.fav_count}}</span>
+                    </div>
+                </div>
+                <div id="postdownloading">
                     <span id="download-progress">{{post.download.progress}}%</span>
                 </div>
             </li>
@@ -17,6 +25,9 @@
                     <img :src="downloadedPost.preview_url" :alt="downloadedPost.id" class="h-full">
                     <div id="postdetails" class="absolute right-0 top-0 m-4">
                         <span id="postid">{{downloadedPost.id}}</span><br/>
+                        <div id="favs" class="flex items-center text-pink-400">
+                            <i class="material-icons text-sm mr-1">favorite_border</i><span>{{downloadedPost.fav_count}}</span>
+                        </div>
                     </div>
                 </li>
             </ul>
