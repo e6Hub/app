@@ -22,7 +22,7 @@
                 <span v-else>No posts to see here...</span>
             </div>
             <ul id="posts-list" ref="posts_container" class="flex flex-wrap justify-center p-2 w-full h-24 overflow-y-auto flex-1">
-                <li v-for="(post, index) in posts" v-bind:key="index" class="m-4 mb-8 max-w-xl w-32 cursor-pointer hover:opacity-75 transition-100" @click="viewPost(post.id)">
+                <li v-for="(post, index) in posts" v-bind:key="index" class="m-4 mb-8 max-w-xl w-32 cursor-pointer hover:opacity-75 transition-100" @contextmenu="listPost(post)" @click="viewPost(post.id)">
                     <PostItem :preview_url="post.preview_url" :rating="post.rating" :score="post.score" :id="post.id" :favs="post.fav_count"/>
                 </li>
                 <div id="posts-nomore" class="text-center py-8 text-gray-600 w-full" v-if="lastPage">
@@ -121,8 +121,13 @@ export default {
             if (!thisPost) return;
             this.$router.push({
                 name: 'postView',
-                params: { post: thisPost }
+                params: { post: thisPost, id: thisPost.id }
             })
+        },
+        listPost(post) {
+            let indx = this.$parent.postsList.findIndex(p => p.id == post.id);
+            if (indx > -1) this.$parent.postsList.splice(indx, 1);
+            else this.$parent.postsList.push(post);
         }
     }
 }

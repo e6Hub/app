@@ -33,7 +33,8 @@ export default {
                 type: 'IDLE',
                 tags: null
             },
-            updateState: null
+            updateState: null,
+            postsList: []
         }
     },
     components: {
@@ -42,14 +43,14 @@ export default {
     },
     watch: {
         $route(to, from) {
-            if (to.name == 'postView') {
-                this.postid = to.params.post.id;
-                this.$events.$emit('state-changed-rpc', {type: 'WATCHING'});
-            }
-
             if (from.name == 'postView') {
                 this.postid = null;
                 this.$events.$emit('state-changed-rpc', {type: 'SEARCHING'});
+            }
+
+            if (to.name == 'postView') {
+                this.postid = to.params.id;
+                this.$events.$emit('state-changed-rpc', {type: 'WATCHING'});
             }
         }
     },
@@ -121,7 +122,7 @@ export default {
                                 }
                             break;
                             case 'postView':
-                                self.$router.go(-1);
+                                self.$router.push({name: 'search'});
                             break;
                         }
                     break;
@@ -134,7 +135,7 @@ export default {
             });
 
             self.$events.$on('downloadpost', function(p) {
-                let indx = self.downloadsQueue.findIndex(idPost => idPost.id == p.id);
+                let indx;
 
                 d(
                     r(p.file_url), {
@@ -142,15 +143,17 @@ export default {
                     }
                 )
                 .on('progress', st => {
+                    indx = self.downloadsQueue.findIndex(idPost => idPost.id == p.id);
                     let percent = Math.round(st.percent * 100);
-
                     self.$set(self.downloadsQueue[indx].download, 'progress', percent)
                 })
                 .on('error', err => {
+                    indx = self.downloadsQueue.findIndex(idPost => idPost.id == p.id);
                     self.downloadsQueue[indx].download.state = 'error';
                     console.error(`Failed to download ${p.id} :: ${err}`);
                 })
                 .on('end', () => {
+                    indx = self.downloadsQueue.findIndex(idPost => idPost.id == p.id);
                     self.downloadsQueue[indx].download.state = 'downloaded';
                     self.downloaded.push(self.downloadsQueue[indx]);
                     self.downloadsQueue.splice(indx, 1);

@@ -8,7 +8,7 @@ module.exports = {
             'border': 'border-color',
             'colors': ['color', 'background-color', 'border-color'],
             'opacity': 'opacity',
-            'transform': 'transform',
+            'transform': 'transform'
         },
         transitionDuration: {
             'default': '250ms',
@@ -17,7 +17,7 @@ module.exports = {
             '250': '250ms',
             '500': '500ms',
             '750': '750ms',
-            '1000': '1000ms',
+            '1000': '1000ms'
         },
         transitionTimingFunction: {
             'default': 'ease',
@@ -25,7 +25,7 @@ module.exports = {
             'ease': 'ease',
             'ease-in': 'ease-in',
             'ease-out': 'ease-out',
-            'ease-in-out': 'ease-in-out',
+            'ease-in-out': 'ease-in-out'
         },
         transitionDelay: {
             'default': '0ms',
@@ -34,15 +34,15 @@ module.exports = {
             '250': '250ms',
             '500': '500ms',
             '750': '750ms',
-            '1000': '1000ms',
+            '1000': '1000ms'
         },
         willChange: {
             'auto': 'auto',
             'scroll': 'scroll-position',
             'contents': 'contents',
             'opacity': 'opacity',
-            'transform': 'transform',
-        },
+            'transform': 'transform'
+        }
     },
     variants: {
         transitionProperty: ['responsive'],
@@ -53,5 +53,5 @@ module.exports = {
     },
     plugins: [
         require('tailwindcss-transitions')(),
-    ],
+    ]
 }

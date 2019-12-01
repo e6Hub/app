@@ -38,7 +38,7 @@ export default new Router({
             ]
         },
         {
-            path: '/postview',
+            path: '/postview/:id',
             name: 'postView',
             props: true,
             component: () => import('@/views/PostView.vue')
