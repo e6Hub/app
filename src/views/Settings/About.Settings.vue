@@ -6,7 +6,7 @@
             <p>This app was created by users, not the e621's staff. If you want to report bug
                 or make a suggestion go to <a class="text-indigo-300" href="https://github.com/e6Hub/app/issues" @click="openExternal">Issues</a>.
                 This app doesn't provide any warranty. In fact, it's open source. The author of the project
-                is <a class="text-indigo-300" href="e621.net/user/show/418103" @click="openExternal">AerysSaektide</a>
+                is <a class="text-indigo-300" href="https://e621.net/user/show/418103" @click="openExternal">AerysSaektide</a>
                 and it's licensed under <a class="text-indigo-300" href="https://raw.githubusercontent.com/e6Hub/app/master/LICENSE" @click="openExternal">MIT license</a>.
             </p>
         </div>
