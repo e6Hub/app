@@ -5,7 +5,7 @@
             <Sidebar ref="sidebar" />
             <transition name="fade" mode="out-in">
                 <keep-alive exclude="postView">
-                    <router-view ref="routerView"/>
+                    <router-view/>
                 </keep-alive>
             </transition>
         </div>
