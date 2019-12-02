@@ -5,10 +5,10 @@
             <ul class="flex justify-center flex-col">
                 <SettingsSidebarLink icon="download" linkto="/settings/downloadsSettings" linkname="Downloads"/>
                 <SettingsSidebarLink icon="discord" viewbox="0 0 48 48" linkto="/settings/RPCSettings" linkname="Discord RPC"/>
-                <SettingsSidebarLink icon="help" linkto="/settings/appVersion" linkname="About"/>
+                <SettingsSidebarLink icon="info" linkto="/settings/about" linkname="About"/>
             </ul>
         </div>
-        <div id="settings-view" class="my-4 mx-8">
+        <div id="settings-view" class="my-4 mx-8 w-auto w-2/3">
             <transition name="fade" mode="out-in">
                 <router-view/>
             </transition>

@@ -32,8 +32,8 @@ export default new Router({
                     component: () => import('@/views/Settings/DiscordRPC.Settings.vue')
                 },
                 {
-                    path: 'appVersion',
-                    component: () => import('@/views/Settings/AppVersion.Settings.vue')
+                    path: 'about',
+                    component: () => import('@/views/Settings/About.Settings.vue')
                 }
             ]
         },
