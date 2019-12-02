@@ -1,10 +1,10 @@
 <template>
     <div id="postview-container" class="inline-flex w-full p-6 overflow-hidden inset-y-0 flex-col">
         <h2 class="inline-flex items-center text-2xl font-bold uppercase text-gray-600 mb-4">
-            <button class="focus:outline-none bg-indigo-500 p-1 px-3 rounded-full text-white w-12 h-12 mr-4 hover:bg-indigo-400 transition-250" @click="$router.push({name: 'search'})"><i class="material-icons">arrow_back</i></button>
+            <button class="focus:outline-none bg-indigo-500 p-1 px-3 rounded-full text-white w-12 h-12 mr-4 hover:bg-indigo-400 transition-250" @click="$router.push({name: 'search'})"><Icon name="arrow-left"/></button>
             <span id="postid">{{post.id}}</span>
             <a v-if="post.source" :href="post.source" @click="openExternal" class="rounded py-1 px-3 flex items-center ml-4 text-base normal-case font-normal text-gray-400 hover:bg-gray-700 transition-250">
-                <i class="material-icons mr-1">exit_to_app</i>Open original
+                <Icon name="extern" fill="#718096" class="mr-2"/>Open original
             </a>
         </h2>
         <div id="postview-general" class="flex flex-wrap overflow-y-auto">
@@ -45,9 +45,12 @@
 </template>
 
 <script>
+import Icon from '@/components/Icon.vue';
+
 export default {
     name: 'postView',
     props: [ 'post' ],
+    components: { Icon },
     methods: {
         openExternal(e) {
             e.preventDefault();

@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900&display=swap');
 
 ::-webkit-scrollbar {
@@ -35,17 +34,22 @@ body {
 }
 
 .fade-enter-active, .fade-leave-active {
-    transition: all .15s;
+    transition: all .2s cubic-bezier(0, 0.70, 0.25, 1);
 }
 
-.fade-enter, .fade-leave-to {
+.fade-leave-to {
     opacity: 0;
-    transform: translateY(50px);
+    transform: translateX(-20px);
+}
+
+.fade-enter {
+    opacity: 0;
+    transform: translateX(20px);
 }
 
 #post_details {
     text-shadow: 0 2px 5px rgba(0,0,0,.7);
-    background: linear-gradient(0deg, #2d3748 10%, transparent);
+    background: linear-gradient(0deg, #2d3748 40%, transparent);
 }
 
 .checkbox-label input:checked + svg {
@@ -54,4 +58,12 @@ body {
 
 li#download-done {
     max-width: 45%;
+}
+
+#sidebar-link .router-link-active {
+    background: #718096;
+}
+
+#settings-sidebar-link .router-link-active {
+    background: #2d3748;
 }

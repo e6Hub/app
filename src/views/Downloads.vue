@@ -11,7 +11,7 @@
                 <div id="postdetails" class="absolute right-0 top-0 m-4">
                     <span id="postid">{{post.id}}</span><br/>
                     <div id="favs" class="flex items-center text-pink-400">
-                        <i class="material-icons text-sm mr-1">favorite_border</i><span>{{post.fav_count}}</span>
+                        <Icon name="heart" fill="#f687b3" :w="16" :h="16" class="mr-1"/><span>{{post.fav_count}}</span>
                     </div>
                 </div>
                 <div id="postdownloading">
@@ -27,7 +27,7 @@
                     <div id="postdetails" class="absolute right-0 top-0 m-4">
                         <span id="postid">{{downloadedPost.id}}</span><br/>
                         <div id="favs" class="flex items-center text-pink-400">
-                            <i class="material-icons text-sm mr-1">favorite_border</i><span>{{downloadedPost.fav_count}}</span>
+                            <Icon name="heart" fill="#f687b3" :w="16" :h="16" class="mr-1"/><span>{{downloadedPost.fav_count}}</span>
                         </div>
                     </div>
                 </li>
@@ -37,8 +37,11 @@
 </template>
 
 <script>
+import Icon from '@/components/Icon.vue';
+
 export default {
     name: 'downloads',
+    components: { Icon },
     methods: {
         viewPost(p) {
             if (!p || !p.id) return;
