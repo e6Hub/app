@@ -1,5 +1,5 @@
 <template>
-    <div id="sidebar" class="w-16 bg-gray-900 inset-y-0 left-0 h-full">
+    <div id="sidebar" class="w-16 bg-gray-900 inset-y-0 left-0 h-full absolute z-10">
         <ul id="mainlinks" class="flex flex-wrap justify-center">
             <SidebarLink icon="search" linkto="/search"/>
             <SidebarLink icon="download" linkto="/downloads" :badgevar="this.$parent.downloadsQueue.length"/>
