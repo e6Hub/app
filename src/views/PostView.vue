@@ -9,7 +9,7 @@
         </h2>
         <div id="postview-general" class="flex flex-wrap overflow-y-auto">
             <div id="postview-sample" class="w-2/3 flex justify-center h-full">
-                <img :src="post.sample_url" :alt="post.id" class="rounded w-1/2">
+                <img :src="post.sample_url" :alt="post.id" class="rounded w-auto h-full">
             </div>
             <div id="postview-details" class="m-4 mt-0 w-1/4">
                 <div id="postview-actions" class="mb-4">

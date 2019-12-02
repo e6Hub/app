@@ -66,4 +66,6 @@ li#download-done {
 
 #settings-sidebar-link .router-link-active {
     background: #2d3748;
+    color: #f7fafc;
+    cursor: default;
 }
