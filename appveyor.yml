@@ -5,6 +5,9 @@ image:
 platform:
   - x64
 
+environment:
+  nodejs_version: 10.3.0
+
 cache:
   - node_modules
   - '%USERPROFILE%\.electron'
@@ -13,7 +16,8 @@ init:
   - git config --global core.autocrlf input
 
 install:
-  - ps: Install-Product node 10 x64
+  - cmd: powershell Install-Product node $env:nodejs_version x64
+  - sh: nvm install $env:nodejs_version
   - yarn
 
 build_script:
