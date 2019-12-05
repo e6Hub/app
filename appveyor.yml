@@ -1,4 +1,6 @@
-image: Visual Studio 2017
+image:
+  - Visual Studio 2017
+  - Ubuntu
 
 platform:
   - x64
@@ -11,10 +13,11 @@ init:
   - git config --global core.autocrlf input
 
 install:
-  - ps: Install-Product node 8 x64
+  - ps: Install-Product node 10 x64
   - yarn
 
 build_script:
-  - yarn pbuild
+  - cmd: yarn pbuild -w
+  - sh: yarn pbuild -l
 
 test: off
