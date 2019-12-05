@@ -17,7 +17,7 @@ init:
 
 install:
   - cmd: powershell Install-Product node $env:nodejs_version x64
-  - sh: nvm install $env:nodejs_version
+  - sh: nvm install $nodejs_version
   - yarn
 
 build_script:
