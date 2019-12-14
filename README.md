@@ -2,7 +2,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/eawhvp0h2215rqhj?svg=true)](https://ci.appveyor.com/project/Saektide/app)
 [![CodeFactor](https://www.codefactor.io/repository/github/e6hub/app/badge)](https://www.codefactor.io/repository/github/e6hub/app)
 
-This is an app for explore and download posts on e621.net. It uses e621's API so and it's powered by Vue.js. Feel free to contribute to this project!
+This is an app for explore and download posts on e621.net. It uses e621's API and it's powered by Vue.js. Feel free to contribute to this project!
 
 ### :thought_balloon: Keep in mind...
 * This app interacts with a NSFW site, so, if you don't like to see explicit content... use `rating:s` while you are searching posts.
