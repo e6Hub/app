@@ -23,6 +23,14 @@
             </div>
             <span class="select-none">Show what i'm watching</span>
         </label>
+        <div id="rpc-status">
+            <h4 class="text-sm font-bold uppercase text-gray-600">RPC Status</h4>
+            <div v-if="this.$parent.$parent.rpc.connected">Connected</div>
+            <div v-else>
+                <span class="mr-4">Disconnected</span>
+                <button class="mt-4 bg-indigo-400 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl transition-100" @click="reconnectRPC">Reconnect</button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -74,6 +82,9 @@ export default {
             }
 
             this.$events.$emit('updated-rpc', JSON.parse(localStorage.settings).rpc);
+        },
+        reconnectRPC() {
+            this.$events.$emit('reconnect-rpc');
         }
     }
 }

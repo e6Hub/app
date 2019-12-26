@@ -30,6 +30,7 @@ export default {
             tags: null,
             state: null,
             rpc: {
+                connected: false,
                 type: 'IDLE',
                 tags: null
             },
@@ -105,8 +106,16 @@ export default {
                 console.log(progress);
             });
 
-            // Emit ready to RPC
-            ipcRenderer.send('RPC_ready', JSON.parse(localStorage.settings).rpc);
+            // RPC background events
+            ipcRenderer.on('RPC_connected', function(event, err) {
+                self.rpc.connected = true;
+                ipcRenderer.send('RPC_ready', JSON.parse(localStorage.settings).rpc)
+            });
+
+            ipcRenderer.on('RPC_error', function(event, err) {
+                console.error(err);
+                self.rpc.connected = false;
+            });
 
             // Define keybinds
             document.body.addEventListener('keydown', function (e) {
@@ -161,10 +170,14 @@ export default {
                 .pipe(fs.createWriteStream(`${JSON.parse(localStorage.settings).downloadLocation}/${p.id}.${p.file_ext}`));
             });
 
+            self.$events.$on('reconnect-rpc', function() {
+                ipcRenderer.send('connectDiscordRPC');
+            });
+
             self.$events.$on('updated-rpc', function(rpcObj) {
                 ipcRenderer.send('RPC_settingsChanged', rpcObj, self.rpc);
                 if (rpcObj.enabled) self.$events.$emit('state-changed-rpc', {type: self.rpc.type});
-            })
+            });
 
             self.$events.$on('state-changed-rpc', function(st) {
                 self.rpc.type = st.type;
@@ -181,7 +194,12 @@ export default {
 
                 if (!JSON.parse(localStorage.settings).rpc.enabled) return;
                 ipcRenderer.send('RPC_status', self.rpc);
-            })
+            });
+
+            // Emit ready to RPC
+            if (JSON.parse(localStorage.settings).rpc.enabled) {
+                this.$events.$emit('reconnect-rpc');
+            }
         });
     }
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 import { app, protocol, BrowserWindow, ipcMain } from 'electron';
-import { createProtocol, installVueDevtools } from 'vue-cli-plugin-electron-builder/lib';
+import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import * as DiscordRPC from 'discord-rpc';
 import { autoUpdater as updater } from 'electron-updater';
 
@@ -42,33 +42,8 @@ ipcMain.on('checkForUpdates', (event) => {
     updater.checkForUpdates();
 });
 
-app.on('ready', async () => {
-    await installVueDevtools();
-
-    win = new BrowserWindow({
-        webPreferences: {
-            nodeIntegration: true
-        },
-        minWidth: 1024,
-        minHeight: 600,
-        width: 1024,
-        height: 600,
-        frame: false
-    });
-
-    if (isDev) {
-        win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
-        if (!process.env.IS_TEST) win.webContents.openDevTools()
-    } else {
-        createProtocol('app');
-        win.loadURL('app://./index.html/')
-    }
-
-    updater.checkForUpdates();
-
-    win.on('closed', () => {
-        win = null
-    });
+ipcMain.on('connectDiscordRPC', (event) => {
+    connectRPC();
 });
 
 // RPC
@@ -130,9 +105,39 @@ appRPC.on('ready', () => {
 });
 
 function connectRPC() {
-    appRPC.login({ clientId: CID }).catch((err) => {
-        connectRPC();
+    appRPC.login({ clientId: CID })
+    .then(() => {
+        win.webContents.send('RPC_connected');
+    })
+    .catch(err => {
+        console.error(err);
+        win.webContents.send('RPC_error', err);
     });
 }
 
-connectRPC();
+app.on('ready', () => {
+    win = new BrowserWindow({
+        webPreferences: {
+            nodeIntegration: true
+        },
+        minWidth: 1024,
+        minHeight: 600,
+        width: 1024,
+        height: 600,
+        frame: false
+    });
+
+    if (isDev) {
+        win.loadURL(process.env.WEBPACK_DEV_SERVER_URL)
+        if (!process.env.IS_TEST) win.webContents.openDevTools()
+    } else {
+        createProtocol('app');
+        win.loadURL('app://./index.html/')
+    }
+
+    updater.checkForUpdates();
+
+    win.on('closed', () => {
+        win = null
+    });
+});
