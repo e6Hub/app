@@ -1,6 +1,5 @@
 image:
   - Visual Studio 2017
-  - Ubuntu
 
 platform:
   - x64
@@ -17,11 +16,9 @@ init:
 
 install:
   - cmd: powershell Install-Product node $env:nodejs_version x64
-  - sh: nvm install $nodejs_version
   - yarn
 
 build_script:
   - cmd: yarn pbuild -w
-  - sh: yarn pbuild -l
 
 test: off
