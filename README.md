@@ -6,7 +6,9 @@
 
 This is an app for explore and download posts on e621.net. It uses e621's API and it's powered by Vue.js. Feel free to contribute to this project!
 
-[Discord Server](https://discord.gg/qh2BVQ)
+[Telegram chat](https://t.me/e6hubchat)
+
+[Telegram channel](https://t.me/e6hub)
 
 ### :thought_balloon: Keep in mind...
 * This app interacts with a NSFW site, so, if you don't like to see explicit content... use `rating:s` while you are searching posts.
