@@ -34,7 +34,7 @@ This is an app for explore and download posts on e621.net. It uses e621's API an
 | macOS      |⚠     | .dmg |
 
 * ✔ Supported
-* ❌ Not supported but it can be builded
+* ❌ Not supported but it can be build
 * ✖ Unstable
 * ⚠ Not tested yet
 
