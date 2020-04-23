@@ -13,7 +13,7 @@
                             </li>
                         </ul>
                     </div>
-                    <input v-model="tags" type="text" name="tags" id="search-tags" class="rounded mr-2 px-2 py-1 bg-gray-700 focus:bg-gray-600 focus:outline-none transition-100 text-base" />
+                    <input v-model="tags" type="text" name="tags" id="search-tags" class="rounded mr-2 px-2 py-1 bg-gray-700 focus:bg-gray-600 focus:outline-none duration-200 text-base" />
                     <button type="submit" id="search-posts-btn" class="bg-indigo-500 p-1 px-3 rounded">Search posts</button>
                 </form>
             </div>
@@ -22,8 +22,8 @@
                 <span v-else>No posts to see here...</span>
             </div>
             <ul id="posts-list" ref="posts_container" class="flex flex-wrap justify-center p-2 w-full h-24 overflow-y-auto flex-1">
-                <li v-for="(post, index) in posts" v-bind:key="index" class="m-4 mb-8 max-w-xl w-32 cursor-pointer hover:opacity-75 transition-100" @contextmenu="listPost(post)" @click="viewPost(post.id)">
-                    <PostItem :preview_url="post.preview_url" :rating="post.rating" :score="post.score" :id="post.id" :favs="post.fav_count"/>
+                <li v-for="(post, index) in posts" v-bind:key="index" class="m-4 mb-8 max-w-xl w-32 cursor-pointer hover:opacity-75 duration-200" @contextmenu="listPost(post)" @click="viewPost(post.id)">
+                    <PostItem :preview_url="post.preview.url" :rating="post.rating" :score="post.score.total" :id="post.id" :favs="post.fav_count"/>
                 </li>
                 <div id="posts-nomore" class="text-center py-8 text-gray-600 w-full" v-if="lastPage">
                     <span>No more posts here</span>
@@ -74,7 +74,7 @@ export default {
             this.lastPage = false;
 
             _({
-                uri: 'https://e621.net/post/index.json',
+                uri: 'https://e621.net/posts.json',
                 qs: {
                     tags: this.tags,
                     limit: 40,
@@ -85,9 +85,10 @@ export default {
                 },
                 json: true
             }).then((d) => {
-                if (!this.posts.length && !d.length) this.noPosts = true;
-                else if (this.posts.length && d.length < 40) this.lastPage = true;
-                this.displayPosts(d);
+                console.log(d.posts)
+                if (!this.posts.length && !d.posts.length) this.noPosts = true;
+                else if (this.posts.length && d.posts.length < 40) this.lastPage = true;
+                this.displayPosts(d.posts);
             }).catch(err => {
                 this.errors.push('An unexpected error ocurred! Check the Dev Console');
                 console.warn(err);

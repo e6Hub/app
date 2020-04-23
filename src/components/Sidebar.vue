@@ -6,7 +6,7 @@
             <SidebarLink icon="cog" linkto="/settings"/>
         </ul>
         <ul id="postslistlinks" v-if="this.$parent.postsList.length" class="flex flex-wrap justify-center border-t border-gray-700 pt-4">
-            <SidebarLink v-for="(post, index) in this.$parent.postsList" v-bind:key="index" icon="trip_origin" :img="post.preview_url" :imgalt="post.id" @click.native="viewPost(post)"/>
+            <SidebarLink v-for="(post, index) in this.$parent.postsList" v-bind:key="index" icon="trip_origin" :img="post.preview.url" :imgalt="post.id" @click.native="viewPost(post)"/>
         </ul>
     </div>
 </template>

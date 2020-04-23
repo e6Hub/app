@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Exo+2:400,700&display=swap');
 
 ::-webkit-scrollbar {
     background: transparent;
@@ -21,7 +21,7 @@
 
 body {
     margin: 0;
-    font-family: Poppins;
+    font-family: 'Exo 2', sans-serif;
     overflow: hidden;
 }
 
@@ -68,4 +68,8 @@ li#download-done {
     background: #2d3748;
     color: #f7fafc;
     cursor: default;
+}
+
+#dPostImg {
+    -webkit-mask-image: linear-gradient(90deg, black 50%, transparent 95%);
 }

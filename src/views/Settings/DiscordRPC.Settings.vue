@@ -28,7 +28,7 @@
             <div v-if="this.$parent.$parent.rpc.connected">Connected</div>
             <div v-else>
                 <span class="mr-4">Disconnected</span>
-                <button class="mt-4 bg-indigo-400 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl transition-100" @click="reconnectRPC">Reconnect</button>
+                <button class="mt-4 bg-indigo-400 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200" @click="reconnectRPC">Reconnect</button>
             </div>
         </div>
     </div>

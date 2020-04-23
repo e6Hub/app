@@ -145,9 +145,9 @@ export default {
 
             self.$events.$on('downloadpost', function(p) {
                 let indx;
-
+                console.log(p)
                 d(
-                    r(p.file_url), {
+                    r(p.file.url), {
                         throttle: 250
                     }
                 )
@@ -167,7 +167,7 @@ export default {
                     self.downloaded.push(self.downloadsQueue[indx]);
                     self.downloadsQueue.splice(indx, 1);
                 })
-                .pipe(fs.createWriteStream(`${JSON.parse(localStorage.settings).downloadLocation}/${p.id}.${p.file_ext}`));
+                .pipe(fs.createWriteStream(`${JSON.parse(localStorage.settings).downloadLocation}/${p.id}.${p.file.ext}`));
             });
 
             self.$events.$on('reconnect-rpc', function() {
