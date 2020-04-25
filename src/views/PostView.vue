@@ -8,8 +8,15 @@
             </a>
         </h2>
         <div id="postview-general" class="flex flex-wrap overflow-y-auto">
-            <div id="postview-sample" class="w-2/3 flex justify-center h-full">
+            <div id="postview-sample" class="w-2/3 flex justify-center h-full" v-if="this.animatedExts.indexOf(post.file.ext) < 0">
                 <img :src="post.sample.url" :alt="post.id" class="rounded w-auto h-full">
+            </div>
+            <div id="postview-video" class="w-2/3 flex justify-center h-full" v-else-if="post.file.ext === 'webm'">
+                <video :src="post.file.url" :alt="post.id" class="rounded w-full" controls></video>
+            </div>
+            <div id="postview-swf" v-else-if="post.file.ext === 'swf'">
+                <h2 class="inline-flex items-center text-2xl font-bold uppercase text-gray-600 mb-4">SWF is no supported yet</h2>
+                <p>The SWF player feature might be included on a future version of this app, sadly we don't have any plans to port it to e6Hub.</p>
             </div>
             <div id="postview-details" class="m-4 mt-0 w-1/4">
                 <div id="postview-actions" class="mb-4">
@@ -47,6 +54,11 @@ export default {
     name: 'postView',
     props: [ 'post' ],
     components: { Icon },
+    data() {
+        return {
+            animatedExts: ['swf', 'webm']
+        }
+    },
     methods: {
         openExternal(e) {
             e.preventDefault();
