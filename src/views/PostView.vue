@@ -37,9 +37,9 @@
                         <h4 class="uppercase text-gray-500 font-bold mb-1">Artist</h4>
                         <span>{{post.tags.artist[0]}}</span>
                     </li>
-                    <li v-if="post.description" id="description" class="bg-gray-700 p-3 rounded mb-2 break-all">
+                    <li v-if="this.descParsed" id="description" class="bg-gray-700 p-3 rounded mb-2 break-all">
                         <h4 class="uppercase text-gray-500 font-bold mb-1">Description</h4>
-                        <span>{{post.description}}</span>
+                        <span v-html="this.descParsed"></span>
                     </li>
                 </ul>
             </div>
@@ -49,6 +49,7 @@
 
 <script>
 import Icon from '@/components/Icon.vue';
+import DText from 'dtext-parser'
 
 export default {
     name: 'postView',
@@ -56,7 +57,8 @@ export default {
     components: { Icon },
     data() {
         return {
-            animatedExts: ['swf', 'webm']
+            animatedExts: ['swf', 'webm'],
+            descParsed: null
         }
     },
     methods: {
@@ -72,6 +74,13 @@ export default {
             if (indx > -1) this.$parent.postsList.splice(indx, 1);
             else this.$parent.postsList.push(this.post);
         }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            DText.parse(this.post.description).then((dp) => {
+                this.descParsed = dp;
+            })
+        })
     }
 }
 </script>
