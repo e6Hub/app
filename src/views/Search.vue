@@ -133,6 +133,12 @@ export default {
             if (indx > -1) this.$parent.postsList.splice(indx, 1);
             else this.$parent.postsList.push(post);
         }
+    },
+    mounted() {
+        this.$root.$on('searchByTag', (t) => {
+            this.tags = t
+            this.searchPosts()
+        });
     }
 }
 </script>

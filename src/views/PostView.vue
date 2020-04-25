@@ -54,6 +54,39 @@
                         <h4 class="uppercase text-gray-500 font-bold mb-1">Description</h4>
                         <span v-html="this.descParsed"></span>
                     </li>
+                    <li id="postview-tags" class="bg-gray-700 p-3 rounded mb-2 break-all">
+                        <h4 class="uppercase text-gray-500 font-bold mb-1">Tags</h4>
+                        <div id="postview-tags-general" v-if="post.tags.general.length">
+                            <h5 class="text-gray-500 mb-1">General</h5>
+                            <ul class="postview-tags-list">
+                                <li class="postview-tag cursor-pointer text-gray-500 inline-block mx-1 my-1 px-3 rounded-full bg-gray-800 hover:underline" v-for="(tag) in post.tags.general" :key="tag" @click="searchFor(tag)" v-text="tag"></li>
+                            </ul>
+                        </div>
+                        <div id="postview-tags-species" v-if="post.tags.species.length">
+                            <h5 class="text-gray-500 mb-1">Species</h5>
+                            <ul class="postview-tags-list">
+                                <li class="postview-tag cursor-pointer text-orange-500 inline-block mx-1 my-1 px-3 rounded-full bg-gray-800 hover:underline" v-for="(tag) in post.tags.species" :key="tag" @click="searchFor(tag)" v-text="tag"></li>
+                            </ul>
+                        </div>
+                        <div id="postview-tags-character" v-if="post.tags.character.length">
+                            <h5 class="text-gray-500 mb-1">Characters</h5>
+                            <ul class="postview-tags-list">
+                                <li class="postview-tag cursor-pointer text-green-500 inline-block mx-1 my-1 px-3 rounded-full bg-gray-800 hover:underline" v-for="(tag) in post.tags.character" :key="tag" @click="searchFor(tag)" v-text="tag"></li>
+                            </ul>
+                        </div>
+                        <div id="postview-tags-copyright" v-if="post.tags.copyright.length">
+                            <h5 class="text-gray-500 mb-1">Copyrights</h5>
+                            <ul class="postview-tags-list">
+                                <li class="postview-tag cursor-pointer text-purple-500 inline-block mx-1 my-1 px-3 rounded-full bg-gray-800 hover:underline" v-for="(tag) in post.tags.copyright" :key="tag" @click="searchFor(tag)" v-text="tag"></li>
+                            </ul>
+                        </div>
+                        <div id="postview-tags-meta" v-if="post.tags.meta.length">
+                            <h5 class="text-gray-500 mb-1">Meta</h5>
+                            <ul class="postview-tags-list">
+                                <li class="postview-tag cursor-pointer text-indigo-500 inline-block mx-1 my-1 px-3 rounded-full bg-gray-800 hover:underline" v-for="(tag) in post.tags.meta" :key="tag" @click="searchFor(tag)" v-text="tag"></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -84,6 +117,10 @@ export default {
             let indx = this.$parent.postsList.findIndex(p => p.id == this.post.id);
             if (indx > -1) this.$parent.postsList.splice(indx, 1);
             else this.$parent.postsList.push(this.post);
+        },
+        searchFor(tagName) {
+            this.$router.push({name: 'search'})
+            this.$root.$emit('searchByTag', tagName)
         }
     },
     mounted() {
