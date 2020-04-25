@@ -1,7 +1,7 @@
 <template>
     <div id="main" class="bg-gray-800 inset-0 absolute">
         <Titlebar />
-        <div id="app-container" class="absolute flex inset-0 mt-6 text-white pl-16">
+        <div id="app-container" class="absolute flex inset-0 mt-8 text-white pl-16">
             <Sidebar ref="sidebar" />
             <transition name="fade" mode="out-in">
                 <keep-alive exclude="postView">

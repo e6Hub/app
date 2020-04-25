@@ -1,18 +1,31 @@
 <template>
     <div id="postview-container" class="inline-flex w-full p-6 overflow-hidden inset-y-0 flex-col">
         <h2 class="inline-flex items-center text-2xl font-bold uppercase text-gray-600 mb-4">
-            <button class="focus:outline-none bg-indigo-500 p-1 px-3 rounded-full text-white w-12 h-12 mr-4 hover:bg-indigo-400 duration-200" @click="$router.push({name: 'search'})"><Icon name="arrow-left"/></button>
+            <button class="focus:outline-none bg-indigo-500 p-1 px-3 rounded-full text-white w-12 h-12 mr-4 hover:bg-indigo-400 duration-200" @click="$router.push({name: 'search'})"><feather type="arrow-left"/></button>
             <span id="postid">{{post.id}}</span>
             <a v-if="post.sources.length" :href="post.sources[0]" @click="openExternal" class="rounded py-1 px-3 flex items-center ml-4 text-base normal-case font-normal text-gray-400 hover:bg-gray-700 duration-200">
-                <Icon name="extern" fill="#718096" class="mr-2"/>Open original
+                <feather type="external-link" class="mr-2"/>Open original
             </a>
         </h2>
         <div id="postview-general" class="flex flex-wrap overflow-y-auto">
             <div id="postview-sample" class="w-2/3 flex justify-center h-full" v-if="this.animatedExts.indexOf(post.file.ext) < 0">
                 <img :src="post.sample.url" :alt="post.id" class="rounded w-auto h-full">
             </div>
-            <div id="postview-video" class="w-2/3 flex justify-center h-full" v-else-if="post.file.ext === 'webm'">
-                <video :src="post.file.url" :alt="post.id" class="rounded w-full" controls></video>
+            <div id="postview-video" class="w-2/3 flex justify-center h-full relative" v-else-if="post.file.ext === 'webm'">
+                <video :src="post.file.url" :alt="post.id" class="rounded w-full"></video>
+                <div id="postview-video-controls" class="absolute bottom-0 inset-x-0">
+                    <div id="pv-buttons">
+                        <button class="bg-transparent" id="pv-play">
+                            <feather type="play"/>
+                        </button>
+                        <button class="bg-transparent" id="pv-pause">
+                            <feather type="pause"/>
+                        </button>
+                        <button class="bg-transparent" id="pv-volume">
+                            <feather type="volume-2"/>
+                        </button>
+                    </div>
+                </div>
             </div>
             <div id="postview-swf" v-else-if="post.file.ext === 'swf'">
                 <h2 class="inline-flex items-center text-2xl font-bold uppercase text-gray-600 mb-4">SWF is no supported yet</h2>
@@ -33,11 +46,11 @@
                             <li id="artist" v-for="(artist, index) in post.artist" :key="index">{{artist}}</li>
                         </ul>
                     </li>
-                    <li v-else id="artist" class="bg-gray-700 p-3 rounded mb-2 break-all">
+                    <li v-else id="postview-artist" class="bg-gray-700 p-3 rounded mb-2 break-all">
                         <h4 class="uppercase text-gray-500 font-bold mb-1">Artist</h4>
                         <span>{{post.tags.artist[0]}}</span>
                     </li>
-                    <li v-if="this.descParsed" id="description" class="bg-gray-700 p-3 rounded mb-2 break-all">
+                    <li v-if="this.descParsed" id="postview-description" class="bg-gray-700 p-3 rounded mb-2 break-all">
                         <h4 class="uppercase text-gray-500 font-bold mb-1">Description</h4>
                         <span v-html="this.descParsed"></span>
                     </li>
@@ -48,13 +61,11 @@
 </template>
 
 <script>
-import Icon from '@/components/Icon.vue';
 import DText from 'dtext-parser'
 
 export default {
     name: 'postView',
     props: [ 'post' ],
-    components: { Icon },
     data() {
         return {
             animatedExts: ['swf', 'webm'],
