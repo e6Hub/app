@@ -1,6 +1,6 @@
 {
   "name": "e6-hub",
-  "version": "3.2.2",
+  "version": "3.2.2-nightly",
   "description": "An e621 client based in Chromium",
   "author": "Saektide <real.saektide@gmail.com>",
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "main": "background.js",
   "dependencies": {
+    "bytes": "^3.1.0",
     "discord-rpc": "^3.1.0",
     "dtext-parser": "^0.3.0",
     "electron-updater": "^4.2.5",
