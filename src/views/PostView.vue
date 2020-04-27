@@ -8,28 +8,50 @@
             </a>
         </h2>
         <div id="postview-general" class="flex flex-wrap overflow-y-auto">
-            <div id="postview-sample" class="w-2/3 flex justify-center h-full" v-if="this.animatedExts.indexOf(post.file.ext) < 0">
-                <img :src="post.sample.url" :alt="post.id" class="rounded w-auto h-full">
-            </div>
-            <div id="postview-video" class="w-2/3 flex justify-center h-full relative" v-else-if="post.file.ext === 'webm'">
-                <video :src="post.file.url" :alt="post.id" class="rounded w-full"></video>
-                <div id="postview-video-controls" class="absolute bottom-0 inset-x-0">
-                    <div id="pv-buttons">
-                        <button class="bg-transparent" id="pv-play">
-                            <feather type="play"/>
-                        </button>
-                        <button class="bg-transparent" id="pv-pause">
-                            <feather type="pause"/>
-                        </button>
-                        <button class="bg-transparent" id="pv-volume">
-                            <feather type="volume-2"/>
-                        </button>
+            <div id="postview-left" class="w-2/3">
+                <div id="postview-sample" v-if="this.animatedExts.indexOf(post.file.ext) < 0">
+                    <img :src="post.sample.url" :alt="post.id" class="rounded w-auto">
+                </div>
+                <div id="postview-video" class="relative" v-else-if="post.file.ext === 'webm'">
+                    <div id="postview-video-container" class="relative overflow-hidden">
+                        <video id="postview-player" :src="post.file.url" :alt="post.id" :width="post.file.width" :height="post.file.height" class="rounded w-full" ref="player" @play="vpSetStatus('playing')" @pause="vpSetStatus('paused')" @volumechange="vpVolStatus" @timeupdate="vpTime" @loadedmetadata="vpMeta"/>
+                        <div id="postview-video-toggler" class="absolute inset-0 mb-16" @click="togglePlayer"></div>
+                        <div id="postview-video-controls" class="flex absolute bottom-0 inset-x-0 px-4 h-8 duration-300">
+                            <div id="pv-buttons" class="flex items-center">
+                                <button id="pv-toggle" @click="togglePlayer">
+                                    <feather type="play" v-if="this.videoStatus === 'paused'"/>
+                                    <feather type="pause" v-else/>
+                                </button>
+                                <button id="pv-repeat" @click="toggleRepeat" class="ml-4">
+                                    <feather type="repeat" :class="[this.videoRepeat ? 'opacity-100' : 'opacity-50']"/>
+                                </button>
+                                <button id="pv-volume" @click="vpVolToggle" class="ml-4">
+                                    <feather type="volume-2" v-if="this.videoVolume >= .5"/>
+                                    <feather type="volume-1" v-else-if="this.videoVolume < .5 && this.videoVolume > 0"/>
+                                    <feather type="volume-x" v-else-if="this.videoVolume == 0"/>
+                                </button>
+                                <div id="pv-volume-slider" class="inline-block ml-4 relative">
+                                    <input type="range" min="0" max="1" v-model="videoVolume" step="0.01"/>
+                                    <div id="pv-volume-sliderbar-current"></div>
+                                </div>
+                            </div>
+                            <div id="pv-timeline-container" class="flex items-center absolute inset-x-0 mx-4 translate-y-2">
+                                <span id="pv-timeline-current" class="text-sm absolute left-0 select-none" v-text="videoTime_p"/>
+                                <input type="range" min="0" :max="this.videoDuration" v-model="videoTime" @change="vpTimeSet" @mousedown="togglePlayer('pause')" @mouseup="togglePlayer('play')" step="0.00001"/>
+                                <div id="pv-timeline-sliderbar-current"></div>
+                                <span id="pv-timeline-duration" class="text-sm absolute right-0 select-none" v-text="videoDuration_p"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="postview-swf" v-else-if="post.file.ext === 'swf'">
-                <h2 class="inline-flex items-center text-2xl font-bold uppercase text-gray-600 mb-4">SWF is no supported yet</h2>
-                <p>The SWF player feature might be included on a future version of this app, sadly we don't have any plans to port it to e6Hub.</p>
+                <div id="postview-swf" v-else-if="post.file.ext === 'swf'">
+                    <h2 class="inline-flex items-center text-2xl font-bold uppercase text-gray-600 mb-4">SWF is no supported yet</h2>
+                    <p>The SWF player feature might be included on a future version of this app, sadly we don't have any plans to port it to e6Hub.</p>
+                </div>
+                <div v-if="this.descParsed" id="postview-description" class="bg-gray-700 p-3 rounded mt-4 break-all whitespace-pre-line">
+                    <h4 class="uppercase text-gray-500 font-bold mb-1">Description</h4>
+                    <span v-html="this.descParsed"></span>
+                </div>
             </div>
             <div id="postview-details" class="m-4 mt-0 w-1/4">
                 <div id="postview-actions" class="mb-4">
@@ -49,10 +71,6 @@
                     <li v-else id="postview-artist" class="bg-gray-700 p-3 rounded mb-2 break-all">
                         <h4 class="uppercase text-gray-500 font-bold mb-1">Artist</h4>
                         <span>{{post.tags.artist[0]}}</span>
-                    </li>
-                    <li v-if="this.descParsed" id="postview-description" class="bg-gray-700 p-3 rounded mb-2 break-all">
-                        <h4 class="uppercase text-gray-500 font-bold mb-1">Description</h4>
-                        <span v-html="this.descParsed"></span>
                     </li>
                     <li id="postview-tags" class="bg-gray-700 p-3 rounded mb-2 break-all">
                         <h4 class="uppercase text-gray-500 font-bold mb-1">Tags</h4>
@@ -95,6 +113,7 @@
 
 <script>
 import DText from 'dtext-parser'
+import * as ptime from 'pretty-ms'
 
 export default {
     name: 'postView',
@@ -102,7 +121,44 @@ export default {
     data() {
         return {
             animatedExts: ['swf', 'webm'],
-            descParsed: null
+            descParsed: null,
+            videoStatus: 'paused',
+            videoRepeat: false,
+            videoVolume: 0,
+            videoPreVolume: 0,
+            videoMuted: false,
+            videoTime: 0,
+            videoDuration: 0,
+            videoTime_p: '0:00',
+            videoDuration_p: '0:00'
+        }
+    },
+    watch: {
+        videoVolume(v) {
+            if (this.videoMuted) document.getElementById('postview-player').muted = false
+            document.getElementById('postview-player').volume = v
+            document.getElementById('pv-volume-sliderbar-current').style.width = `${100 * this.videoVolume - .01}%`
+        },
+        videoRepeat(v) {
+            document.getElementById('postview-player').loop = v
+        },
+        videoMuted(v) {
+            if (v) {
+                this.videoPreVolume = document.getElementById('postview-player').volume
+                document.getElementById('postview-player').volume = 0
+            } else {
+                if (this.videoPreVolume == 0) this.videoPreVolume = 0.5
+                document.getElementById('postview-player').volume = this.videoPreVolume
+            }
+
+            document.getElementById('postview-player').muted = v
+        },
+        videoTime(v) {
+            document.getElementById('pv-timeline-sliderbar-current').style.width = `${v*100/this.videoDuration}%`
+            this.videoTime_p = ptime(v*1000, {colonNotation: true, secondsDecimalDigits: 0, millisecondsDecimalDigits: 1000})
+        },
+        videoDuration(v) {
+            this.videoDuration_p = ptime(v*1000, {colonNotation: true, secondsDecimalDigits: 0, millisecondsDecimalDigits: 1000})
         }
     },
     methods: {
@@ -121,10 +177,49 @@ export default {
         searchFor(tagName) {
             this.$router.push({name: 'search'})
             this.$root.$emit('searchByTag', tagName)
+        },
+        togglePlayer(f) {
+            switch (f) {
+                case 'play':
+                    document.getElementById('postview-player').play()
+                break;
+                case 'pause':
+                    document.getElementById('postview-player').pause()
+                break;
+                default:
+                    if (this.videoStatus === 'paused') document.getElementById('postview-player').play()
+                    else document.getElementById('postview-player').pause()
+                break;
+            }
+        },
+        toggleRepeat() {
+            if (this.videoRepeat) this.videoRepeat = false
+            else this.videoRepeat = true
+        },
+        vpSetStatus(statusName) {
+            this.videoStatus = statusName
+        },
+        vpVolStatus() {
+            this.videoVolume = document.getElementById('postview-player').volume
+        },
+        vpVolToggle() {
+            if (this.videoMuted) this.videoMuted = false
+            else this.videoMuted = true
+        },
+        vpTime() {
+            this.videoTime = document.getElementById('postview-player').currentTime
+        },
+        vpTimeSet(e) {
+            document.getElementById('postview-player').currentTime = e.target.value
+        },
+        vpMeta() {
+            this.vpVolStatus()
+            this.videoDuration = document.getElementById('postview-player').duration
         }
     },
     mounted() {
         this.$nextTick(() => {
+            if (!this.post) return this.$router.push({name: 'search'})
             DText.parse(this.post.description).then((dp) => {
                 this.descParsed = dp;
             })
