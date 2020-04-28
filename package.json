@@ -14,10 +14,10 @@
   "dependencies": {
     "bytes": "^3.1.0",
     "discord-rpc": "^3.1.0",
-    "dtext-parser": "^0.3.0",
-    "electron-updater": "^4.2.5",
+    "dtext-parser": "^0.3.1",
+    "electron-updater": "^4.3.1",
     "feather-icons": "^4.28.0",
-    "pretty-ms": "^6.0.1",
+    "pretty-ms": "^7.0.0",
     "request": "^2.88.2",
     "request-progress": "^3.0.0",
     "request-promise-native": "^1.0.8",
@@ -25,12 +25,12 @@
     "vue": "^2.6.11",
     "vue-feather": "^1.0.0",
     "vue-router": "^3.1.6",
-    "vuex": "^3.2.0"
+    "vuex": "^3.3.0"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^2.1.2",
     "@vue/cli-service": "^4.3.1",
-    "electron": "^8.2.3",
+    "electron": "^8.2.4",
     "purgecss": "^2.1.2",
     "tailwindcss": "^1.3.5",
     "vue-cli-plugin-electron-builder": "^1.4.6",

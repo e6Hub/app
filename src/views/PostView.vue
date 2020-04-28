@@ -154,8 +154,12 @@ export default {
             document.getElementById('postview-player').muted = v
         },
         videoTime(v) {
-            document.getElementById('pv-timeline-sliderbar-current').style.width = `${v*100/this.videoDuration}%`
-            this.videoTime_p = ptime(v*1000, {colonNotation: true, secondsDecimalDigits: 0, millisecondsDecimalDigits: 1000})
+            try {
+                document.getElementById('pv-timeline-sliderbar-current').style.width = `${v*100/this.videoDuration}%`
+                this.videoTime_p = ptime(v*1000, {colonNotation: true, secondsDecimalDigits: 0, millisecondsDecimalDigits: 1000})
+            } catch (e) {
+                // Don't throw an error pls
+            }
         },
         videoDuration(v) {
             this.videoDuration_p = ptime(v*1000, {colonNotation: true, secondsDecimalDigits: 0, millisecondsDecimalDigits: 1000})
