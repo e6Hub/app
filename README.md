@@ -4,8 +4,6 @@
 
 This is an app for explore and download posts on e621.net. It uses e621's API and it's powered by Vue.js. Feel free to contribute to this project!
 
-* [Discord server (English)](https://discord.gg/JqQQHP3)
-* [Discord server (Spanish)](https://discord.gg/DeAMfSY)
 * [Download](https://github.com/e6Hub/app/releases/latest)
 
 ### 💭 Keep in mind...
