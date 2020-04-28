@@ -14,7 +14,7 @@
   "dependencies": {
     "bytes": "^3.1.0",
     "discord-rpc": "^3.1.0",
-    "dtext-parser": "^0.3.1",
+    "dtext-parser": "^0.4.0",
     "electron-updater": "^4.3.1",
     "feather-icons": "^4.28.0",
     "pretty-ms": "^7.0.0",
