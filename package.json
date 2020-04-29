@@ -1,6 +1,6 @@
 {
   "name": "e6-hub",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "An e621 client based in Chromium",
   "author": "Saektide <real.saektide@gmail.com>",
   "scripts": {
