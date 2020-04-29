@@ -14,7 +14,10 @@
                         </ul>
                     </div>
                     <input v-model="tags" type="text" name="tags" id="search-tags" class="rounded mr-2 px-2 py-1 bg-gray-700 focus:bg-gray-600 focus:outline-none duration-200 text-base" />
-                    <button type="submit" id="search-posts-btn" class="bg-indigo-500 p-1 px-3 rounded">Search posts</button>
+                    <button type="submit" id="search-posts-btn" class="inline-flex items-center bg-indigo-500 p-1 px-3 rounded">
+                        <feather type="search" size="16" class="mr-2"/>
+                        Search posts
+                    </button>
                 </form>
             </div>
             <div id="posts-empty" class="text-center py-8 text-gray-600" v-if="!posts.length">
@@ -23,7 +26,7 @@
             </div>
             <ul id="posts-list" ref="posts_container" class="flex flex-wrap justify-center p-2 w-full h-24 overflow-y-auto flex-1">
                 <li v-for="(post, index) in posts" v-bind:key="index" class="m-4 mb-8 max-w-xl w-32 cursor-pointer hover:opacity-75 duration-200" @contextmenu="listPost(post)" @click="viewPost(post.id)">
-                    <PostItem :preview_url="post.preview.url" :rating="post.rating" :score="post.score.total" :id="post.id" :favs="post.fav_count"/>
+                    <PostItem :preview_url="post.preview.url" :rating="post.rating" :score="post.score.total" :id="post.id" :favs="post.fav_count" :ext="post.file.ext"/>
                 </li>
                 <div id="posts-nomore" class="text-center py-8 text-gray-600 w-full" v-if="lastPage">
                     <span>No more posts here</span>
@@ -130,6 +133,12 @@ export default {
             if (indx > -1) this.$parent.postsList.splice(indx, 1);
             else this.$parent.postsList.push(post);
         }
+    },
+    mounted() {
+        this.$root.$on('searchByTag', (t) => {
+            this.tags = t
+            this.searchPosts()
+        });
     }
 }
 </script>

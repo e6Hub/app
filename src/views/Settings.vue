@@ -4,7 +4,7 @@
             <h4 class="text-sm font-bold uppercase text-gray-600 m-4">App settings</h4>
             <ul class="flex justify-center flex-col">
                 <SettingsSidebarLink icon="download" linkto="/settings/downloadsSettings" linkname="Downloads"/>
-                <SettingsSidebarLink icon="discord" viewbox="0 0 48 48" linkto="/settings/RPCSettings" linkname="Discord RPC"/>
+                <SettingsSidebarLink icon="square" viewbox="0 0 48 48" linkto="/settings/RPCSettings" linkname="Discord RPC"/>
                 <SettingsSidebarLink icon="info" linkto="/settings/about" linkname="About"/>
             </ul>
         </div>
