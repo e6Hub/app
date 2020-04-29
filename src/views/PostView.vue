@@ -158,7 +158,7 @@ export default {
                 document.getElementById('pv-timeline-sliderbar-current').style.width = `${v*100/this.videoDuration}%`
                 this.videoTime_p = ptime(v*1000, {colonNotation: true, secondsDecimalDigits: 0, millisecondsDecimalDigits: 1000})
             } catch (e) {
-                // Don't throw an error pls
+                console.log('Player destroyed or failed to load')
             }
         },
         videoDuration(v) {
