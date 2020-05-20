@@ -1,6 +1,5 @@
 <template>
-    <div id="rpc-settings">
-        <h3 class="text-2xl font-bold uppercase text-gray-500 mb-4">Discord RPC</h3>
+    <SettingView id="rpc-settings" title="Discord RPC">
         <label class="flex checkbox-label my-2">
             <div class="bg-gray-600 rounded shadow w-6 h-6 p-1 flex justify-center items-center mr-4">
                 <input type="checkbox" class="hidden" v-model="enabledComp">
@@ -31,14 +30,16 @@
                 <button class="mt-4 bg-indigo-400 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200" @click="reconnectRPC">Reconnect</button>
             </div>
         </div>
-    </div>
+    </SettingView>
 </template>
 
 <script>
+import SettingView from '@/components/SettingView.vue'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'RPCSettings',
+    components: { SettingView },
     data() {
         return {
             enabled: false

@@ -1,6 +1,5 @@
 <template>
-    <div id="appearance-settings">
-        <h3 class="text-2xl font-bold uppercase text-gray-500 mb-4">Appearance</h3>
+    <SettingView id="appearance-settings" title="Appearance">
         <div id="appearance-topbar-style-section">
             <h4 class="text-sm font-bold uppercase text-gray-600 mb-2">Titlebar style</h4>
             <RadioForm
@@ -11,16 +10,17 @@
                 :onChange="titlebarStyleChange"
             />
         </div>
-    </div>
+    </SettingView>
 </template>
 
 <script>
+import SettingView from '@/components/SettingView.vue'
 import RadioForm from '@/components/RadioForm.vue'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'SearchSettings',
-    components: { RadioForm },
+    components: { SettingView, RadioForm },
     data() {
         return {
             titlebarStyleOptions: [

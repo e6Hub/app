@@ -1,6 +1,5 @@
 <template>
-    <div id="app-about">
-        <h3 class="text-2xl font-bold uppercase text-gray-500 mb-4">About</h3>
+    <SettingView id="app-about" title="About">
         <div id="notice" class="bg-gray-700 px-4 py-2 mb-4 rounded shadow">
             <h4 class="text-xl text-gray-500 mb-2">e6Hub isn't an official app of e621.net</h4>
             <p>This app was created by users, not the e621's staff. If you want to report bug
@@ -19,15 +18,17 @@
         <button v-else-if="updateStatus == 'dev'" class="mt-4 bg-gray-700 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200">Development build</button>
         
         <button @click="resetSettings" class="mt-4 ml-4 bg-orange-500 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200">Reset settings</button>
-    </div>
+    </SettingView>
 </template>
 
 <script>
+import SettingView from '@/components/SettingView.vue'
 import { ipcRenderer } from 'electron';
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'AboutSettings',
+    components: { SettingView },
     computed: {
         ...mapGetters(['updateStatus'])
     },
