@@ -1,7 +1,11 @@
 <template>
     <div id="main" class="bg-gray-800 inset-0 absolute">
         <Titlebar />
-        <div id="app-container" class="absolute flex inset-0 mt-8 text-white pl-16">
+        <div id="app-container" class="absolute flex inset-0 text-white pl-16 duration-200"
+        v-bind:class="{
+            'mt-6': this.setting('titlebarStyle') === 'small' || this.setting('titlebarStyle') === 'macos',
+            'mt-8': this.setting('titlebarStyle') === 'win10',
+        }">
             <Sidebar ref="sidebar" />
             <transition name="fade" mode="out-in">
                 <keep-alive exclude="postView">
@@ -27,7 +31,6 @@ export default {
         return {
             downloadsQueue: [],
             downloaded: [],
-            state: null,
             updateState: null,
             postsList: []
         }
@@ -45,6 +48,9 @@ export default {
                 this.set('type', 'WATCHING', true);
             }
         }
+    },
+    computed: {
+        ...mapGetters(['setting'])
     },
     methods: {
         ...mapActions(['verifySettings', 'setPostId']),

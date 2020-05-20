@@ -3,7 +3,7 @@
         <label
             v-for="(radio, index) in radios"
             :key="index">
-            <input type="radio" :name="name" :id="radio.value" :value="radio.value" class="hidden" @change="onChange"/>
+            <input type="radio" :name="name" :id="radio.value" :value="radio.value" class="hidden" @change="onChange" :checked="evar == radio.value"/>
             <div id="radioform-container" class="py-4 px-6 border border-gray-600 mb-2 block rounded-lg cursor-pointer flex items-center">
                 <div id="radioform-circle" class="w-4 h-4 bg-gray-600 mr-6 rounded-full"></div>
                 <span v-text="radio.label"></span>
@@ -47,6 +47,12 @@ export default {
             validator: function(v) {
                 return v ? typeof v === 'function' : true;
             }
+        },
+        /**
+         * The variable to check
+         */
+        evar: {
+
         }
     }
 }

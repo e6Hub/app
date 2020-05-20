@@ -17,7 +17,8 @@ export default new Vuex.Store({
             rpcEnabled: false,
             rpcShowSearching: false,
             rpcShowWatching: false,
-            downloadLocation: require('os').userInfo().homedir
+            downloadLocation: require('os').userInfo().homedir,
+            titlebarStyle: 'win10'
         },
         updateStatus: 'NULL',
         postsList: [],
@@ -36,7 +37,7 @@ export default new Vuex.Store({
             state.postId = _id;
         },
         _setSetting(state, obj) {
-            console.log(`[Settings] <${obj.key}> changed to "${obj.value}"`)
+            console.log(`%c[Settings]%c <${obj.key}> changed to "${obj.value}"`, 'color:#AC4FE5', '')
             state.settings[obj.key] = obj.value;
         },
         _resetSettings(state) {
@@ -44,7 +45,8 @@ export default new Vuex.Store({
                 rpcEnabled: false,
                 rpcShowSearching: false,
                 rpcShowWatching: false,
-                downloadLocation: require('os').userInfo().homedir
+                downloadLocation: require('os').userInfo().homedir,
+                titlebarStyle: 'win10'
             }
         },
         _verifySettings(state) {

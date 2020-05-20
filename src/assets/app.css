@@ -42,12 +42,10 @@ div#main {
 }
 
 #titlebar > #window-buttons > button {
-    width: 46px;
-    height: 32px;
     display: inline-flex;
     justify-content: center;
     transition-duration: .2s;
-    margin-right: 1px;
+    margin-left: 1px;
 }
 
 .fade-enter-active, .fade-leave-active {
