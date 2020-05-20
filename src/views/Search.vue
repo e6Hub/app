@@ -13,7 +13,7 @@
                             </li>
                         </ul>
                     </div>
-                    <input :value="tags" @input="setTags" type="text" name="tags" id="search-tags" class="rounded mr-2 px-2 py-1 bg-gray-700 focus:bg-gray-600 focus:outline-none duration-200 text-base" />
+                    <input :value="tags" @input="inputTags" type="text" name="tags" id="search-tags" class="rounded mr-2 px-2 py-1 bg-gray-700 focus:bg-gray-600 focus:outline-none duration-200 text-base" />
                     <button type="submit" id="search-posts-btn" class="inline-flex items-center bg-indigo-500 p-1 px-3 rounded">
                         <feather type="search" size="16" class="mr-2"/>
                         Search posts
@@ -63,6 +63,9 @@ export default {
     },
     methods: {
         ...mapActions(['setTags']),
+        inputTags(e) {
+            this.setTags(e.target.value);
+        },
         searchPosts(e, cont = false) {
             if (!cont) this.posts = [];
             if (!cont) this.page = 1;
