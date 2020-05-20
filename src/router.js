@@ -19,26 +19,29 @@ export default new Router({
         },
         {
             path: '/settings',
-            name: 'settings',
             component: () => import('@/views/Settings.vue'),
             children: [
                 {
-                    path: 'downloadsSettings',
+                    path: 'downloads',
                     alias: '',
+                    name: 'settings.downloads',
                     component: () => import('@/views/Settings/Downloads.Settings.vue')
                 },
                 {
                     path: 'appearance',
+                    name: 'settings.appearance',
                     component: () => import('@/views/Settings/Appearance.Settings.vue')
                 },
                 {
-                    path: 'RPCSettings',
+                    path: 'rpc',
+                    name: 'settings.rpc',
                     component: () => import('@/views/Settings/DiscordRPC.Settings.vue')
                 },
                 {
                     path: 'about',
+                    name: 'settings.about',
                     component: () => import('@/views/Settings/About.Settings.vue')
-                }
+                },
             ]
         },
         {

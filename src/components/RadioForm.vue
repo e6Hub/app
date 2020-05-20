@@ -43,17 +43,11 @@ export default {
          * This functions gets called when a radio input changed
          * having the same "name" attribute.
         */
-        onChange: {
-            validator: function(v) {
-                return v ? typeof v === 'function' : true;
-            }
-        },
+        onChange: {},
         /**
          * The variable to check
          */
-        evar: {
-
-        }
+        evar: {}
     }
 }
 </script>

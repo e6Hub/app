@@ -1,27 +1,9 @@
 <template>
     <SettingView id="rpc-settings" title="Discord RPC">
-        <label class="flex checkbox-label my-2">
-            <div class="bg-gray-600 rounded shadow w-6 h-6 p-1 flex justify-center items-center mr-4">
-                <input type="checkbox" class="hidden" v-model="enabledComp">
-                <svg class="hidden w-4 h-4 text-indigo-200 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
-            </div>
-            <span class="select-none">Enable Discord RPC</span>
-        </label>
+        <Checkbox :evar="enabledComp" name="Enabled" :onChange="this.RPC">Enable Discord RPC</Checkbox>
         <h4 class="text-sm font-bold uppercase text-gray-600">RPC Settings</h4>
-        <label class="flex checkbox-label my-2">
-            <div class="bg-gray-600 rounded shadow w-6 h-6 p-1 flex justify-center items-center mr-4">
-                <input id="showSearching" type="checkbox" class="hidden" v-model="showSearchingComp">
-                <svg class="hidden w-4 h-4 text-indigo-200 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
-            </div>
-            <span class="select-none">Show what i'm searching</span>
-        </label>
-        <label class="flex checkbox-label my-2">
-            <div class="bg-gray-600 rounded shadow w-6 h-6 p-1 flex justify-center items-center mr-4">
-                <input id="showSearching" type="checkbox" class="hidden" v-model="showWatchingComp">
-                <svg class="hidden w-4 h-4 text-indigo-200 pointer-events-none" viewBox="0 0 172 172"><g fill="none" stroke-width="none" stroke-miterlimit="10" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode:normal"><path d="M0 172V0h172v172z"/><path d="M145.433 37.933L64.5 118.8658 33.7337 88.0996l-10.134 10.1341L64.5 139.1341l91.067-91.067z" fill="currentColor" stroke-width="1"/></g></svg>
-            </div>
-            <span class="select-none">Show what i'm watching</span>
-        </label>
+        <Checkbox :evar="showSearchingComp" name="ShowSearching" :onChange="this.RPC">Show what i'm searching</Checkbox>
+        <Checkbox :evar="showWatchingComp" name="ShowWatching" :onChange="this.RPC">Show what i'm watching</Checkbox>
         <div id="rpc-status">
             <h4 class="text-sm font-bold uppercase text-gray-600">RPC Status</h4>
             <div v-if="connectedComp">Connected</div>
@@ -35,11 +17,12 @@
 
 <script>
 import SettingView from '@/components/SettingView.vue'
+import Checkbox from '@/components/Checkbox.vue'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'RPCSettings',
-    components: { SettingView },
+    components: { SettingView, Checkbox },
     data() {
         return {
             enabled: false
@@ -47,29 +30,14 @@ export default {
     },
     computed: {
         ...mapGetters(['setting', 'rpc']),
-        enabledComp: {
-            get() {
-                return this.setting('rpcEnabled');
-            },
-            set(val) {
-                this.RPC('Enabled', val);
-            }
+        enabledComp() {
+            return this.setting('rpcEnabled');
         },
-        showSearchingComp: {
-            get() {
-                return this.setting('rpcShowSearching');
-            },
-            set(val) {
-                this.RPC('ShowSearching', val);
-            }
+        showSearchingComp() {
+            return this.setting('rpcShowSearching');
         },
-        showWatchingComp: {
-            get() {
-                return this.setting('rpcShowWatching');
-            },
-            set(val) {
-                this.RPC('ShowWatching', val);
-            }
+        showWatchingComp() {
+            return this.setting('rpcShowWatching');
         },
         connectedComp() {
             return this.rpc.connected;
@@ -77,8 +45,8 @@ export default {
     },
     methods: {
         ...mapActions(['setSetting']),
-        RPC(k, value) {
-            this.setSetting({key: `rpc${k}`, value});
+        RPC(e) {
+            this.setSetting({key: `rpc${e.target.name}`, value: e.target.checked});
             this.$refreshRPC();
         },
         reconnectRPC() {

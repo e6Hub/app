@@ -28,7 +28,6 @@ export default {
             })
             .then((d) => {
                 if (d.canceled || !d.filePaths[0]) return;
-                console.log(d.filePaths[0])
                 this.setSetting({
                     key: 'downloadLocation',
                     value: d.filePaths[0]
