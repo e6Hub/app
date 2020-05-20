@@ -25,7 +25,7 @@
         </label>
         <div id="rpc-status">
             <h4 class="text-sm font-bold uppercase text-gray-600">RPC Status</h4>
-            <div v-if="this.$parent.$parent.rpc.connected">Connected</div>
+            <div v-if="connectedComp">Connected</div>
             <div v-else>
                 <span class="mr-4">Disconnected</span>
                 <button class="mt-4 bg-indigo-400 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200" @click="reconnectRPC">Reconnect</button>
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
     name: 'RPCSettings',
     data() {
@@ -43,48 +45,43 @@ export default {
         }
     },
     computed: {
+        ...mapGetters(['setting', 'rpc']),
         enabledComp: {
             get() {
-                return JSON.parse(localStorage.settings).rpc.enabled;
+                return this.setting('rpcEnabled');
             },
             set(val) {
-                this.RPC('enabled', val);
-                this.$data.enabled = val;
+                this.RPC('Enabled', val);
             }
         },
         showSearchingComp: {
             get() {
-                return JSON.parse(localStorage.settings).rpc.showSearching;
+                return this.setting('rpcShowSearching');
             },
             set(val) {
-                this.RPC('showSearching', val);
+                this.RPC('ShowSearching', val);
             }
         },
         showWatchingComp: {
             get() {
-                return JSON.parse(localStorage.settings).rpc.showWatching;
+                return this.setting('rpcShowWatching');
             },
             set(val) {
-                this.RPC('showWatching', val);
+                this.RPC('ShowWatching', val);
             }
+        },
+        connectedComp() {
+            return this.rpc.connected;
         }
     },
     methods: {
-        RPC(k, v) {
-            // Check if settings exists
-            if (localStorage.settings) {
-                let settingsObj = JSON.parse(localStorage.settings); // Parses the localStorage
-                if (!settingsObj.rpc) settingsObj.rpc = {[k]: v} // it's ...['rpc'] defined?
-                else settingsObj.rpc[k] = v; // set value if it's defined
-                localStorage.settings = JSON.stringify(settingsObj); // and string the object for change the settings
-            } else {
-                localStorage.settings = JSON.stringify({rpc: { [k]: v }});
-            }
-
-            this.$events.$emit('updated-rpc', JSON.parse(localStorage.settings).rpc);
+        ...mapActions(['setSetting']),
+        RPC(k, value) {
+            this.setSetting({key: `rpc${k}`, value});
+            this.$refreshRPC();
         },
         reconnectRPC() {
-            this.$events.$emit('reconnect-rpc');
+            this.$connectRPC();
         }
     }
 }

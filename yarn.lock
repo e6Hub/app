@@ -3127,6 +3127,11 @@ find-up@^4.0.0, find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
+flatted@^2.0.0:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
+  integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
+
 flush-write-stream@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/flush-write-stream/-/flush-write-stream-1.1.1.tgz#8dd7d873a1babc207d94ead0c2e0e44276ebf2e8"
@@ -4613,7 +4618,7 @@ lodash.memoize@^4.1.2:
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
 
-lodash.merge@^4.6.1:
+lodash.merge@^4.6.1, lodash.merge@^4.6.2:
   version "4.6.2"
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
@@ -8191,10 +8196,18 @@ vue@^2.6.11:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
 
-vuex@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.3.0.tgz#665b4630ea1347317139fcc5cb495aab3ec5e513"
-  integrity sha512-1MfcBt+YFd20DPwKe0ThhYm1UEXZya4gVKUvCy7AtS11YAOUR+9a6u4fsv1Rr6ePZCDNxW/M1zuIaswp6nNv8Q==
+vuex-persist@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/vuex-persist/-/vuex-persist-2.2.0.tgz#4acec75562896b045c43d319690b93d6bc1b2bbc"
+  integrity sha512-o/qbBeMcKZZqMvCXc7kfIew/5cjHxlP1f53rx5YYp3r2tk2kxXYK/UZumxKn7OXywlurl2r0mgkuBzH6nIWFjw==
+  dependencies:
+    flatted "^2.0.0"
+    lodash.merge "^4.6.2"
+
+vuex@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.4.0.tgz#20cc086062d750769fce1febb34e7fceeaebde45"
+  integrity sha512-ajtqwEW/QhnrBZQsZxCLHThZZaa+Db45c92Asf46ZDXu6uHXgbfVuBaJ4gzD2r4UX0oMJHstFwd2r2HM4l8umg==
 
 watchpack@^1.6.1:
   version "1.6.1"

@@ -28,6 +28,10 @@ export default new Router({
                     component: () => import('@/views/Settings/Downloads.Settings.vue')
                 },
                 {
+                    path: 'appearance',
+                    component: () => import('@/views/Settings/Appearance.Settings.vue')
+                },
+                {
                     path: 'RPCSettings',
                     component: () => import('@/views/Settings/DiscordRPC.Settings.vue')
                 },

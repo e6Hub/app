@@ -60,16 +60,16 @@ let actObj = {
 }
 
 appRPC.on('ready', () => {
-    ipcMain.on('RPC_ready', (event, _rpc) => {
-        if (_rpc.enabled) {
+    ipcMain.on('RPC_ready', (event, settings) => {
+        if (settings.rpcEnabled) {
             appRPC.setActivity(actObj);
         } else {
             appRPC.clearActivity();
         }
     });
 
-    ipcMain.on('RPC_settingsChanged', (event, _rpc) => {
-        if (!_rpc.enabled) return appRPC.clearActivity();
+    ipcMain.on('RPC_settingsChanged', (event, isEnabled) => {
+        if (!isEnabled) return appRPC.clearActivity();
         appRPC.setActivity(actObj);
     });
 

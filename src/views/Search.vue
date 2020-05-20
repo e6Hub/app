@@ -13,7 +13,7 @@
                             </li>
                         </ul>
                     </div>
-                    <input v-model="tags" type="text" name="tags" id="search-tags" class="rounded mr-2 px-2 py-1 bg-gray-700 focus:bg-gray-600 focus:outline-none duration-200 text-base" />
+                    <input :value="tags" @input="setTags" type="text" name="tags" id="search-tags" class="rounded mr-2 px-2 py-1 bg-gray-700 focus:bg-gray-600 focus:outline-none duration-200 text-base" />
                     <button type="submit" id="search-posts-btn" class="inline-flex items-center bg-indigo-500 p-1 px-3 rounded">
                         <feather type="search" size="16" class="mr-2"/>
                         Search posts
@@ -43,6 +43,7 @@
 import PostItem from '@/components/PostItem.vue';
 import * as _ from 'request-promise-native';
 import { version as appVer } from '../../package.json';
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     replace: false,
@@ -58,16 +59,10 @@ export default {
         }
     },
     computed: {
-        tags: {
-            get() {
-                return this.$parent.tags;
-            },
-            set(t) {
-                this.$parent.tags = t;
-            }
-        }
+        ...mapGetters(['tags'])
     },
     methods: {
+        ...mapActions(['setTags']),
         searchPosts(e, cont = false) {
             if (!cont) this.posts = [];
             if (!cont) this.page = 1;
@@ -107,8 +102,9 @@ export default {
                 this.posts.push(post);
             });
             localStorage.posts = JSON.stringify(this.posts);
-            this.$events.$emit('state-changed-rpc', {type: 'SEARCHING'});
 
+            this.$events.$emit('state-changed-rpc', {type: 'SEARCHING'});
+            
             document.getElementById('posts-list').addEventListener('scroll', (e) => {
                 if (this.lastPage) return;
                 let el = e.target;
@@ -136,8 +132,8 @@ export default {
     },
     mounted() {
         this.$root.$on('searchByTag', (t) => {
-            this.tags = t
-            this.searchPosts()
+            this.tags = t;
+            this.searchPosts();
         });
     }
 }

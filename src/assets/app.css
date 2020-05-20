@@ -20,17 +20,34 @@
 }
 
 body {
-    margin: 0;
     font-family: 'Exo 2', sans-serif;
     overflow: hidden;
+    border: 1px solid #48545c;
 }
 
-#topbar {
+div#main {
+    margin: 1px;
+}
+
+#titlebar button > img {
+    image-rendering: pixelated;
+}
+
+#titlebar {
     -webkit-app-region: drag;
 }
 
-#topbar > #window-buttons {
+#titlebar > #window-buttons {
     -webkit-app-region: no-drag;
+}
+
+#titlebar > #window-buttons > button {
+    width: 46px;
+    height: 32px;
+    display: inline-flex;
+    justify-content: center;
+    transition-duration: .2s;
+    margin-right: 1px;
 }
 
 .fade-enter-active, .fade-leave-active {
@@ -168,4 +185,14 @@ button:focus, input:focus {
 
 #pv-timeline-container span {
     top: -2rem;
+}
+
+label:hover #radioform-container,
+label input[type="radio"]:checked + #radioform-container {
+    @apply border-indigo-400;
+}
+
+label:hover #radioform-circle,
+label input[type="radio"]:checked + #radioform-container #radioform-circle {
+    @apply bg-indigo-400;
 }

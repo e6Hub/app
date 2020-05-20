@@ -1,38 +1,5 @@
-const { BrowserWindow } = require('electron').remote
-
 class Main {
-    constructor() {
-        this.window = BrowserWindow.getAllWindows()[0];
-    }
-
     onload() {
-        let selfWin = this.window;
-        
-        document.getElementById('close-app').onclick = () => {
-            selfWin.close();
-        };
-
-        document.getElementById('maximize-app').onclick = () => {
-            selfWin.isMaximized()
-            ? selfWin.restore()
-            : selfWin.maximize();
-        };
-
-        document.getElementById('minimize-app').onclick = () => {
-            selfWin.minimize();
-        }
-
-        if (!localStorage.settings) {
-            localStorage.settings = JSON.stringify({
-                rpc: {
-                    enabled: false,
-                    showShowing: false,
-                    showWatching: false
-                },
-                downloadLocation: require('os').userInfo().homedir
-            });
-        }
-
         Array.prototype.so = function(cb) {
             return new Promise((res, rej) => {
                 try {
@@ -49,5 +16,3 @@ class Main {
         }
     }
 }
-
-export default new Main();

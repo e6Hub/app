@@ -9,26 +9,29 @@
 
 <script>
 const { dialog } = require('electron').remote;
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'DownloadsSettings',
-    data() {
-        return {
-            downloadFolder: JSON.parse(localStorage.settings).downloadLocation
+    computed: {
+        ...mapGetters(['setting']),
+        downloadFolder() {
+            return this.setting('downloadLocation')
         }
     },
     methods: {
+        ...mapActions(['setSetting']),
         manageFolder() {
             dialog.showOpenDialog({
                 properties: ['openDirectory']
             })
             .then((d) => {
                 if (d.canceled || !d.filePaths[0]) return;
-
-                let settingsObj = JSON.parse(localStorage.settings);
-                settingsObj.downloadLocation = d.filePaths[0];
-                localStorage.settings = JSON.stringify(settingsObj);
-                this.downloadFolder = d.filePaths[0];
+                console.log(d.filePaths[0])
+                this.setSetting({
+                    key: 'downloadLocation',
+                    value: d.filePaths[0]
+                });
             })
             .catch(console.warn);
         }
