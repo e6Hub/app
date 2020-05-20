@@ -82,7 +82,7 @@ export default new Vuex.Store({
         setSetting({commit}, nS) {
             commit('_setSetting', nS);
         },
-        resetSetting({commit}) {
+        resetSettings({commit}) {
             commit('_resetSettings');
         },
         verifySettings({commit}) {

@@ -17,7 +17,7 @@
         <button v-else-if="updateStatus == 'checking'" class="mt-4 bg-gray-600 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200">Checking update...</button>
         <button v-else-if="updateStatus == 'dev'" class="mt-4 bg-gray-700 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200">Development build</button>
         
-        <button @click="resetSettings" class="mt-4 ml-4 bg-orange-500 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200">Reset settings</button>
+        <button @click="resetSets" class="mt-4 ml-4 bg-orange-500 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200">Reset settings</button>
     </SettingView>
 </template>
 
@@ -43,6 +43,10 @@ export default {
         openExternal(e) {
             e.preventDefault();
             require("electron").shell.openExternal(e.target.getAttribute('href'));
+        },
+        resetSets() {
+            this.resetSettings();
+            this.$refreshRPC();
         }
     }
 }
