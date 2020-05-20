@@ -54,7 +54,7 @@ export default {
                 case 'close':
                     switch (this.setting('titlebarStyle')) {
                         case 'win10':
-                            return 'focus:outline-none hover:bg-red-600 hover:text-white cursor-default h-8 w-10';
+                            return 'focus:outline-none hover:bg-red-600 hover:text-white cursor-default h-8 w-12';
                             break;
                         case 'small':
                             return 'focus:outline-none hover:bg-red-600 hover:text-white cursor-default h-6 w-8';
@@ -64,7 +64,7 @@ export default {
                 default:
                     switch (this.setting('titlebarStyle')) {
                         case 'win10':
-                            return 'focus:outline-none hover:bg-gray-700 cursor-default h-8 w-10';
+                            return 'focus:outline-none hover:bg-gray-700 cursor-default h-8 w-12';
                             break;
                         case 'small':
                             return 'focus:outline-none hover:bg-gray-700 cursor-default h-6 w-8';
