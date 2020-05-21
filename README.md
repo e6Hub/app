@@ -1,6 +1,6 @@
 # e6Hub
 [![Build status](https://ci.appveyor.com/api/projects/status/eawhvp0h2215rqhj?svg=true)](https://ci.appveyor.com/project/Saektide/app)
-[![CodeFactor](https://www.codefactor.io/repository/github/e6hub/app/badge)](https://www.codefactor.io/repository/github/e6hub/app)
+[![DeepScan grade](https://deepscan.io/api/teams/9325/projects/11662/branches/175184/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9325&pid=11662&bid=175184)
 
 This is an app for explore and download posts on e621.net. It uses e621's API and it's powered by Vue.js. Feel free to contribute to this project!
 
@@ -23,18 +23,19 @@ This is an app for explore and download posts on e621.net. It uses e621's API an
 
 | OS Name    | Status | Type |
 | ---------- | :----: | ---: |
-| Windows 7  |✔     | .exe |
+| Windows 7  |:heavy_exclamation_mark:     | .exe |
 | Windows 8  |✔     | .exe |
 | Windows 10 |✔     | .exe |
 | Debian     |❌     | .deb |
 | Fedora     |❌     | .rpm |
-| Arch       |✖     | .tar |
+| Arch       |❌     | .tar |
 | macOS      |⚠     | .dmg |
 
 * ✔ Supported
 * ❌ Not supported but it can be build
 * ✖ Unstable
 * ⚠ Not tested yet
+* :heavy_exclamation_mark: Unstable since some version of Electron (mostly Electron 6 or 8)
 
 
 ## 💾 Install
