@@ -38,19 +38,19 @@ const updaterController = {
             this.setStatus('dev');
         }
         
-        ipcRenderer.on('updateCheck', function(event) {
+        ipcRenderer.on('updateCheck', (e) => {
             this.setStatus('checking');
         });
         
-        ipcRenderer.on('updateAlert', function(event) {
+        ipcRenderer.on('updateAlert', (e) => {
             this.setStatus('pendingRestart');
         });
         
-        ipcRenderer.on('updateUpToDate', function(event) {
+        ipcRenderer.on('updateUpToDate', (e) => {
             this.setStatus('uptodate');
         });
         
-        ipcRenderer.on('updateAvailable', function(event, ver) {
+        ipcRenderer.on('updateAvailable', (e, ver) => {
             this.setStatus('downloading');
         });
     },
