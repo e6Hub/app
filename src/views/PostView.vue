@@ -62,10 +62,14 @@
                     <button v-else id="postview-removefromlist-btn" @click="listPost" class="bg-red-400 py-2 w-full rounded hover:bg-red-500 shadow-lg hover:shadow-xl duration-200 mt-2">Remove from list</button>
                 </div>
                 <ul id="postview-details-list" class="flex flex-col">
+                    <li id="postview-size" class="bg-gray-700 p-3 rounded mb-2 break-all">
+                        <h4 class="uppercase text-gray-500 font-bold mb-1">File size</h4>
+                        <span v-text="convertBytes(post.file.size)"></span>
+                    </li>
                     <li v-if="post.tags.artist.length > 1" id="artists" class="bg-gray-700 p-3 rounded mb-2 break-all">
                         <h4 class="uppercase text-gray-500 font-bold mb-1">Artists</h4>
                         <ul id="postview-artists-list">
-                            <li id="artist" v-for="(artist, index) in post.artist" :key="index">{{artist}}</li>
+                            <li id="artist" v-for="(artist, index) in post.tags.artist" :key="index">{{artist}}</li>
                         </ul>
                     </li>
                     <li v-else id="postview-artist" class="bg-gray-700 p-3 rounded mb-2 break-all">
@@ -114,6 +118,7 @@
 <script>
 import DText from 'dtext-parser'
 import * as ptime from 'pretty-ms'
+import bytes from 'bytes'
 
 export default {
     name: 'postView',
@@ -219,6 +224,9 @@ export default {
         vpMeta() {
             this.vpVolStatus()
             this.videoDuration = document.getElementById('postview-player').duration
+        },
+        convertBytes(n) {
+            return bytes(n, {unitSeparator: ' '});
         }
     },
     mounted() {
