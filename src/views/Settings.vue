@@ -5,7 +5,6 @@
             <ul class="flex justify-center flex-col">
                 <SettingsSidebarLink icon="download" linkto="downloads" linkname="Downloads"/>
                 <SettingsSidebarLink icon="layout" linkto="appearance" linkname="Appearance"/>
-                <SettingsSidebarLink icon="square" viewbox="0 0 48 48" linkto="rpc" linkname="Discord RPC"/>
                 <SettingsSidebarLink icon="info" linkto="about" linkname="About"/>
             </ul>
         </div>

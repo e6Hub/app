@@ -14,20 +14,11 @@ export default new Vuex.Store({
         tags: '',
         postId: 0,
         settings: {
-            rpcEnabled: false,
-            rpcShowSearching: false,
-            rpcShowWatching: false,
             downloadLocation: require('os').userInfo().homedir,
             titlebarStyle: 'win10'
         },
         updateStatus: 'NULL',
-        postsList: [],
-        rpc: {
-            connected: false,
-            type: 'IDLE',
-            tags: null,
-            postId: null
-        }
+        postsList: []
     },
     mutations: { // Intern actions
         _setTags(state, _tags) {
@@ -42,9 +33,6 @@ export default new Vuex.Store({
         },
         _resetSettings(state) {
             state.settings = {
-                rpcEnabled: false,
-                rpcShowSearching: false,
-                rpcShowWatching: false,
                 downloadLocation: require('os').userInfo().homedir,
                 titlebarStyle: 'win10'
             }
@@ -58,18 +46,6 @@ export default new Vuex.Store({
         _setPostsList(state, v) {
             if (Array.isArray(v)) state.postsList = v;
             else if (typeof v === 'string') state.postsList.push(v);
-        },
-        _setRPCconn(state, v) {
-            state.rpc.connected = v;
-        },
-        _setRPCtype(state, v) {
-            state.rpc.type = v;
-        },
-        _setRPCtags(state, v) {
-            state.rpc.tags = v;
-        },
-        _setRPCpostId(state, v) {
-            state.rpc.postId = v;
         }
     },
     actions: { // Public actions
@@ -93,18 +69,6 @@ export default new Vuex.Store({
         },
         setPostsList({commit}, v) {
             commit('_setPostsList', v);
-        },
-        setRPCconn({commit}, v) {
-            commit('_setRPCconn', v);
-        },
-        setRPCtype({commit}, v) {
-            commit('_setRPCtype', v);
-        },
-        setRPCtags({commit}, v) {
-            commit('_setRPCtags', v);
-        },
-        setRPCpostId({commit}, v) {
-            commit('_setRPCpostId', v);
         }
     },
     getters: { // Getters
@@ -128,9 +92,6 @@ export default new Vuex.Store({
         },
         postsList: state => {
             return state.postsList;
-        },
-        rpc: state => {
-            return state.rpc;
         }
     },
     plugins: [storePersist.plugin]

@@ -40,12 +40,10 @@ export default {
         $route(to, from) {
             if (from.name == 'postView') {
                 this.setPostId(null);
-                this.set('type', 'SEARCHING', true);
             }
 
             if (to.name == 'postView') {
                 this.setPostId(to.params.id);
-                this.set('type', 'WATCHING', true);
             }
         }
     },
@@ -78,7 +76,6 @@ export default {
         this.$nextTick(() => {
             this.verifySettings();
             this.$initUpdater();
-            this.$initRPC();
 
             self.$events.$on('downloadpost', function(p) {
                 let indx;

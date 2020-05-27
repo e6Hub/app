@@ -105,8 +105,6 @@ export default {
                 this.posts.push(post);
             });
             localStorage.posts = JSON.stringify(this.posts);
-
-            this.$events.$emit('state-changed-rpc', {type: 'SEARCHING'});
             
             document.getElementById('posts-list').addEventListener('scroll', (e) => {
                 if (this.lastPage) return;

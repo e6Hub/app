@@ -46,7 +46,6 @@ export default {
         },
         resetSets() {
             this.resetSettings();
-            this.$refreshRPC();
         }
     }
 }

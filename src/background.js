@@ -2,7 +2,6 @@
 
 import { app, protocol, BrowserWindow, ipcMain } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
-import * as DiscordRPC from 'discord-rpc';
 import { autoUpdater as updater } from 'electron-updater';
 
 const isDev = process.env.NODE_ENV !== 'production';
@@ -41,79 +40,6 @@ ipcMain.on('restartForUpdate', (event) => {
 ipcMain.on('checkForUpdates', (event) => {
     updater.checkForUpdates();
 });
-
-ipcMain.on('connectDiscordRPC', (event) => {
-    connectRPC();
-});
-
-// RPC
-
-const CID = '642758973631758336';
-const appRPC = new DiscordRPC.Client({transport: 'ipc'});
-
-let actObj = {
-    details: 'Idle',
-    state: 'It just started!',
-    largeImageKey: 'main',
-    largeImageText: 'Idle',
-    instance: false
-}
-
-appRPC.on('ready', () => {
-    ipcMain.on('RPC_ready', (event, settings) => {
-        if (settings.rpcEnabled) {
-            appRPC.setActivity(actObj);
-        } else {
-            appRPC.clearActivity();
-        }
-    });
-
-    ipcMain.on('RPC_settingsChanged', (event, isEnabled) => {
-        if (!isEnabled) return appRPC.clearActivity();
-        appRPC.setActivity(actObj);
-    });
-
-    ipcMain.on('RPC_clear', (event) => {
-        appRPC.clearActivity();
-    });
-
-    ipcMain.on('RPC_status', (event, _rpcStatus) => {
-        switch (_rpcStatus.type) {
-            case 'SEARCHING':
-                actObj.details = 'Looking for...';
-                actObj.state = `${_rpcStatus.tags}`;
-                actObj.largeImageText = 'Looking for';
-            break;
-            case 'WATCHING':
-                actObj.details = 'Watching post';
-                actObj.state = `${_rpcStatus.postid}`;
-                actObj.largeImageText = 'Watching';
-            break;
-            case 'IDLE':
-                actObj.details = 'Idle';
-                actObj.state = `It just started!`;
-                actObj.largeImageText = 'Idle';
-            break;
-            default:
-                actObj.details = 'Unknown';
-                actObj.state = 'Seems your settings are wrong...';
-                actObj.largeImageText = 'Oops!';
-            break;
-        }
-        appRPC.setActivity(actObj);
-    }) 
-});
-
-function connectRPC() {
-    appRPC.login({ clientId: CID })
-    .then(() => {
-        win.webContents.send('RPC_connected');
-    })
-    .catch(err => {
-        console.error(err);
-        win.webContents.send('RPC_error', err);
-    });
-}
 
 app.on('ready', () => {
     win = new BrowserWindow({

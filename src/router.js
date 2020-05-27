@@ -33,11 +33,6 @@ export default new Router({
                     component: () => import('@/views/Settings/Appearance.Settings.vue')
                 },
                 {
-                    path: 'rpc',
-                    name: 'settings.rpc',
-                    component: () => import('@/views/Settings/DiscordRPC.Settings.vue')
-                },
-                {
                     path: 'about',
                     name: 'settings.about',
                     component: () => import('@/views/Settings/About.Settings.vue')
