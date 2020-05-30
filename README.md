@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://i.imgur.com/WeGT7LA.png" width="100%">
+</p>
+
 # e6Hub
 [![Build status](https://ci.appveyor.com/api/projects/status/eawhvp0h2215rqhj?svg=true)](https://ci.appveyor.com/project/Saektide/app)
 [![DeepScan grade](https://deepscan.io/api/teams/9325/projects/11662/branches/175184/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9325&pid=11662&bid=175184)
