@@ -19,7 +19,7 @@ import RadioForm from '@/components/RadioForm.vue'
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
-    name: 'SearchSettings',
+    name: 'AppearanceSettings',
     components: { SettingView, RadioForm },
     data() {
         return {

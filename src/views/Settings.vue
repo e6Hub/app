@@ -5,6 +5,7 @@
             <ul class="flex justify-center flex-col">
                 <SettingsSidebarLink icon="download" linkto="downloads" linkname="Downloads"/>
                 <SettingsSidebarLink icon="layout" linkto="appearance" linkname="Appearance"/>
+                <SettingsSidebarLink icon="grid" linkto="plugins" linkname="Plugins"/>
                 <SettingsSidebarLink icon="info" linkto="about" linkname="About"/>
             </ul>
         </div>
