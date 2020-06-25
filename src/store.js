@@ -18,7 +18,9 @@ export default new Vuex.Store({
             titlebarStyle: 'win10'
         },
         updateStatus: 'NULL',
-        postsList: []
+        postsList: [],
+        pluginsDir: '',
+        plugins: []
     },
     mutations: { // Intern actions
         _setTags(state, _tags) {
@@ -46,6 +48,24 @@ export default new Vuex.Store({
         _setPostsList(state, v) {
             if (Array.isArray(v)) state.postsList = v;
             else if (typeof v === 'string') state.postsList.push(v);
+        },
+        _setPluginsDir(state, v) {
+            state.pluginsDir = v;
+        },
+        _addPlugin(state, o) {
+            if (state.plugins.findIndex(p => p.path == o.path) > -1) return console.log(`The "${o.meta.name}" plugin seems is already added`);
+            state.plugins.push(o);
+        },
+        _delPlugin(state, o) {
+            const i = state.plugins.findIndex(p => p.path == o.path);
+            if (i === -1) return console.log(`The "${o.meta.name}" plugin don't exists in the plugins store`);
+            state.plugins.splice(i, 1);
+        },
+        _enablePlugin(state, pathToPlugin) {
+            state.plugins.find(p => p.path === pathToPlugin).enabled = true;
+        },
+        _disablePlugin(state, pathToPlugin) {
+            state.plugins.find(p => p.path === pathToPlugin).enabled = false;
         }
     },
     actions: { // Public actions
@@ -69,6 +89,21 @@ export default new Vuex.Store({
         },
         setPostsList({commit}, v) {
             commit('_setPostsList', v);
+        },
+        setPluginsDir({commit}, v) {
+            commit('_setPluginsDir', v);
+        },
+        addPlugin({commit}, o) {
+            commit('_addPlugin', o);
+        },
+        delPlugin({commit}, o) {
+            commit('_delPlugin', o);
+        },
+        enablePlugin({commit}, pluginPath) {
+            commit('_enablePlugin', pluginPath);
+        },
+        disablePlugin({commit}, pluginPath) {
+            commit('_disablePlugin', pluginPath);
         }
     },
     getters: { // Getters
@@ -92,6 +127,18 @@ export default new Vuex.Store({
         },
         postsList: state => {
             return state.postsList;
+        },
+        pluginsDir: state => {
+            return state.pluginsDir;
+        },
+        plugins: state => {
+            return state.plugins;
+        },
+        enabledPlugins: state => {
+            return state.plugins.filter(p => p.enabled);
+        },
+        disabledPlugins: state => {
+            return state.plugins.filter(p => !p.enabled);
         }
     },
     plugins: [storePersist.plugin]

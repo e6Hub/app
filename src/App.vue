@@ -76,6 +76,7 @@ export default {
         this.$nextTick(() => {
             this.verifySettings();
             this.$initUpdater();
+            this.$initPluginMan();
 
             self.$events.$on('downloadpost', function(p) {
                 let indx;
