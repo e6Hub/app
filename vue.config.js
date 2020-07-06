@@ -8,12 +8,12 @@ module.exports = {
                 // Windows
                 win: {
                     target: ['nsis'],
-                    icon: './e6h.ico'
+                    icon: './e6hub.ico'
                 },
                 nsis: {
                     installerLanguages: 'en_US',
-                    installerIcon: './e6h_ins.ico',
-                    uninstallerIcon: './e6h_unins.ico',
+                    installerIcon: './e6hub_ins.ico',
+                    uninstallerIcon: './e6hub_unins.ico',
                     oneClick: false,
                     runAfterFinish: false,
                     allowToChangeInstallationDirectory: true
