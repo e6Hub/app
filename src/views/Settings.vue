@@ -9,7 +9,7 @@
                 <SettingsSidebarLink icon="info" linkto="about" linkname="About"/>
             </ul>
         </div>
-        <div id="settings-view" class="my-4 mx-8 w-auto w-2/3">
+        <div id="settings-view" class="my-4 mx-8 w-2/3">
             <transition name="fade" mode="out-in">
                 <router-view/>
             </transition>
