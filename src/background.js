@@ -41,10 +41,13 @@ ipcMain.on('checkForUpdates', (event) => {
     updater.checkForUpdates();
 });
 
+if (process.platform === 'win32') app.commandLine.appendSwitch('ppapi-flash-path', 'C:\\Windows\\System32\\Macromed\\Flash\\pepflashplayer64_32_0_0_387.dll');
+
 app.on('ready', () => {
     win = new BrowserWindow({
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            plugins: true
         },
         minWidth: 1024,
         minHeight: 600,

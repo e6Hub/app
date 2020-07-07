@@ -1,5 +1,5 @@
 <template>
-    <div id="postview-container" class="inline-flex w-full p-6 overflow-hidden inset-y-0 flex-col">
+    <div id="postview-container" class="inline-flex w-full p-6 pb-0 overflow-hidden inset-y-0 flex-col">
         <h2 class="inline-flex items-center text-2xl font-bold uppercase text-gray-600 mb-4">
             <button class="focus:outline-none bg-indigo-500 p-1 px-3 rounded-full text-white w-12 h-12 mr-4 hover:bg-indigo-400 duration-200" @click="$router.push({name: 'search'})"><feather type="arrow-left"/></button>
             <span id="postid">{{post.id}}</span>
@@ -45,8 +45,13 @@
                     </div>
                 </div>
                 <div id="postview-swf" v-else-if="post.file.ext === 'swf'">
-                    <h2 class="inline-flex items-center text-2xl font-bold uppercase text-gray-600 mb-4">SWF is no supported yet</h2>
-                    <p>The SWF player feature might be included on a future version of this app, sadly we don't have any plans to port it to e6Hub.</p>
+                    <object type="application/x-shockwave-flash"
+                        :data="post.file.url"
+                        :width="this.viewWidth"
+                        :height="this.viewHeight">
+                        <param name="movie" :value="post.file.url">
+                        <param name="wmode" value="transparent">
+                    </object>
                 </div>
                 <div v-if="this.descParsed" id="postview-description" class="bg-gray-700 p-3 rounded mt-4 break-all whitespace-pre-line">
                     <h4 class="uppercase text-gray-500 font-bold mb-1">Description</h4>
@@ -135,7 +140,9 @@ export default {
             videoTime: 0,
             videoDuration: 0,
             videoTime_p: '0:00',
-            videoDuration_p: '0:00'
+            videoDuration_p: '0:00',
+            viewWidth: 0,
+            viewHeight: 0
         }
     },
     watch: {
@@ -235,6 +242,9 @@ export default {
             DText.parse(this.post.description).then((dp) => {
                 this.descParsed = dp;
             })
+
+            this.viewWidth = document.getElementById('postview-left').offsetWidth;
+            this.viewHeight = document.getElementById('postview-general').offsetHeight;
         })
     }
 }
