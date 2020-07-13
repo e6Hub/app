@@ -186,10 +186,6 @@ export default {
         }
     },
     methods: {
-        openExternal(e) {
-            e.preventDefault();
-            require("electron").shell.openExternal(e.target.getAttribute('href'));
-        },
         downloadPost() {
             this.$parent.addDownloadPost(this.post);
         },
