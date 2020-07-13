@@ -142,7 +142,8 @@ export default {
             videoTime_p: '0:00',
             videoDuration_p: '0:00',
             viewWidth: 0,
-            viewHeight: 0
+            viewHeight: 0,
+            nlinks: 0
         }
     },
     watch: {
@@ -175,6 +176,13 @@ export default {
         },
         videoDuration(v) {
             this.videoDuration_p = ptime(v*1000, {colonNotation: true, secondsDecimalDigits: 0, millisecondsDecimalDigits: 1000})
+        },
+        descParsed(v) {
+            this.$nextTick(() => {
+                for (let i = 0; i < this.nlinks; i++) {
+                    document.getElementById(`l${i}`).onclick = this.openExternal;
+                }
+            });
         }
     },
     methods: {
@@ -234,14 +242,26 @@ export default {
         },
         convertBytes(n) {
             return bytes(n, {unitSeparator: ' '});
+        },
+        openExternal(e) {
+            e.preventDefault();
+            require("electron").shell.openExternal(e.target.getAttribute('href'));
         }
     },
     mounted() {
         this.$nextTick(() => {
-            if (!this.post) return this.$router.push({name: 'search'})
+            if (!this.post) return this.$router.push({name: 'search'});
             DText.parse(this.post.description).then((dp) => {
-                this.descParsed = dp;
-            })
+                let _tmp = document.createElement('div');
+                _tmp.innerHTML = dp;
+                const _links = Array.from(_tmp.getElementsByTagName('a'));
+                this.nlinks = _links.length;
+                _links.forEach((link, i) => {
+                    let _link = _tmp.getElementsByTagName('a').item(i);
+                    _link.id = `l${i}`;
+                });
+                this.descParsed = _tmp.innerHTML;
+            });
 
             this.viewWidth = document.getElementById('postview-left').offsetWidth;
             this.viewHeight = document.getElementById('postview-general').offsetHeight;

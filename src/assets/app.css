@@ -194,3 +194,7 @@ label:hover #radioform-circle,
 label input[type="radio"]:checked + #radioform-container #radioform-circle {
     @apply bg-indigo-400;
 }
+
+#postview-description a {
+    @apply text-indigo-300;
+}
