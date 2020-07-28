@@ -37,7 +37,7 @@ export default {
         */ 
         radios: {
             type: Array,
-            default: []
+            required: true
         },
         /**
          * This functions gets called when a radio input changed
