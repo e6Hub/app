@@ -46,7 +46,6 @@
                 </div>
                 <div id="postview-swf" v-else-if="post.file.ext === 'swf'">
                     <object type="application/x-shockwave-flash"
-                        :data="post.file.url"
                         :width="this.viewWidth"
                         :height="this.viewHeight">
                         <param name="movie" :value="post.file.url">

@@ -3,6 +3,7 @@
 import { app, protocol, BrowserWindow, ipcMain } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import { autoUpdater as updater } from 'electron-updater';
+import fs from 'fs';
 
 const isDev = process.env.NODE_ENV !== 'production';
 protocol.registerSchemesAsPrivileged([{
@@ -41,7 +42,10 @@ ipcMain.on('checkForUpdates', (event) => {
     updater.checkForUpdates();
 });
 
-if (process.platform === 'win32') app.commandLine.appendSwitch('ppapi-flash-path', 'C:\\Windows\\System32\\Macromed\\Flash\\pepflashplayer64_32_0_0_387.dll');
+if (process.platform === 'win32') app.commandLine.appendSwitch(
+    'ppapi-flash-path',
+    `C:\\Windows\\System32\\Macromed\\Flash\\${fs.readdirSync('C:\\Windows\\System32\\Macromed\\Flash\\').filter(f => f.startsWith('pepflashplayer64'))[0]}`
+);
 
 app.on('ready', () => {
     win = new BrowserWindow({
