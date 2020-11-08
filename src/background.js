@@ -9,7 +9,7 @@ const isDev = process.env.NODE_ENV !== 'production';
  * Register a protocol for the app.
  */
 protocol.registerSchemesAsPrivileged([{
-    scheme: 'e6h', privileges: { standard: true, secure: true }
+  scheme: 'app', privileges: { standard: true, secure: true }
 }]);
 
 let win;
@@ -35,8 +35,8 @@ ipcMain.on('checkForUpdates', () => updater.checkForUpdates());
  * https://www.adobe.com/products/flashplayer/end-of-life.html
  */
 if (process.platform === 'win32' && fs.existsSync('C:\\Windows\\System32\\Macromed\\Flash\\')) app.commandLine.appendSwitch(
-    'ppapi-flash-path',
-    `C:\\Windows\\System32\\Macromed\\Flash\\${fs.readdirSync('C:\\Windows\\System32\\Macromed\\Flash\\').filter(f => f.startsWith('pepflashplayer64'))[0]}`
+  'ppapi-flash-path',
+  `C:\\Windows\\System32\\Macromed\\Flash\\${fs.readdirSync('C:\\Windows\\System32\\Macromed\\Flash\\').filter(f => f.startsWith('pepflashplayer64'))[0]}`
 );
 
 /**
@@ -44,34 +44,34 @@ if (process.platform === 'win32' && fs.existsSync('C:\\Windows\\System32\\Macrom
  * the app is running under development enviroment.
  */
 app.on('ready', () => {
-    win = new BrowserWindow({
-        webPreferences: {
-            nodeIntegration: true,
-            plugins: true
-        },
-        minWidth: 1024,
-        minHeight: 600,
-        width: 1024,
-        height: 600,
-        frame: false,
-    });
+  win = new BrowserWindow({
+    webPreferences: {
+      nodeIntegration: true,
+      plugins: true
+    },
+    minWidth: 1024,
+    minHeight: 600,
+    width: 1024,
+    height: 600,
+    frame: false,
+  });
 
-    if (isDev) {
-        win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
-        if (!process.env.IS_TEST) win.webContents.openDevTools();
-        win.setIcon('e6hub.ico');
-    } else {
-        createProtocol('e6h');
-        win.loadURL('e6h://./index.html/');
-    }
+  if (isDev) {
+    win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+    if (!process.env.IS_TEST) win.webContents.openDevTools();
+    win.setIcon('e6hub.ico');
+  } else {
+    createProtocol('app');
+    win.loadURL('app://./index.html/');
+  }
 
-    updater.checkForUpdates();
+  updater.checkForUpdates();
 
-    /**
-     * Set the win variable to null
-     * when all windows are closed.
-     */
-    win.on('closed', () => {
-        win = null
-    });
+  /**
+   * Set the win variable to null
+   * when all windows are closed.
+   */
+  win.on('closed', () => {
+    win = null
+  });
 });
