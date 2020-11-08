@@ -1,22 +1,17 @@
 <template>
-  <div id="titlebar" v-bind:class="getMainClass()">
+  <div
+    id="titlebar"
+    class="bg-gray-900 text-right"
+    :class="{
+      'h-6': currentStyle === 'small',
+      'h-8': currentStyle === 'win10'
+    }"
+  >
     <div id="window-buttons" class="inline-block">
-      <button id="minimize-app" v-bind:class="getBtnClass('min')">
-        <img :src="MinIcon" width="10" />
-      </button>
-      <button
-        id="restore-app"
-        v-bind:class="getBtnClass('res')"
-        v-if="isMaximized"
-      >
-        <img :src="RestoreIcon" width="10" />
-      </button>
-      <button id="maximize-app" v-bind:class="getBtnClass('min')" v-else>
-        <img :src="MaxIcon" width="10" />
-      </button>
-      <button id="close-app" v-bind:class="getBtnClass('close')">
-        <img :src="CloseIcon" width="10" />
-      </button>
+      <titlebar-button id="minimize-app" :imgSrc="MinIcon"/>
+      <titlebar-button id="restore-app" :imgSrc="RestoreIcon" v-if="isMaximized"/>
+      <titlebar-button id="maximize-app" :imgSrc="MaxIcon" v-else/>
+      <titlebar-button id="close-app" :imgSrc="CloseIcon" role="danger"/>
     </div>
   </div>
 </template>
@@ -26,7 +21,7 @@ import CloseIcon from "@/assets/titlebar/c.png";
 import MaxIcon from "@/assets/titlebar/m.png";
 import RestoreIcon from "@/assets/titlebar/r.png";
 import MinIcon from "@/assets/titlebar/n.png";
-import { mapGetters } from "vuex";
+import titlebarButton from "@/components/TitlebarButton.vue";
 
 export default {
   name: "Titlebar",
@@ -37,72 +32,31 @@ export default {
       MaxIcon,
       CloseIcon,
       isMaximized: false,
+      currentStyle: this.$store.getters.setting("titlebarStyle")
     };
   },
-  computed: {
-    ...mapGetters(["setting"]),
-  },
-  methods: {
-    getMainClass() {
-      switch (this.setting("titlebarStyle")) {
-        case "win10":
-          return "bg-gray-900 h-8 text-right";
-          break;
-        case "small":
-          return "bg-gray-900 h-6 text-right";
-          break;
-      }
-    },
-    getBtnClass(typeButton) {
-      switch (typeButton) {
-        case "close":
-          switch (this.setting("titlebarStyle")) {
-            case "win10":
-              return "focus:outline-none hover:bg-red-600 hover:text-white cursor-default h-8 w-12";
-              break;
-            case "small":
-              return "focus:outline-none hover:bg-red-600 hover:text-white cursor-default h-6 w-8";
-              break;
-          }
-          break;
-        default:
-          switch (this.setting("titlebarStyle")) {
-            case "win10":
-              return "focus:outline-none hover:bg-gray-700 cursor-default h-8 w-12";
-              break;
-            case "small":
-              return "focus:outline-none hover:bg-gray-700 cursor-default h-6 w-8";
-              break;
-          }
-          break;
-      }
-    },
-  },
+  components: { titlebarButton },
   mounted() {
     this.$nextTick(() => {
       const { BrowserWindow } = require("electron").remote,
-        selfWin = BrowserWindow.getAllWindows()[0];
+        selfWin = BrowserWindow.getAllWindows()[0],
+        self = this;
 
       this.isMaximized = selfWin.isMaximized();
 
-      selfWin.on("unmaximize", () => {
-        this.isMaximized = false;
+      selfWin.on("unmaximize", () => this.isMaximized = false );
+      selfWin.on("maximize", () => this.isMaximized = true );
+
+      document.getElementById("close-app").onclick = () => { selfWin.close() };
+      document.getElementById("maximize-app").onclick = () => { selfWin.isMaximized() ? selfWin.restore() : selfWin.maximize() };
+      document.getElementById("minimize-app").onclick = () => { selfWin.minimize() };
+
+      this.$store.subscribeAction((action) => {
+        if (action.type !== "setSetting") return;
+        if (action.payload.key !== "titlebarStyle") return;
+        
+        self.currentStyle = action.payload.value;
       });
-      selfWin.on("maximize", () => {
-        this.isMaximized = true;
-      });
-
-      document.getElementById("close-app").onclick = () => {
-        selfWin.close();
-      };
-
-      document.getElementById("maximize-app").onclick = () => {
-        selfWin.isMaximized() ? selfWin.restore() : selfWin.maximize();
-      };
-
-      document.getElementById("minimize-app").onclick = () => {
-        selfWin.minimize();
-      };
     });
   },
 };
