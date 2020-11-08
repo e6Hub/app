@@ -9,16 +9,18 @@
     <div>
       This feature is experimental and may not be 100% functional, feedbacks are
       welcome at
-      <a href="https://github.com/e6Hub/app/issues" class="text-indigo-300"
-        >Issues</a
-      >
-      page.
+      <e-link href="https://github.com/e6Hub/app/issues">Issues</e-link> page.
     </div>
   </div>
 </template>
 
 <script>
+import eLink from "./ExternalLink.vue";
+
 export default {
   name: "BetaFeature",
+  components: {
+    eLink
+  }
 };
 </script>

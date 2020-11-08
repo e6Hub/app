@@ -6,7 +6,7 @@
 export default {
   name: "ExternalLink",
   methods: {
-    openExternal() {
+    openExternal(e) {
       require("electron").shell.openExternal(e.target.getAttribute("href"));
     }
   }
