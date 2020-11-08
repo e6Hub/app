@@ -1,16 +1,40 @@
 <template>
   <SettingView id="appearance-settings" title="Appearance">
     <div id="appearance-topbar-style-section">
-      <h4 class="text-sm font-bold uppercase text-gray-600 mb-2">
-        Titlebar style
-      </h4>
-      <RadioForm
-        id="appearance-topbar-style-form"
-        name="topbar-style"
-        :evar="currentTitlebarStyle"
-        :radios="titlebarStyleOptions"
-        :onChange="titlebarStyleChange"
-      />
+      <section>
+        <h4 class="text-sm font-bold uppercase text-gray-600 mb-2">
+          Titlebar style
+        </h4>
+        <RadioForm
+          id="appearance-topbar-style-form"
+          name="topbar-style"
+          :evar="currentTitlebarStyle"
+          :radios="titlebarStyleOptions"
+          :onChange="titlebarStyleChange"
+        />
+      </section>
+      <section class="mt-4">
+        <h4 class="text-sm font-bold uppercase text-gray-600 mb-2">
+          Post views
+        </h4>
+        <Checkbox
+          :evar="this.setting('blurNsfw')"
+          name="enable_blurNsfw"
+          :onchange="blurNsfwChange"
+        >Blur explicit posts</Checkbox>
+        <div v-if="this.setting('blurNsfw')" class="mt-3">
+          <h4 class="text-sm font-bold uppercase text-gray-600 mb-2">
+            Unblur when
+          </h4>
+          <RadioForm
+            id="appearance-unblurnsfw"
+            name="unblurnsfw-when"
+            :evar="this.setting('unblurNsfw')"
+            :radios="unblurNsfwOptions"
+            :onChange="unblurNsfwChange"
+          />
+        </div>
+      </section>
     </div>
   </SettingView>
 </template>
@@ -18,11 +42,12 @@
 <script>
 import SettingView from "@/components/SettingView.vue";
 import RadioForm from "@/components/RadioForm.vue";
+import Checkbox from "@/components/Checkbox.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "AppearanceSettings",
-  components: { SettingView, RadioForm },
+  components: { SettingView, RadioForm, Checkbox },
   data() {
     return {
       titlebarStyleOptions: [
@@ -35,6 +60,20 @@ export default {
           label: "Small",
         },
       ],
+      unblurNsfwOptions: [
+        {
+          value: "onhover",
+          label: "On hover"
+        },
+        {
+          value: "onclick",
+          label: "On post's view"
+        },
+        {
+          value: "never",
+          label: "Never"
+        },
+      ]
     };
   },
   computed: {
@@ -48,6 +87,18 @@ export default {
     titlebarStyleChange: function (e) {
       this.setSetting({
         key: "titlebarStyle",
+        value: e.target.value,
+      });
+    },
+    blurNsfwChange: function(e) {
+      this.setSetting({
+        key: "blurNsfw",
+        value: e.target.checked,
+      });
+    },
+    unblurNsfwChange: function (e) {
+      this.setSetting({
+        key: "unblurNsfw",
         value: e.target.value,
       });
     },

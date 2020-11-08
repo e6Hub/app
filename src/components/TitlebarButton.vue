@@ -13,23 +13,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "TitlebarButton",
-  data() {
-    return {
-      currentStyle: this.$store.getters.setting("titlebarStyle")
+  computed: {
+    ...mapGetters(["setting"]),
+    currentStyle() {
+      return this.setting("titlebarStyle")
     }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      let self = this;
-      this.$store.subscribeAction((action) => {
-        if (action.type !== "setSetting") return;
-        if (action.payload.key !== "titlebarStyle") return;
-        
-        self.currentStyle = action.payload.value;
-      });
-    });
   },
   props: {
     role: String,

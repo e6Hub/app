@@ -1,200 +1,204 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @import url('https://fonts.googleapis.com/css?family=Exo+2:400,700&display=swap');
-
 ::-webkit-scrollbar {
-    background: transparent;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-    width: 8px;
-    height: 8px;
+  background: transparent;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #667eea;
-    background-clip: padding-box;
-    border: 2px solid transparent;
-    border-radius: 9px;
+  background: #667eea;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 9px;
 }
 
 body {
-    font-family: 'Exo 2', sans-serif;
-    overflow: hidden;
-    border: 1px solid #48545c;
+  font-family: 'Exo 2', sans-serif;
+  overflow: hidden;
+  border: 1px solid #48545c;
 }
 
 div#main {
-    margin: 1px;
+  margin: 1px;
 }
 
-#titlebar button > img {
-    image-rendering: pixelated;
+#titlebar button>img {
+  image-rendering: pixelated;
 }
 
 #titlebar {
-    -webkit-app-region: drag;
+  -webkit-app-region: drag;
 }
 
-#titlebar > #window-buttons {
-    -webkit-app-region: no-drag;
+#titlebar>#window-buttons {
+  -webkit-app-region: no-drag;
 }
 
-#titlebar > #window-buttons > button {
-    display: inline-flex;
-    justify-content: center;
-    transition-duration: .2s;
-    margin-left: 1px;
+#titlebar>#window-buttons>button {
+  display: inline-flex;
+  justify-content: center;
+  transition-duration: .2s;
+  margin-left: 1px;
 }
 
 .fade-enter-active, .fade-leave-active {
-    transition: all .2s cubic-bezier(0, 0.70, 0.25, 1);
+  transition: all .2s cubic-bezier(0, 0.70, 0.25, 1);
 }
 
 .fade-leave-to {
-    opacity: 0;
-    transform: translateX(-20px);
+  opacity: 0;
+  transform: translateX(-20px);
 }
 
 .fade-enter {
-    opacity: 0;
-    transform: translateX(20px);
+  opacity: 0;
+  transform: translateX(20px);
 }
 
 #post_details {
-    text-shadow: 0 2px 5px rgba(0,0,0,.7);
-    background: linear-gradient(0deg, #2d3748 40%, transparent);
+  text-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+  background: linear-gradient(0deg, #2d3748 40%, transparent);
 }
 
-.checkbox-label input:checked + svg {
-    display: block !important;
+.checkbox-label input:checked+svg {
+  display: block !important;
 }
 
 li#download-done {
-    max-width: 45%;
+  max-width: 45%;
 }
 
 #sidebar-link .router-link-active {
-    background: #718096;
+  background: #718096;
 }
 
 #settings-sidebar-link .router-link-active {
-    background: #2d3748;
-    color: #f7fafc;
-    cursor: default;
+  background: #2d3748;
+  color: #f7fafc;
+  cursor: default;
 }
 
 #dPostImg {
-    -webkit-mask-image: linear-gradient(90deg, #000 50%, transparent 95%);
+  -webkit-mask-image: linear-gradient(90deg, #000 50%, transparent 95%);
 }
 
 #post_label {
-    margin: -.5rem;
+  margin: -.5rem;
 }
 
 div#postview-video-controls {
-    transform: translateY(100%);
-    opacity: 0;
+  transform: translateY(100%);
+  opacity: 0;
 }
 
 #postview-video-container:hover #postview-video-controls {
-    transform: translateY(0);
-    opacity: 1;
+  transform: translateY(0);
+  opacity: 1;
 }
 
 div#postview-video-container:before {
-    content: '';
-    background: linear-gradient(0deg, #2d3748, transparent);
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 0;
-    position: absolute;
-    transition: .3s;
-    opacity: 0;
+  content: '';
+  background: linear-gradient(0deg, #2d3748, transparent);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  position: absolute;
+  transition: .3s;
+  opacity: 0;
 }
 
 div#postview-video-container:hover::before {
-    height: 30%;
-    opacity: 1;
+  height: 30%;
+  opacity: 1;
 }
 
 button:focus, input:focus {
-    outline: none;
+  outline: none;
 }
 
 #pv-volume-slider input {
-    -webkit-appearance: none;
-    height: 0.25rem;
-    display: block;
-    background: rgba(255,255,255,.4);
-    border-radius: 10px;
-    width: 5rem;
-    cursor: pointer;
+  -webkit-appearance: none;
+  height: 0.25rem;
+  display: block;
+  background: rgba(255, 255, 255, .4);
+  border-radius: 10px;
+  width: 5rem;
+  cursor: pointer;
 }
 
 #pv-volume-slider input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 1rem;
-    height: 1rem;
-    background: #fff;
-    border-radius: 1rem;
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  background: #fff;
+  border-radius: 1rem;
 }
 
 #pv-volume-sliderbar-current {
-    height: 0.25rem;
-    width: 0%;
-    background: #fff;
-    border-radius: 1rem;
-    position: absolute;
-    bottom: 0;
-    z-index: -1;
-    user-select: none;
+  height: 0.25rem;
+  width: 0%;
+  background: #fff;
+  border-radius: 1rem;
+  position: absolute;
+  bottom: 0;
+  z-index: -1;
+  user-select: none;
 }
 
 #pv-timeline-container {
-    top: -1rem;
+  top: -1rem;
 }
 
 #pv-timeline-container input {
-    -webkit-appearance: none;
-    height: 0.25rem;
-    border-radius: 1rem;
-    background: rgba(255,255,255,.4);
-    width: 100%;
+  -webkit-appearance: none;
+  height: 0.25rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, .4);
+  width: 100%;
 }
 
 #pv-timeline-container input::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 1rem;
-    height: 1rem;
-    background: #fff;
-    border-radius: 1rem;
+  -webkit-appearance: none;
+  width: 1rem;
+  height: 1rem;
+  background: #fff;
+  border-radius: 1rem;
 }
 
 #pv-timeline-sliderbar-current {
-    position: absolute;
-    background: #fff;
-    height: 4px;
-    border-radius: 1rem;
-    z-index: -1;
+  position: absolute;
+  background: #fff;
+  height: 4px;
+  border-radius: 1rem;
+  z-index: -1;
 }
 
 #pv-timeline-container span {
-    top: -2rem;
+  top: -2rem;
 }
 
-label:hover #radioform-container,
-label input[type="radio"]:checked + #radioform-container {
-    @apply border-indigo-400;
+label:hover #radioform-container, label input[type="radio"]:checked+#radioform-container {
+  @apply border-indigo-400;
 }
 
-label:hover #radioform-circle,
-label input[type="radio"]:checked + #radioform-container #radioform-circle {
-    @apply bg-indigo-400;
+label:hover #radioform-circle, label input[type="radio"]:checked+#radioform-container #radioform-circle {
+  @apply bg-indigo-400;
 }
 
 #postview-description a {
-    @apply text-indigo-300;
+  @apply text-indigo-300;
+}
+
+#post_item.blur img, #postview-sample.blur img {
+  filter: blur(10px);
+}
+
+#post_item.blur.unblurHover:hover img, #postview-sample.blur.unblurHover:hover img {
+  filter: blur(0);
 }

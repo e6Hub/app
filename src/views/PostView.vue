@@ -27,12 +27,18 @@
         <div
           id="postview-sample"
           v-if="this.animatedExts.indexOf(post.file.ext) < 0"
+          :class="{
+            'blur': (post.rating === 'e' || post.rating === 'q') && blurNsfw && unblurNsfw !== 'onclick',
+            'unblurHover': (post.rating === 'e' || post.rating === 'q') && blurNsfw && unblurNsfw === 'onhover',
+          }"
         >
-          <img
-            :src="post.sample.url"
-            :alt="post.id"
-            class="rounded w-auto mx-auto"
-          />
+          <div class="overflow-hidden rounded mx-auto">
+            <img
+              :src="post.sample.url"
+              :alt="post.id"
+              class="rounded w-auto mx-auto"
+            />
+          </div>
         </div>
         <div
           id="postview-video"
@@ -293,6 +299,7 @@
 import DText from "dtext-parser";
 import * as ptime from "pretty-ms";
 import bytes from "bytes";
+import { mapGetters } from "vuex";
 
 export default {
   name: "postView",
@@ -314,6 +321,15 @@ export default {
       viewHeight: 0,
       nlinks: 0,
     };
+  },
+  computed: {
+    ...mapGetters(["setting"]),
+    blurNsfw() {
+      return this.setting("blurNsfw");
+    },
+    unblurNsfw() {
+      return this.setting("unblurNsfw");
+    }
   },
   watch: {
     videoVolume(v) {

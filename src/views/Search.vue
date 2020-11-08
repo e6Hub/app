@@ -15,22 +15,27 @@
               </li>
             </ul>
           </div>
-          <input
-            :value="tags"
-            @input="inputTags"
-            type="text"
-            name="tags"
-            id="search-tags"
-            class="rounded mr-2 px-2 py-1 bg-gray-700 focus:bg-gray-600 focus:outline-none duration-200 text-base"
-          />
-          <button
-            type="submit"
-            id="search-posts-btn"
-            class="inline-flex items-center bg-indigo-500 p-1 px-3 rounded"
+          <div
+            id="e6h__inputsearch"
+            class="flex items-center"
           >
-            <feather type="search" size="16" class="mr-2" />
-            Search posts
-          </button>
+            <input
+              :value="tags"
+              @input="inputTags"
+              type="text"
+              name="tags"
+              id="search-tags"
+              class="rounded mr-2 px-2 py-1 bg-gray-700 focus:bg-gray-600 focus:outline-none duration-200 text-base"
+            />
+            <button
+              type="submit"
+              id="search-posts-btn"
+              class="inline-flex items-center bg-indigo-500 py-1 px-3 rounded"
+            >
+              <feather type="search" size="16" class="mr-2" />
+              Search posts
+            </button>
+          </div>
         </form>
       </div>
       <div

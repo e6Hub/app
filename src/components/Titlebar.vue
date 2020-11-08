@@ -22,6 +22,7 @@ import MaxIcon from "@/assets/titlebar/m.png";
 import RestoreIcon from "@/assets/titlebar/r.png";
 import MinIcon from "@/assets/titlebar/n.png";
 import titlebarButton from "@/components/TitlebarButton.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Titlebar",
@@ -32,8 +33,13 @@ export default {
       MaxIcon,
       CloseIcon,
       isMaximized: false,
-      currentStyle: this.$store.getters.setting("titlebarStyle")
     };
+  },
+  computed: {
+    ...mapGetters(["setting"]),
+    currentStyle() {
+      return this.setting("titlebarStyle");
+    }
   },
   components: { titlebarButton },
   mounted() {
@@ -50,13 +56,6 @@ export default {
       document.getElementById("close-app").onclick = () => { selfWin.close() };
       document.getElementById("maximize-app").onclick = () => { selfWin.isMaximized() ? selfWin.restore() : selfWin.maximize() };
       document.getElementById("minimize-app").onclick = () => { selfWin.minimize() };
-
-      this.$store.subscribeAction((action) => {
-        if (action.type !== "setSetting") return;
-        if (action.payload.key !== "titlebarStyle") return;
-        
-        self.currentStyle = action.payload.value;
-      });
     });
   },
 };

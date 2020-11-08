@@ -9,14 +9,20 @@ const storePersist = new persist({
   storage: window.localStorage
 });
 
+function defaultSettings() {
+  return {
+    downloadLocation: require('os').userInfo().homedir,
+    titlebarStyle: 'win10',
+    blurNsfw: false,
+    unblurNsfw: 'onhover'
+  }
+}
+
 export default new Vuex.Store({
   state: {
     tags: '',
     postId: 0,
-    settings: {
-      downloadLocation: require('os').userInfo().homedir,
-      titlebarStyle: 'win10'
-    },
+    settings: defaultSettings(),
     updateStatus: 'NULL',
     postsList: [],
     pluginsDir: '',
@@ -34,10 +40,10 @@ export default new Vuex.Store({
       state.settings[obj.key] = obj.value;
     },
     _resetSettings(state) {
-      state.settings = {
-        downloadLocation: require('os').userInfo().homedir,
-        titlebarStyle: 'win10'
-      }
+      const defaults = defaultSettings()
+      Object.keys(defaults).forEach(key => {
+        state.settings[key] = defaults[key]
+      })
     },
     _verifySettings(state) {
       if (!state.settings || typeof state.settings != 'object') this._resetSettings(state);

@@ -8,7 +8,7 @@
         class="hidden"
         :name="name"
         :checked="evar"
-        @change="onChange"
+        @change="onchange"
       />
       <svg
         class="hidden w-4 h-4 text-indigo-200 pointer-events-none"
@@ -33,13 +33,13 @@
         </g>
       </svg>
     </div>
-    <span class="select-none"><slot></slot></span>
+    <span class="select-none"><slot/></span>
   </label>
 </template>
 
 <script>
 export default {
   name: "Checkbox",
-  props: ["evar", "name", "onChange"],
+  props: ["evar", "name", "onchange"],
 };
 </script>
