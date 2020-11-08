@@ -6,12 +6,12 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/eawhvp0h2215rqhj?svg=true)](https://ci.appveyor.com/project/Saektide/app)
 [![DeepScan grade](https://deepscan.io/api/teams/9325/projects/11662/branches/175184/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9325&pid=11662&bid=175184)
 
-This is an app for explore and download posts on e621.net. It uses e621's API and it's powered by Vue.js. Feel free to contribute to this project!
+This is an app for explore and download posts on [e621.net](https://e621.net/help/about). It uses [e621's API](https://e621.net/wiki_pages/2425) and it's powered by [Vue.js](https://vuejs.org/). Feel free to contribute to this project!
 
 * [Download](https://github.com/e6Hub/app/releases/latest)
 
 ### 💭 Keep in mind...
-* This app interacts with a NSFW site, so, if you don't like to see explicit content... use `rating:s` while you are searching posts.
+* This app interacts with a NSFW site, so, if you don't like to see explicit content... use `rating:s` while you are searching posts. Learn more about [e621's tag system](https://e621.net/help/tags).
 * Posts (images, animations, videos) are from e621, some are uploaded by his own artist.
 
 ## 🖥 Machine requirements
@@ -49,13 +49,13 @@ git clone https://github.com/e6Hub/app.git
 cd app
 ```
 
-### 📚 Install deps with Yarn (recommended)
+### 📚 Install deps with NPM
+```
+npm i
+```
+or with Yarn
 ```
 yarn
-```
-or with NPM...
-```
-npm install
 ```
 
 ## 🛠 Compile

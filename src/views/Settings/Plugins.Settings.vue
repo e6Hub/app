@@ -1,54 +1,67 @@
 <template>
-    <SettingView id="plugins-settings" title="Plugins">
-        <div id="plugins-header">
-            <button @click="openFolder"  class="mt-4 ml-4 bg-indigo-500 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200">Open plugins folder</button>
-            <button @click="refreshPlugins" class="mt-4 ml-4 bg-orange-500 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200">Refresh plugins</button>
+  <SettingView id="plugins-settings" title="Plugins">
+    <beta-feature/>
+    <div id="plugins-header" class="mt-4">
+      <btn @click.native="openFolder">Open plugins folder</btn>
+      <btn @click.native="refreshPlugins" role="warn" class="ml-4">Refresh plugins</btn>
+    </div>
+    <ul
+      id="plugins-list"
+      class="mt-6"
+    >
+      <li
+        v-for="(plg, index) in this.plugins"
+        :key="index"
+        class="bg-gray-700 py-3 px-4 rounded-lg"
+      >
+        <div id="plg-header" class="flex justify-between">
+          <div>
+            <span id="plg-name" v-text="plg.meta.name" />
+          </div>
+          <div class="text-gray-400">
+            <span id="plg-by" class="mr-2">by</span>
+            <span id="plg-author" v-text="plg.meta.author" />
+          </div>
         </div>
-        <ul id="plugins-list">
-            <li v-for="(plg, index) in this.plugins" v-bind:key="index">
-                <div id="plg-header">
-                    <span id="plg-name" v-text="plg.meta.name"/>
-                    <span id="plg-by">by</span>
-                    <span id="plg-author" v-text="plg.meta.author"/>
-                </div>
-                <div id="plg-actions">
-                    <button v-if="!plg.enabled" @click="enablePlugin(plg.path)" class="mt-4 ml-4 bg-green-500 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200">Enable</button>
-                    <button v-else @click="disablePlugin(plg.path)" class="mt-4 ml-4 bg-indigo-500 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200">Disable</button>
-                    <button @click="removePlugin(plg)" class="mt-4 ml-4 bg-red-500 py-2 px-4 rounded focus:outline-none shadow-lg hover:shadow-xl duration-200">Remove</button>
-                </div>
-            </li>
-        </ul>
-    </SettingView>
+        <div id="plg-actions" class="mt-4">
+          <btn v-if="!plg.enabled" @click.native="enablePlugin(plg.path)" role="safe">Enable</btn>
+          <btn v-else @click.native="disablePlugin(plg.path)" class="ml-4">Disable</btn>
+        </div>
+      </li>
+    </ul>
+  </SettingView>
 </template>
 
 <script>
-import SettingView from '@/components/SettingView.vue'
-import { mapGetters } from 'vuex';
+import SettingView from "@/components/SettingView.vue";
+import BetaFeature from "@/components/BetaFeature.vue";
+import Btn from "@/components/Button.vue";
+import { mapGetters } from "vuex";
 
 export default {
-    name: 'PluginsSettings',
-    components: { SettingView },
-    computed: {
-        ...mapGetters(['pluginsDir', 'plugins']),
+  name: "PluginsSettings",
+  components: { SettingView, BetaFeature, Btn },
+  computed: {
+    ...mapGetters(["pluginsDir", "plugins"]),
+  },
+  methods: {
+    openFolder() {
+      const { shell } = require("electron");
+      shell.openItem(this.pluginsDir);
     },
-    methods: {
-        openFolder() {
-            const { shell } = require('electron');
-            shell.openItem(this.pluginsDir);
-        },
-        refreshPlugins() {
-            console.log('refreshing plugins...');
-            this.$refreshPlugins();
-        },
-        enablePlugin(plgPath) {
-            this.$loadPlugin(plgPath);
-        },
-        disablePlugin(plgPath) {
-            this.$unloadPlugin(plgPath);
-        },
-        removePlugin(plg) {
-            this.$removePlugin(plg);
-        }
-    }
-}
+    refreshPlugins() {
+      console.log("refreshing plugins...");
+      this.$refreshPlugins();
+    },
+    enablePlugin(plgPath) {
+      this.$loadPlugin(plgPath);
+    },
+    disablePlugin(plgPath) {
+      this.$unloadPlugin(plgPath);
+    },
+    removePlugin(plg) {
+      this.$removePlugin(plg);
+    },
+  },
+};
 </script>

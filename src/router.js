@@ -4,55 +4,55 @@ import Router from 'vue-router';
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
-    base: process.env.BASE_URL,
-    routes: [
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes: [
+    {
+      path: '/search',
+      name: 'search',
+      component: () => import('@/views/Search.vue')
+    },
+    {
+      path: '/downloads',
+      name: 'downloads',
+      component: () => import('@/views/Downloads.vue')
+    },
+    {
+      path: '/settings',
+      component: () => import('@/views/Settings.vue'),
+      children: [
         {
-            path: '/search',
-            name: 'search',
-            component: () => import('@/views/Search.vue')
+          path: 'downloads',
+          alias: '',
+          name: 'settings.downloads',
+          component: () => import('@/views/Settings/Downloads.Settings.vue')
         },
         {
-            path: '/downloads',
-            name: 'downloads',
-            component: () => import('@/views/Downloads.vue')
+          path: 'appearance',
+          name: 'settings.appearance',
+          component: () => import('@/views/Settings/Appearance.Settings.vue')
         },
         {
-            path: '/settings',
-            component: () => import('@/views/Settings.vue'),
-            children: [
-                {
-                    path: 'downloads',
-                    alias: '',
-                    name: 'settings.downloads',
-                    component: () => import('@/views/Settings/Downloads.Settings.vue')
-                },
-                {
-                    path: 'appearance',
-                    name: 'settings.appearance',
-                    component: () => import('@/views/Settings/Appearance.Settings.vue')
-                },
-                {
-                    path: 'plugins',
-                    name: 'settings.plugins',
-                    component: () => import('@/views/Settings/Plugins.Settings.vue')
-                },
-                {
-                    path: 'about',
-                    name: 'settings.about',
-                    component: () => import('@/views/Settings/About.Settings.vue')
-                }
-            ]
+          path: 'plugins',
+          name: 'settings.plugins',
+          component: () => import('@/views/Settings/Plugins.Settings.vue')
         },
         {
-            path: '/postview/:id',
-            name: 'postView',
-            props: true,
-            component: () => import('@/views/PostView.vue')
-        },
-        {
-            path: '*',
-            redirect: '/search'
+          path: 'about',
+          name: 'settings.about',
+          component: () => import('@/views/Settings/About.Settings.vue')
         }
-    ]
-  })
+      ]
+    },
+    {
+      path: '/postview/:id',
+      name: 'postView',
+      props: true,
+      component: () => import('@/views/PostView.vue')
+    },
+    {
+      path: '*',
+      redirect: '/search'
+    }
+  ]
+})

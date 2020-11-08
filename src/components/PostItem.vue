@@ -1,6 +1,6 @@
 <template>
     <div id="post_item" :id-post="id" class="flex items-center flex-col relative">
-        <PLabel v-if="this.animatedExts.indexOf(ext) > -1" :e="ext"/>
+        <PLabel v-if="this.animatedExts.indexOf(ext) > -1">{{ext}}</PLabel>
         <img :src="preview_url" class="rounded"/>
         <div id="post_details" class="p-1 flex justify-center items-center w-full absolute bottom-0">
             <div id="favs" class="flex items-center ml-2 text-pink-400 pr-2">
