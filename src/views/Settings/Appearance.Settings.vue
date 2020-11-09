@@ -35,6 +35,18 @@
           />
         </div>
       </section>
+      <section class="mt-4">
+        <h4 class="text-sm font-bold uppercase text-gray-600 mb-2">
+          Search view mode
+        </h4>
+        <RadioForm
+          id="appearance-searchview"
+          name="searchview-mode"
+          :evar="this.setting('searchViewMode')"
+          :radios="searchViewModeOptions"
+          :onChange="searchViewModeChange"
+        />
+      </section>
     </div>
   </SettingView>
 </template>
@@ -73,6 +85,16 @@ export default {
           value: "never",
           label: "Never"
         },
+      ],
+      searchViewModeOptions: [
+        {
+          value: "classic",
+          label: "Classic view"
+        },
+        {
+          value: "compact",
+          label: "Compact view, all posts have same height and width"
+        }
       ]
     };
   },
@@ -99,6 +121,12 @@ export default {
     unblurNsfwChange: function (e) {
       this.setSetting({
         key: "unblurNsfw",
+        value: e.target.value,
+      });
+    },
+    searchViewModeChange: function (e) {
+      this.setSetting({
+        key: "searchViewMode",
         value: e.target.value,
       });
     },

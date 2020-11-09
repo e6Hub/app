@@ -195,10 +195,14 @@ label:hover #radioform-circle, label input[type="radio"]:checked+#radioform-cont
   @apply text-indigo-300;
 }
 
-#post_item.blur img, #postview-sample.blur img {
-  filter: blur(10px);
+#post_item.blur img, #postview-sample.blur img, .sidebar_link_post.blur img, #downloads-container ul li.blur img {
+  filter: blur(16px);
 }
 
-#post_item.blur.unblurHover:hover img, #postview-sample.blur.unblurHover:hover img {
+#post_item.blur.unblurHover:hover img, #postview-sample.blur.unblurHover:hover img, .sidebar_link_post.blur.unblurHover:hover img, #downloads-container ul li.blur.unblurHover:hover img {
   filter: blur(0);
+}
+
+#settings-sidebar {
+  width: 24rem;
 }

@@ -19,10 +19,10 @@
     >
       <SidebarLink
         v-for="(post, index) in this.$parent.postsList"
-        v-bind:key="index"
-        icon="trip_origin"
+        :key="index"
         :img="post.preview.url"
         :imgalt="post.id"
+        :rating="post.rating"
         @click.native="viewPost(post)"
       />
     </ul>

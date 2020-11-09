@@ -5,14 +5,23 @@
     class="flex items-center flex-col relative"
     :class="{
       'blur': (rating === 'e' || rating === 'q') && blurNsfw,
-      'unblurHover': (rating === 'e' || rating === 'q') && unblurNsfw === 'onhover'
+      'unblurHover': (rating === 'e' || rating === 'q') && unblurNsfw === 'onhover',
+      'w-32 h-40': viewMode === 'compact'
     }"
   >
     <PLabel v-if="this.animatedExts.indexOf(ext) > -1">{{ ext }}</PLabel>
-    <div class="overflow-hidden rounded">
+    <div
+      class="overflow-hidden rounded"
+      :class="{
+        'flex items-center justify-center w-32 h-40': viewMode === 'compact'
+      }"
+    >
       <img
         :src="preview_url"
         class="rounded"
+        :class="{
+          'object-cover w-full h-full': viewMode === 'compact'
+        }"
       />
     </div>
     <div
@@ -33,6 +42,7 @@
         }"
       >
         <feather
+          v-if="score !== 0"
           :type="`arrow-${score > 0 ? 'up' : 'down'}`"
           size="16"
           class="mr-1"
@@ -65,10 +75,13 @@ export default {
   computed: {
     ...mapGetters(["setting"]),
     blurNsfw() {
-      return this.setting("blurNsfw")
+      return this.setting("blurNsfw");
     },
     unblurNsfw() {
-      return this.setting("unblurNsfw")
+      return this.setting("unblurNsfw");
+    },
+    viewMode() {
+      return this.setting("searchViewMode");
     }
   },
   data() {

@@ -46,15 +46,23 @@
         <span v-if="fetching">Loading...</span>
         <span v-else>No posts to see here...</span>
       </div>
+      <div
+        id="e6h__global_blacklist_notice"
+        class="text-center text-gray-400"
+        v-if="posts.filter(p => !p.file.url).length"
+      >
+        There are {{posts.filter(p => !p.file.url).length}} post(s) hidden due to global blacklist rule. <e-link href="https://e621.net/help/global_blacklist"
+        >Learn more about this</e-link>.
+      </div>
       <ul
         id="posts-list"
         ref="posts_container"
         class="flex flex-wrap justify-center p-2 w-full h-24 overflow-y-auto flex-1"
       >
         <li
-          v-for="(post, index) in posts"
+          v-for="(post, index) in posts.filter(p => p.file.url)"
           v-bind:key="index"
-          class="m-4 mb-8 max-w-xl w-32 cursor-pointer hover:opacity-75 duration-200"
+          class="m-4 mb-8 w-32 cursor-pointer hover:opacity-75 duration-200"
           @contextmenu="listPost(post)"
           @click="viewPost(post.id)"
         >
@@ -88,13 +96,14 @@
 
 <script>
 import PostItem from "@/components/PostItem.vue";
+import eLink from "@/components/ExternalLink.vue";
 import * as _ from "request-promise-native";
 import { version as appVer } from "../../package.json";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   replace: false,
-  components: { PostItem },
+  components: { PostItem, eLink },
   data() {
     return {
       posts: [],
@@ -125,7 +134,7 @@ export default {
         uri: "https://e621.net/posts.json",
         qs: {
           tags: this.tags,
-          limit: 40,
+          limit: 60,
           page: this.page,
         },
         headers: {
@@ -136,7 +145,7 @@ export default {
         .then((d) => {
           console.log(d.posts);
           if (!this.posts.length && !d.posts.length) this.noPosts = true;
-          else if (this.posts.length && d.posts.length < 40)
+          else if (this.posts.length && d.posts.length < 60)
             this.lastPage = true;
           this.displayPosts(d.posts);
         })

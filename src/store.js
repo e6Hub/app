@@ -14,8 +14,14 @@ function defaultSettings() {
     downloadLocation: require('os').userInfo().homedir,
     titlebarStyle: 'win10',
     blurNsfw: false,
-    unblurNsfw: 'onhover'
+    unblurNsfw: 'onhover',
+    searchViewMode: 'compact'
   }
+}
+
+function log(s, id) {
+  if (id) console.log(`%c[${id}]%c ${s}`, 'color:#AC4FE5', '')
+  else console.log(s);
 }
 
 export default new Vuex.Store({
@@ -36,14 +42,15 @@ export default new Vuex.Store({
       state.postId = _id;
     },
     _setSetting(state, obj) {
-      console.log(`%c[Settings]%c <${obj.key}> changed to "${obj.value}"`, 'color:#AC4FE5', '')
+      log(`<${obj.key}> changed to "${obj.value}"`, 'Settings');
       state.settings[obj.key] = obj.value;
     },
     _resetSettings(state) {
       const defaults = defaultSettings()
       Object.keys(defaults).forEach(key => {
         state.settings[key] = defaults[key]
-      })
+      });
+      log(`Settings restored`, 'Settings');
     },
     _verifySettings(state) {
       if (!state.settings || typeof state.settings != 'object') this._resetSettings(state);
@@ -72,6 +79,9 @@ export default new Vuex.Store({
     },
     _disablePlugin(state, pathToPlugin) {
       state.plugins.find(p => p.path === pathToPlugin).enabled = false;
+    },
+    _clearPlugins(state) {
+      state.plugins = [];
     }
   },
   actions: { // Public actions
@@ -110,6 +120,9 @@ export default new Vuex.Store({
     },
     disablePlugin({ commit }, pluginPath) {
       commit('_disablePlugin', pluginPath);
+    },
+    clearPlugins({ commit }) {
+      commit('_clearPlugins');
     }
   },
   getters: { // Getters

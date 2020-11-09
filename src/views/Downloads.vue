@@ -21,10 +21,13 @@
     </button>
     <ul id="downloads-panels" class="flex flex-wrap dPanel">
       <li
-        id="download-active"
         class="flex m-3 bg-gray-700 overflow-hidden w-1/2 h-32 rounded relative"
+        :class="{
+          'blur': (post.rating === 'e' || post.rating === 'q') && blurNsfw,
+          'unblurHover': (post.rating === 'e' || post.rating === 'q') && blurNsfw && unblurNsfw === 'onhover'
+        }"
         v-for="post in this.$parent.downloadsQueue"
-        v-bind:key="post.id"
+        :key="post.id"
       >
         <img
           id="dPostImg"
@@ -51,8 +54,11 @@
       </h2>
       <ul id="downloaded-panels" class="flex flex-wrap dPanel">
         <li
-          id="download-done"
           class="flex m-3 bg-gray-700 overflow-hidden w-1/2 h-32 rounded relative cursor-pointer"
+          :class="{
+            'blur': (downloadedPost.rating === 'e' || downloadedPost.rating === 'q') && blurNsfw,
+            'unblurHover': (downloadedPost.rating === 'e' || downloadedPost.rating === 'q') && blurNsfw && unblurNsfw === 'onhover'
+          }"
           v-for="(downloadedPost, index) in this.$parent.downloaded"
           :key="index"
           @click="viewPost(downloadedPost)"
@@ -78,8 +84,19 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "downloads",
+  computed: {
+    ...mapGetters(["setting"]),
+    blurNsfw() {
+      return this.setting("blurNsfw");
+    },
+    unblurNsfw() {
+      return this.setting("unblurNsfw");
+    }
+  },
   methods: {
     viewPost(p) {
       if (!p || !p.id) return;
