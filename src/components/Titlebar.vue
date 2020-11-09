@@ -1,7 +1,7 @@
 <template>
   <div
     id="titlebar"
-    class="bg-gray-900 text-right"
+    class="bg-gray-900 text-right duration-200"
     :class="{
       'h-6': currentStyle === 'small',
       'h-8': currentStyle === 'win10'
