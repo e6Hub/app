@@ -15,7 +15,7 @@
       v-if="this.$parent.postsList.length"
       id="download-posts-in-list"
       class="absolute top-0 right-0 m-8"
-      @click="downloadListedPosts"
+      @click.native="downloadListedPosts"
     >
       Download {{ this.$parent.postsList.length }} listed post(s)
     </btn>
