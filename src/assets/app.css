@@ -195,8 +195,12 @@ label:hover #radioform-circle, label input[type="radio"]:checked+#radioform-cont
   @apply text-indigo-300;
 }
 
-#post_item.blur img, #postview-sample.blur img, .sidebar_link_post.blur img, #downloads-container ul li.blur img {
+#post_item.blur img, .sidebar_link_post.blur img, #downloads-container ul li.blur img {
   filter: blur(16px);
+}
+
+#postview-sample.blur img {
+  filter: blur(48px);
 }
 
 #post_item.blur.unblurHover:hover img, #postview-sample.blur.unblurHover:hover img, .sidebar_link_post.blur.unblurHover:hover img, #downloads-container ul li.blur.unblurHover:hover img {
