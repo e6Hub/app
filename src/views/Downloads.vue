@@ -11,15 +11,15 @@
         >go ahead!</router-link
       >
     </div>
-    <button
+    <btn
       v-if="this.$parent.postsList.length"
       id="download-posts-in-list"
-      class="bg-indigo-400 py-2 px-3 rounded shadow-lg absolute top-0 right-0 m-8"
+      class="absolute top-0 right-0 m-8"
       @click="downloadListedPosts"
     >
-      Download {{ this.$parent.postsList.length }} listed posts
-    </button>
-    <ul id="downloads-panels" class="flex flex-wrap dPanel">
+      Download {{ this.$parent.postsList.length }} listed post(s)
+    </btn>
+    <ul id="downloads-panels" class="flex flex-wrap">
       <li
         class="flex m-3 bg-gray-700 overflow-hidden w-1/2 h-32 rounded relative"
         :class="{
@@ -52,7 +52,7 @@
       <h2 class="text-2xl font-bold uppercase text-gray-600">
         Downloaded posts
       </h2>
-      <ul id="downloaded-panels" class="flex flex-wrap dPanel">
+      <ul id="downloaded-panels" class="flex flex-wrap">
         <li
           class="flex m-3 bg-gray-700 overflow-hidden w-1/2 h-32 rounded relative cursor-pointer"
           :class="{
@@ -84,10 +84,12 @@
 </template>
 
 <script>
+import Btn from "@/components/Button.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "downloads",
+  components: { Btn },
   computed: {
     ...mapGetters(["setting"]),
     blurNsfw() {

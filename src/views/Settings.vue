@@ -30,7 +30,7 @@
         />
       </ul>
     </div>
-    <div id="settings-view" class="my-4 mx-2 px-4 w-full overflow-y-auto overflow-x-hidden">
+    <div id="settings-view" class="my-4 mx-2 px-4 w-full overflow-y-auto overflow-x-hidden max-w-screen-xl">
       <transition name="fade" mode="out-in">
         <router-view />
       </transition>
