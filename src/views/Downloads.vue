@@ -91,7 +91,7 @@ export default {
   name: "downloads",
   components: { Btn },
   computed: {
-    ...mapGetters(["setting"]),
+    ...mapGetters("settings", ["setting"]),
     blurNsfw() {
       return this.setting("blurNsfw");
     },

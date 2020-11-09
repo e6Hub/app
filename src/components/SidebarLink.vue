@@ -37,7 +37,7 @@ export default {
   name: "SidebarLink",
   props: ["icon", "linkto", "badgevar", "img", "imgalt", "rating"],
   computed: {
-    ...mapGetters(["setting"]),
+    ...mapGetters("settings", ["setting"]),
     blurNsfw() {
       return this.setting("blurNsfw");
     },

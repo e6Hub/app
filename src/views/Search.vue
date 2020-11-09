@@ -2,7 +2,7 @@
   <div id="search-container" class="inline-block flex-wrap w-full p-6">
     <h2 class="text-2xl font-bold uppercase text-gray-600">Search</h2>
     <div id="search-panels" class="flex flex-warp flex-col h-full">
-      <div id="posts-opts" class="border-b border-gray-700 w-full p-2 mb-2">
+      <div id="search-opts" class="border-b border-gray-700 w-full p-2 mb-2">
         <form action="#" @submit="searchPosts">
           <div v-if="errors.length">
             <ul>
@@ -33,7 +33,7 @@
               class="inline-flex items-center bg-indigo-500 py-1 px-3 rounded"
             >
               <feather type="search" size="16" class="mr-2" />
-              Search posts
+              Search
             </button>
           </div>
         </form>
@@ -55,7 +55,7 @@
         >Learn more about this</e-link>.
       </div>
       <ul
-        id="posts-list"
+        id="search-list"
         ref="posts_container"
         class="flex flex-wrap justify-center p-2 w-full h-24 overflow-y-auto flex-1"
       >
@@ -76,7 +76,7 @@
           />
         </li>
         <div
-          id="posts-nomore"
+          id="search-nomore"
           class="text-center py-8 text-gray-600 w-full"
           v-if="lastPage"
         >
@@ -84,7 +84,7 @@
         </div>
       </ul>
       <div
-        id="posts-notfound"
+        id="search-notfound"
         class="text-center py-8 text-gray-600"
         v-if="noPosts"
       >
@@ -115,10 +115,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["tags"]),
+    ...mapGetters("search", ["tags"])
   },
   methods: {
-    ...mapActions(["setTags"]),
+    ...mapActions("search", ["setTags"]),
     inputTags(e) {
       this.setTags(e.target.value);
     },
@@ -143,7 +143,6 @@ export default {
         json: true,
       })
         .then((d) => {
-          console.log(d.posts);
           if (!this.posts.length && !d.posts.length) this.noPosts = true;
           else if (this.posts.length && d.posts.length < 60)
             this.lastPage = true;
@@ -167,7 +166,7 @@ export default {
       });
       localStorage.posts = JSON.stringify(this.posts);
 
-      document.getElementById("posts-list").addEventListener("scroll", (e) => {
+      document.getElementById("search-list").addEventListener("scroll", (e) => {
         if (this.lastPage) return;
         let el = e.target;
         let lmt = el.scrollHeight - el.offsetHeight;
@@ -196,7 +195,7 @@ export default {
   },
   mounted() {
     this.$root.$on("searchByTag", (t) => {
-      this.tags = t;
+      this.setTags(t);
       this.searchPosts();
     });
   },

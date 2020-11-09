@@ -59,10 +59,10 @@ export default {
   name: "AboutSettings",
   components: { SettingView, eLink, Btn },
   computed: {
-    ...mapGetters(["updateStatus"]),
+    ...mapGetters("updater", ["updateStatus"]),
   },
   methods: {
-    ...mapActions(["resetSettings"]),
+    ...mapActions("settings", ["resetSettings"]),
     restartForUpdate() {
       ipcRenderer.send("restartForUpdate");
     },

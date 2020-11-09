@@ -18,7 +18,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "TitlebarButton",
   computed: {
-    ...mapGetters(["setting"]),
+    ...mapGetters("settings", ["setting"]),
     currentStyle() {
       return this.setting("titlebarStyle")
     }

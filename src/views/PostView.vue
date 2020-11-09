@@ -2,6 +2,7 @@
   <div
     id="postview-container"
     class="inline-flex w-full p-6 pb-0 overflow-hidden inset-y-0 flex-col"
+    v-if="post"
   >
     <h2
       class="inline-flex items-center text-2xl font-bold uppercase text-gray-600 mb-4"
@@ -323,7 +324,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["setting"]),
+    ...mapGetters("settings", ["setting"]),
     blurNsfw() {
       return this.setting("blurNsfw");
     },
@@ -336,9 +337,7 @@ export default {
       if (this.videoMuted)
         document.getElementById("postview-player").muted = false;
       document.getElementById("postview-player").volume = v;
-      document.getElementById("pv-volume-sliderbar-current").style.width = `${
-        100 * this.videoVolume - 0.01
-      }%`;
+      document.getElementById("pv-volume-sliderbar-current").style.width = `${100 * this.videoVolume - 0.01}%`;
     },
     videoRepeat(v) {
       document.getElementById("postview-player").loop = v;

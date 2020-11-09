@@ -28,7 +28,7 @@ export default {
   name: "DownloadsSettings",
   components: { SettingView, Btn },
   computed: {
-    ...mapGetters(["setting"]),
+    ...mapGetters("settings", ["setting"]),
     downloadFolder() {
       return this.setting("downloadLocation");
     },

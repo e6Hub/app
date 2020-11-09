@@ -4,11 +4,9 @@
     <div
       id="app-container"
       class="absolute flex inset-0 text-white pl-16 duration-200"
-      v-bind:class="{
-        'mt-6':
-          this.setting('titlebarStyle') === 'small' ||
-          this.setting('titlebarStyle') === 'macos',
-        'mt-8': this.setting('titlebarStyle') === 'win10',
+      :class="{
+        'mt-6': this.setting('titlebarStyle') === 'small',
+        'mt-8': this.setting('titlebarStyle') === 'win10'
       }"
     >
       <Sidebar ref="sidebar" />
@@ -44,7 +42,7 @@ export default {
   watch: {
     $route(to, from) {
       if (from.name == "postView") {
-        this.setPostId(null);
+        this.setPostId(0);
       }
 
       if (to.name == "postView") {
@@ -53,10 +51,11 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["setting"]),
+    ...mapGetters("settings", ["setting"]),
   },
   methods: {
-    ...mapActions(["verifySettings", "setPostId"]),
+    ...mapActions("settings", ["verifySettings"]),
+    ...mapActions("posts", {setPostId: "setId"}),
     addDownloadPost(postData) {
       if (
         this.downloadsQueue.findIndex((post_id) => post_id.id == postData.id) >
@@ -96,7 +95,9 @@ export default {
         }
       });
     };
+
     let self = this;
+
     this.$nextTick(() => {
       this.verifySettings();
       this.$initUpdater();
@@ -104,7 +105,6 @@ export default {
 
       self.$events.$on("downloadpost", function (p) {
         let indx;
-        console.log(p);
         d(r(p.file.url), {
           throttle: 250,
         })

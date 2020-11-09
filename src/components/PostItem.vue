@@ -73,7 +73,7 @@ export default {
   props: ["preview_url", "rating", "id", "score", "favs", "ext"],
   components: { PLabel },
   computed: {
-    ...mapGetters(["setting"]),
+    ...mapGetters("settings", ["setting"]),
     blurNsfw() {
       return this.setting("blurNsfw");
     },

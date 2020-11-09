@@ -36,7 +36,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["setting"]),
+    ...mapGetters("settings", ["setting"]),
     currentStyle() {
       return this.setting("titlebarStyle");
     }

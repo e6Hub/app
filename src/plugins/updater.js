@@ -8,7 +8,7 @@ const updaterController = {
    * @param {String} s The text to print
    */
   l(s) {
-    console.log(`%c[Updater]%c ${s}`, 'color: #0AF;', '')
+    console.log(`%c[Updater/Plugin]%c ${s}`, 'color: #0AF;', '')
   },
   /**
    * Print something with the "Updater" label, but
@@ -17,7 +17,7 @@ const updaterController = {
    * @param {String} s The text to print
    */
   e(s) {
-    console.log(`$c[Updater]$c ${s}`, 'color: #F00;', '')
+    console.log(`$c[Updater/Plugin]$c ${s}`, 'color: #F00;', '')
   },
   // Setters
   /**
@@ -25,7 +25,7 @@ const updaterController = {
    * @param {String} v The status string.
    */
   setStatus(v) {
-    store.dispatch('setUpdateStatus', v);
+    store.dispatch('updater/setUpdateStatus', v);
   },
   // Main methods
   /**

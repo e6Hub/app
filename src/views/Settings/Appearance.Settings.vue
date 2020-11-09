@@ -99,13 +99,13 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["setting"]),
+    ...mapGetters("settings", ["setting"]),
     currentTitlebarStyle() {
       return this.setting("titlebarStyle");
     },
   },
   methods: {
-    ...mapActions(["setSetting"]),
+    ...mapActions("settings", ["setSetting"]),
     titlebarStyleChange: function (e) {
       this.setSetting({
         key: "titlebarStyle",

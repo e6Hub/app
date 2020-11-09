@@ -18,7 +18,7 @@ const pluginManager = {
    */
   l(s) {
     if (typeof s === 'object') s = JSON.stringify(s, null, 4);
-    console.log(`%c[PluginManager]%c ${s}`, 'color: #C6F;', '')
+    console.log(`%c[Plugins/Manager]%c ${s}`, 'color: #C6F;', '')
   },
   /**
    * Print something with the "PluginManager" label, but
@@ -28,7 +28,7 @@ const pluginManager = {
    */
   e(s) {
     if (typeof s === 'object') s = JSON.stringify(s, null, 4);
-    console.log(`$c[PluginManager]$c ${s}`, 'color: #F67;', '')
+    console.log(`$c[Plugins/Manager]$c ${s}`, 'color: #F67;', '')
   },
   // Main methods
   /**
@@ -39,7 +39,7 @@ const pluginManager = {
     let appdata = app.getPath('userData');
     this.dir = path.join(appdata, 'plugins/');
     if (!fs.existsSync(this.dir)) fs.mkdirSync(this.dir);
-    store.dispatch('setPluginsDir', this.dir);
+    store.dispatch('plugins/setPluginsDir', this.dir);
   },
   /**
    * Gets and stores all plugins located in the plugins directory.
@@ -55,13 +55,13 @@ const pluginManager = {
       });
 
     this.plugins.forEach(plugin => {
-      store.dispatch('addPlugin', plugin);
+      store.dispatch('plugins/addPlugin', plugin);
     });
 
-    store.getters.enabledPlugins.forEach(plugin => {
+    store.getters['plugins/enabledPlugins'].forEach(plugin => {
       if (!fs.existsSync(plugin.path)) {
         this.l(`<${plugin.meta.name}> is enabled but missing! removing from app...`);
-        store.dispatch('delPlugin', plugin);
+        store.dispatch('plugins/delPlugin', plugin);
         return;
       }
       this.l(`<${plugin.meta.name}> is enabled!`);
@@ -74,9 +74,9 @@ const pluginManager = {
    */
   removePlugin(plugin) {
     try {
-      const wasEnabled = store.getters.enabledPlugins.findIndex(p => p.path === plugin.path) > -1;
+      const wasEnabled = store.getters['plugins/enabledPlugins'].findIndex(p => p.path === plugin.path) > -1;
       delete __non_webpack_require__.cache[__non_webpack_require__.resolve(plugin.path)];
-      store.dispatch('delPlugin', plugin);
+      store.dispatch('plugins/delPlugin', plugin);
       if (fs.existsSync(plugin.path)) fs.unlinkSync(plugin.path);
       if (wasEnabled) location.reload();
     } catch (err) {
@@ -94,7 +94,7 @@ const pluginManager = {
     if (!pluginExists) throw new PluginError(`"${pluginPath}" doesn't exists!`);
 
     this.l(`Loading <${pluginPath}>...`);
-    if (store.getters.enabledPlugins.findIndex(p => p.path === pluginPath) === -1) store.dispatch('enablePlugin', pluginPath);
+    if (store.getters['plugins/enabledPlugins'].findIndex(p => p.path === pluginPath) === -1) store.dispatch('plugins/enablePlugin', pluginPath);
 
     pluginObject.execute();
     // TODO: Background execute
@@ -106,7 +106,7 @@ const pluginManager = {
   unloadPlugin(pluginPath) {
     try {
       delete __non_webpack_require__.cache[__non_webpack_require__.resolve(pluginPath)];
-      store.dispatch('disablePlugin', pluginPath);
+      store.dispatch('plugins/disablePlugin', pluginPath);
       location.reload();
     } catch (err) {
       throw new PluginError(`The plugin at <${pluginPath}> couldn\'t be unloaded: ${err}`);

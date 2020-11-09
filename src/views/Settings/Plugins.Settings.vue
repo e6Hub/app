@@ -42,16 +42,15 @@ export default {
   name: "PluginsSettings",
   components: { SettingView, BetaFeature, Btn },
   computed: {
-    ...mapGetters(["pluginsDir", "plugins"]),
+    ...mapGetters("plugins", ["pluginsDir", "plugins"]),
   },
   methods: {
-    ...mapActions(["clearPlugins"]),
+    ...mapActions("plugins", ["clearPlugins"]),
     openFolder() {
       const { shell } = require("electron");
       shell.openItem(this.pluginsDir);
     },
     refreshPlugins() {
-      console.log("refreshing plugins...");
       this.clearPlugins();
       this.$refreshPlugins();
     },
