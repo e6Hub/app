@@ -48,7 +48,7 @@
       </div>
       <div
         id="e6h__global_blacklist_notice"
-        class="text-center text-gray-400"
+        class="text-center text-gray-400 py-1"
         v-if="posts.filter(p => !p.file.url).length"
       >
         There are {{posts.filter(p => !p.file.url).length}} post(s) hidden due to global blacklist rule. <e-link href="https://e621.net/help/global_blacklist"
