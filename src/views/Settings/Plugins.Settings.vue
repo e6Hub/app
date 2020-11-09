@@ -36,7 +36,7 @@
 import SettingView from "@/components/SettingView.vue";
 import BetaFeature from "@/components/BetaFeature.vue";
 import Btn from "@/components/Button.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "PluginsSettings",
@@ -45,12 +45,14 @@ export default {
     ...mapGetters(["pluginsDir", "plugins"]),
   },
   methods: {
+    ...mapActions(["clearPlugins"]),
     openFolder() {
       const { shell } = require("electron");
       shell.openItem(this.pluginsDir);
     },
     refreshPlugins() {
       console.log("refreshing plugins...");
+      this.clearPlugins();
       this.$refreshPlugins();
     },
     enablePlugin(plgPath) {
