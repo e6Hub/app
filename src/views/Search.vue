@@ -1,6 +1,6 @@
 <template>
   <div id="search-container" class="inline-block flex-wrap w-full p-6">
-    <h2 class="text-2xl font-bold uppercase text-gray-2">Search</h2>
+    <h2 class="text-2xl font-bold uppercase text-gray-2 select-none">Search</h2>
     <div id="search-panels" class="flex flex-warp flex-col h-full">
       <div id="search-opts" class="border-b border-gray-7 w-full py-2 mb-2">
         <form action="#" @submit="searchPosts">

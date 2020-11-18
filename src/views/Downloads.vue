@@ -1,6 +1,6 @@
 <template>
   <div id="downloads-container" class="inline-block w-full p-6 relative">
-    <h2 class="text-2xl font-bold uppercase text-gray-2">Downloads</h2>
+    <h2 class="text-2xl font-bold uppercase text-gray-2 select-none">Downloads</h2>
     <div
       id="no-downloads-found"
       v-if="!this.$parent.downloadsQueue.length"
@@ -43,12 +43,12 @@
       </li>
     </ul>
     <div id="downloaded-posts-container" v-if="this.$parent.downloaded.length">
-      <h2 class="text-2xl font-bold uppercase text-gray-600">
+      <h2 class="text-2xl font-bold uppercase text-gray-600 select-none">
         Downloaded posts
       </h2>
-      <ul id="downloaded-panels" class="flex flex-wrap">
+      <ul id="downloaded-panels" class="flex flex-wrap justify-center p-2 w-full">
         <li
-          class="flex m-3 bg-gray-7 overflow-hidden w-1/2 h-32 rounded relative cursor-pointer"
+          class="m-4 mb-8 w-32 cursor-pointer hover:opacity-75 duration-200"
           :class="{
             'blur': (downloadedPost.rating === 'e' || downloadedPost.rating === 'q') && blurNsfw,
             'unblurHover': (downloadedPost.rating === 'e' || downloadedPost.rating === 'q') && blurNsfw && unblurNsfw === 'onhover'
@@ -57,20 +57,14 @@
           :key="index"
           @click="viewPost(downloadedPost)"
         >
-          <img
-            id="dPostImg"
-            :src="downloadedPost.preview.url"
-            :alt="downloadedPost.id"
-            class="h-full"
+          <PostItem
+            :preview_url="downloadedPost.preview.url"
+            :rating="downloadedPost.rating"
+            :score="downloadedPost.score.total"
+            :id="downloadedPost.id"
+            :favs="downloadedPost.fav_count"
+            :ext="downloadedPost.file.ext"
           />
-          <div id="postdetails" class="absolute right-0 top-0 m-4">
-            <span id="postid">{{ downloadedPost.id }}</span
-            ><br />
-            <div id="favs" class="flex items-center text-pink-400">
-              <feather type="heart" size="16" class="mr-1" />
-              <span>{{ downloadedPost.fav_count }}</span>
-            </div>
-          </div>
         </li>
       </ul>
     </div>
