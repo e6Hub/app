@@ -1,6 +1,6 @@
 <template>
   <div id="downloads-container" class="inline-block w-full p-6 relative">
-    <h2 class="text-2xl font-bold uppercase text-gray-2 select-none">Downloads</h2>
+    <h2 class="text-2xl font-bold uppercase text-dark-2 select-none">Downloads</h2>
     <div
       id="no-downloads-found"
       v-if="!this.$parent.downloadsQueue.length"
@@ -39,7 +39,7 @@
       </li>
     </ul>
     <div id="downloaded-posts-container" v-if="this.$parent.downloaded.length">
-      <h2 class="text-2xl font-bold uppercase text-gray-600 select-none">
+      <h2 class="text-2xl font-bold uppercase text-dark-2 select-none">
         Downloaded posts
       </h2>
       <ul id="downloaded-panels" class="flex flex-wrap justify-center p-2 w-full">

@@ -5,7 +5,7 @@
     v-if="post"
   >
     <h2
-      class="inline-flex items-center text-2xl font-bold uppercase text-dark-1 mb-4"
+      class="inline-flex items-center text-2xl font-bold uppercase text-dark-2 mb-4"
     >
       <button
         class="bg-blue-6 p-1 px-3 rounded-full text-white w-12 h-12 mr-4 hover:bg-blue-7 duration-200"

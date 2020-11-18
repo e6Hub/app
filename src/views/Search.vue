@@ -1,8 +1,8 @@
 <template>
   <div id="search-container" class="inline-block flex-wrap w-full p-6">
-    <h2 class="text-2xl font-bold uppercase text-gray-2 select-none">Search</h2>
+    <h2 class="text-2xl font-bold uppercase text-dark-2 select-none">Search</h2>
     <div id="search-panels" class="flex flex-warp flex-col h-full">
-      <div id="search-opts" class="border-b border-gray-7 w-full py-2 mb-2">
+      <div id="search-opts" class="border-b border-dark-7 w-full py-2 mb-2">
         <form action="#" @submit="searchPosts">
           <div v-if="errors.length">
             <ul>
@@ -25,12 +25,12 @@
               type="text"
               name="tags"
               id="search-tags"
-              class="rounded mr-2 px-2 py-1 bg-gray-7 focus:bg-gray-6 outline-none focus:outline-none duration-200 text-base"
+              class="rounded mr-2 px-2 py-1 bg-dark-6 focus:bg-dark-5 outline-none focus:outline-none duration-200 text-base"
             />
             <button
               type="submit"
               id="search-posts-btn"
-              class="inline-flex items-center bg-blue-5 hover:bg-blue-4 py-1 px-3 rounded duration-200"
+              class="inline-flex items-center bg-blue-6 hover:bg-blue-7 py-1 px-3 rounded duration-200"
             >
               <feather type="search" size="16" class="mr-2" />
               Search
