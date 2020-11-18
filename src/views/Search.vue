@@ -1,14 +1,14 @@
 <template>
   <div id="search-container" class="inline-block flex-wrap w-full p-6">
-    <h2 class="text-2xl font-bold uppercase text-gray-600">Search</h2>
+    <h2 class="text-2xl font-bold uppercase text-gray-2">Search</h2>
     <div id="search-panels" class="flex flex-warp flex-col h-full">
-      <div id="search-opts" class="border-b border-gray-700 w-full p-2 mb-2">
+      <div id="search-opts" class="border-b border-gray-7 w-full py-2 mb-2">
         <form action="#" @submit="searchPosts">
           <div v-if="errors.length">
             <ul>
               <li v-for="(err, index) in errors" :key="index">
                 <div
-                  class="bg-red-800 text-white px-4 py-3 rounded relative mb-4"
+                  class="bg-red-8 text-white px-4 py-3 rounded relative mb-4"
                 >
                   <span class="block sm:inline">{{ err }}</span>
                 </div>
@@ -25,12 +25,12 @@
               type="text"
               name="tags"
               id="search-tags"
-              class="rounded mr-2 px-2 py-1 bg-gray-700 focus:bg-gray-600 focus:outline-none duration-200 text-base"
+              class="rounded mr-2 px-2 py-1 bg-gray-7 focus:bg-gray-6 outline-none focus:outline-none duration-200 text-base"
             />
             <button
               type="submit"
               id="search-posts-btn"
-              class="inline-flex items-center bg-indigo-500 py-1 px-3 rounded"
+              class="inline-flex items-center bg-blue-5 hover:bg-blue-4 py-1 px-3 rounded duration-200"
             >
               <feather type="search" size="16" class="mr-2" />
               Search
@@ -40,7 +40,7 @@
       </div>
       <div
         id="posts-empty"
-        class="text-center py-8 text-gray-600"
+        class="text-center py-8 text-gray-4"
         v-if="!posts.length"
       >
         <span v-if="fetching">Loading...</span>
@@ -48,7 +48,7 @@
       </div>
       <div
         id="e6h__global_blacklist_notice"
-        class="text-center text-gray-400 py-1"
+        class="text-center text-gray-4 py-1"
         v-if="posts.filter(p => !p.file.url).length"
       >
         There are {{posts.filter(p => !p.file.url).length}} post(s) hidden due to global blacklist rule. <e-link href="https://e621.net/help/global_blacklist"
@@ -77,7 +77,7 @@
         </li>
         <div
           id="search-nomore"
-          class="text-center py-8 text-gray-600 w-full"
+          class="text-center py-8 text-gray-6 w-full"
           v-if="lastPage"
         >
           <span>No more posts here</span>
@@ -85,7 +85,7 @@
       </ul>
       <div
         id="search-notfound"
-        class="text-center py-8 text-gray-600"
+        class="text-center py-8 text-gray-6"
         v-if="noPosts"
       >
         <span>Oh? no posts that matches with your tags</span>

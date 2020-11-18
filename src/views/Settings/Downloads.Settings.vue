@@ -1,6 +1,6 @@
 <template>
   <SettingView id="downloads-settings" title="Downloads">
-    <h4 class="text-sm font-bold uppercase text-gray-600">
+    <h4 class="text-sm font-bold uppercase text-gray-3">
       Current downloads folder
     </h4>
     <btn
@@ -13,7 +13,7 @@
       id="downloadLocation"
       name="downloadLocation"
       v-text="downloadFolder"
-      class="inline-block bg-gray-900 py-2 px-4 rounded my-4 ml-4"
+      class="inline-block bg-dark-10 py-2 px-4 rounded my-4 ml-4"
     ></p>
   </SettingView>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div id="main" class="bg-gray-800 inset-0 absolute">
+  <div id="main" class="bg-dark-9 inset-0 absolute">
     <Titlebar />
     <div
       id="app-container"

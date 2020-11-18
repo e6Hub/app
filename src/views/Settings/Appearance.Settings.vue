@@ -2,7 +2,7 @@
   <SettingView id="appearance-settings" title="Appearance">
     <div id="appearance-topbar-style-section">
       <section>
-        <h4 class="text-sm font-bold uppercase text-gray-600 mb-2">
+        <h4 class="text-sm font-bold uppercase text-gray-3 mb-2">
           Titlebar style
         </h4>
         <RadioForm
@@ -14,7 +14,7 @@
         />
       </section>
       <section class="mt-4">
-        <h4 class="text-sm font-bold uppercase text-gray-600 mb-2">
+        <h4 class="text-sm font-bold uppercase text-gray-3 mb-2">
           Post views
         </h4>
         <Checkbox
@@ -23,7 +23,7 @@
           :onchange="blurNsfwChange"
         >Blur explicit posts</Checkbox>
         <div v-if="this.setting('blurNsfw')" class="mt-3">
-          <h4 class="text-sm font-bold uppercase text-gray-600 mb-2">
+          <h4 class="text-sm font-bold uppercase text-gray-3 mb-2">
             Unblur when
           </h4>
           <RadioForm

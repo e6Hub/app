@@ -12,13 +12,13 @@
       <li
         v-for="(plg, index) in this.plugins"
         :key="index"
-        class="bg-gray-700 py-3 px-4 rounded-lg"
+        class="bg-gray-7 py-3 px-4 rounded-lg"
       >
         <div id="plg-header" class="flex justify-between">
           <div>
             <span id="plg-name" v-text="plg.meta.name" />
           </div>
-          <div class="text-gray-400">
+          <div class="text-gray-3">
             <span id="plg-by" class="mr-2">by</span>
             <span id="plg-author" v-text="plg.meta.author" />
           </div>

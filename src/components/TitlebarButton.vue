@@ -2,8 +2,8 @@
   <button
     class="focus:outline-none cursor-default"
     :class="{
-      'hover:bg-red-600': role === 'danger',
-      'hover:bg-gray-700': role !== 'danger',
+      'hover:bg-red-5': role === 'danger',
+      'hover:bg-dark-7': role !== 'danger',
       'h-6 w-8': currentStyle === 'small',
       'h-8 w-12': currentStyle !== 'small',
     }"

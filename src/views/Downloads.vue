@@ -1,14 +1,14 @@
 <template>
   <div id="downloads-container" class="inline-block w-full p-6 relative">
-    <h2 class="text-2xl font-bold uppercase text-gray-600">Downloads</h2>
+    <h2 class="text-2xl font-bold uppercase text-gray-2">Downloads</h2>
     <div
       id="no-downloads-found"
       v-if="!this.$parent.downloadsQueue.length"
       class="text-center my-4"
     >
-      Wanna download something?
-      <router-link tag="a" to="/" class="text-indigo-200"
-        >go ahead!</router-link
+      No downloads found in this session...
+      <router-link tag="a" to="/" class="text-blue-3"
+        >wanna try?</router-link
       >
     </div>
     <btn
@@ -19,9 +19,9 @@
     >
       Download {{ this.$parent.postsList.length }} listed post(s)
     </btn>
-    <ul id="downloads-panels" class="flex flex-wrap">
+    <ul id="downloads-panels" class="flex flex-wrap justify-center p-2 w-full">
       <li
-        class="flex m-3 bg-gray-700 overflow-hidden w-1/2 h-32 rounded relative"
+        class="m-4 mb-8 w-32 cursor-pointer hover:opacity-75 duration-200"
         :class="{
           'blur': (post.rating === 'e' || post.rating === 'q') && blurNsfw,
           'unblurHover': (post.rating === 'e' || post.rating === 'q') && blurNsfw && unblurNsfw === 'onhover'
@@ -29,23 +29,17 @@
         v-for="post in this.$parent.downloadsQueue"
         :key="post.id"
       >
-        <img
-          id="dPostImg"
-          :src="post.preview.url"
-          :alt="post.id"
-          class="h-full"
+        <div class="mb-2 text-center text-gray-3">
+          {{post.download.progress}}%
+        </div>
+        <PostItem
+          :preview_url="post.preview.url"
+          :rating="post.rating"
+          :score="post.score.total"
+          :id="post.id"
+          :favs="post.fav_count"
+          :ext="post.file.ext"
         />
-        <div id="postdetails" class="absolute right-0 top-0 m-4">
-          <span id="postid">{{ post.id }}</span
-          ><br />
-          <div id="favs" class="flex items-center text-pink-400">
-            <feather type="heart" size="16" class="mr-1" />
-            <span>{{ post.fav_count }}</span>
-          </div>
-        </div>
-        <div id="postdownloading">
-          <span id="download-progress">{{ post.download.progress }}%</span>
-        </div>
       </li>
     </ul>
     <div id="downloaded-posts-container" v-if="this.$parent.downloaded.length">
@@ -54,7 +48,7 @@
       </h2>
       <ul id="downloaded-panels" class="flex flex-wrap">
         <li
-          class="flex m-3 bg-gray-700 overflow-hidden w-1/2 h-32 rounded relative cursor-pointer"
+          class="flex m-3 bg-gray-7 overflow-hidden w-1/2 h-32 rounded relative cursor-pointer"
           :class="{
             'blur': (downloadedPost.rating === 'e' || downloadedPost.rating === 'q') && blurNsfw,
             'unblurHover': (downloadedPost.rating === 'e' || downloadedPost.rating === 'q') && blurNsfw && unblurNsfw === 'onhover'
@@ -85,11 +79,12 @@
 
 <script>
 import Btn from "@/components/Button.vue";
+import PostItem from "@/components/PostItem.vue";
 import { mapGetters } from "vuex";
 
 export default {
   name: "downloads",
-  components: { Btn },
+  components: { Btn, PostItem },
   computed: {
     ...mapGetters("settings", ["setting"]),
     blurNsfw() {

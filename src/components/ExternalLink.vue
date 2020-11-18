@@ -1,5 +1,5 @@
 <template>
-  <a href="#" class="text-indigo-300" @click.prevent="openExternal"><slot/></a>
+  <a href="#" class="text-blue-3" @click.prevent="openExternal"><slot/></a>
 </template>
 
 <script>

@@ -2,9 +2,9 @@
   <div id="settings-container" class="inline-flex w-full">
     <div
       id="settings-sidebar"
-      class="bg-gray-900 inset-y-0 left-0 h-full inline-block select-none"
+      class="bg-dark-10 inset-y-0 left-0 h-full inline-block select-none border-r border-dark-8"
     >
-      <h4 class="text-sm font-bold uppercase text-gray-600 m-4">
+      <h4 class="text-sm font-bold uppercase text-gray-6 m-4">
         App settings
       </h4>
       <ul class="flex justify-center flex-col">

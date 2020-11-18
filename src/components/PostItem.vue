@@ -28,7 +28,7 @@
       id="post_details"
       class="p-1 flex justify-center items-center w-full absolute bottom-0"
     >
-      <div id="post_favs" class="flex items-center ml-2 text-pink-400 pr-2">
+      <div id="post_favs" class="flex items-center ml-2 text-pink-3 pr-2">
         <feather type="heart" size="16" class="mr-1" />
         <span v-text="favs"/>
       </div>
@@ -37,8 +37,8 @@
         id="post_score"
         class="flex items-center ml-2 pr-2"
         :class="{
-          'text-green-400': score > 0,
-          'text-red-400': score < 0
+          'text-green-3': score > 0,
+          'text-red-3': score < 0
         }"
       >
         <feather
@@ -54,9 +54,9 @@
         id="post_rating"
         class="ml-2 uppercase pr-2"
         :class="{
-          'text-green-400': rating === 's',
-          'text-yellow-400': rating === 'q',
-          'text-red-400': rating === 'e'
+          'text-green-4': rating === 's',
+          'text-orange-3': rating === 'q',
+          'text-red-3': rating === 'e'
         }"
         v-text="rating"
       />

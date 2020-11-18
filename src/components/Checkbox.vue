@@ -1,7 +1,7 @@
 <template>
   <label class="flex checkbox-label my-2">
     <div
-      class="bg-gray-600 rounded shadow w-6 h-6 p-1 flex justify-center items-center mr-4"
+      class="bg-gray-8 rounded shadow w-6 h-6 p-1 flex justify-center items-center mr-4"
     >
       <input
         type="checkbox"
@@ -11,7 +11,7 @@
         @change="onchange"
       />
       <svg
-        class="hidden w-4 h-4 text-indigo-200 pointer-events-none"
+        class="hidden w-4 h-4 text-blue-2 pointer-events-none"
         viewBox="0 0 172 172"
       >
         <g

@@ -1,9 +1,9 @@
 <template>
   <div
     id="e6h__beta_feature"
-    class="flex items-center bg-gray-900 text-gray-300 py-3 px-5 rounded"
+    class="flex items-center bg-dark-10 text-white py-3 px-5 rounded select-none"
   >
-    <div class="mr-4 text-red-500">
+    <div class="mr-4 text-red-4">
       <feather type="alert-triangle" />
     </div>
     <div>

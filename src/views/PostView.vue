@@ -5,10 +5,10 @@
     v-if="post"
   >
     <h2
-      class="inline-flex items-center text-2xl font-bold uppercase text-gray-600 mb-4"
+      class="inline-flex items-center text-2xl font-bold uppercase text-dark-1 mb-4"
     >
       <button
-        class="focus:outline-none bg-indigo-500 p-1 px-3 rounded-full text-white w-12 h-12 mr-4 hover:bg-indigo-400 duration-200"
+        class="bg-blue-6 p-1 px-3 rounded-full text-white w-12 h-12 mr-4 hover:bg-blue-7 duration-200"
         @click="$router.push({ name: 'search' })"
       >
         <feather type="arrow-left" />
@@ -18,7 +18,7 @@
         v-if="post.sources.length"
         :href="post.sources[0]"
         @click="openExternal"
-        class="rounded py-1 px-3 flex items-center ml-4 text-base normal-case font-normal text-gray-400 hover:bg-gray-700 duration-200"
+        class="rounded py-1 px-3 flex items-center ml-4 text-base normal-case font-normal text-dark-2 hover:bg-dark-8 duration-200"
       >
         <feather type="external-link" class="mr-2" />Open original
       </a>
@@ -142,73 +142,79 @@
         <div
           v-if="this.descParsed"
           id="postview-description"
-          class="bg-gray-700 p-3 rounded mt-4 break-all whitespace-pre-line"
+          class="bg-dark-7 p-3 rounded mt-4 break-all whitespace-pre-line"
         >
-          <h4 class="uppercase text-gray-500 font-bold mb-1">Description</h4>
+          <h4 class="uppercase text-dark-2 font-bold mb-1 select-none">Description</h4>
           <span v-html="this.descParsed"></span>
         </div>
       </div>
       <div id="postview-details" class="m-4 mt-0 w-1/4">
         <div id="postview-actions" class="mb-4">
-          <button
+          <btn
             v-if="
               !this.$parent.downloadsQueue.find((p) => p.id == post.id) &&
               !this.$parent.downloaded.find((p) => p.id == post.id)
             "
             id="postview-download-btn"
-            @click="downloadPost"
-            class="bg-green-400 py-2 w-full rounded hover:bg-green-500 shadow-lg hover:shadow-xl duration-200"
+            @click.native="downloadPost"
+            class="w-full"
+            role="safe"
           >
             Download
-          </button>
-          <button
+          </btn>
+          <btn
             v-else-if="
               this.$parent.downloadsQueue.find((p) => p.id == post.id) &&
               !this.$parent.downloaded.find((p) => p.id == post.id)
             "
             id="postview-downloading-btn"
-            class="bg-indigo-400 py-2 w-full rounded hover:bg-indigo-500 shadow-lg hover:shadow-xl duration-200"
+            class="w-full"
+            role="busy"
           >
             Downloading
-          </button>
-          <button
+          </btn>
+          <btn
             v-else-if="
               !this.$parent.downloadsQueue.find((p) => p.id == post.id) &&
               this.$parent.downloaded.find((p) => p.id == post.id)
             "
             id="postview-downloaded-btn"
-            class="bg-gray-600 py-2 w-full rounded hover:bg-gray-700 shadow-lg hover:shadow-xl duration-200"
+            class="w-full"
+            role="disabled"
           >
             Downloaded
-          </button>
-          <button
+          </btn>
+          <btn
             v-if="!this.$parent.postsList.find((p) => p.id == post.id)"
             id="postview-addtolist-btn"
-            @click="listPost"
-            class="bg-indigo-400 py-2 w-full rounded hover:bg-indigo-500 shadow-lg hover:shadow-xl duration-200 mt-2"
+            class="w-full mt-2"
+            @click.native="listPost"
           >
             Add to list
-          </button>
-          <button
+          </btn>
+          <btn
             v-else
             id="postview-removefromlist-btn"
-            @click="listPost"
-            class="bg-red-400 py-2 w-full rounded hover:bg-red-500 shadow-lg hover:shadow-xl duration-200 mt-2"
+            class="w-full mt-2"
+            role="danger"
+            @click.native="listPost"
           >
             Remove from list
-          </button>
+          </btn>
         </div>
         <ul id="postview-details-list" class="flex flex-col">
-          <li id="postview-size" class="bg-gray-700 p-3 rounded mb-2 break-all">
-            <h4 class="uppercase text-gray-500 font-bold mb-1">File size</h4>
+          <li
+            id="postview-size"
+            class="bg-dark-7 p-3 rounded mb-2 break-all">
+            <h4 class="uppercase text-dark-2 font-bold mb-1 select-none">File size</h4>
             <span v-text="convertBytes(post.file.size)"></span>
           </li>
           <li
             v-if="post.tags.artist.length > 1"
-            id="artists"
-            class="bg-gray-700 p-3 rounded mb-2 break-all"
+            id="postview-artists"
+            class="bg-dark-7 p-3 rounded mb-2 break-all"
           >
-            <h4 class="uppercase text-gray-500 font-bold mb-1">Artists</h4>
+            <h4 class="uppercase text-dark-2 font-bold mb-1 select-none">Artists</h4>
             <ul id="postview-artists-list">
               <li
                 id="artist"
@@ -222,18 +228,18 @@
           <li
             v-else
             id="postview-artist"
-            class="bg-gray-700 p-3 rounded mb-2 break-all"
+            class="bg-dark-7 p-3 rounded mb-2 break-all"
           >
-            <h4 class="uppercase text-gray-500 font-bold mb-1">Artist</h4>
+            <h4 class="uppercase text-dark-2 font-bold mb-1 select-none">Artist</h4>
             <span>{{ post.tags.artist[0] }}</span>
           </li>
-          <li id="postview-tags" class="bg-gray-700 p-3 rounded mb-2 break-all">
-            <h4 class="uppercase text-gray-500 font-bold mb-1">Tags</h4>
+          <li id="postview-tags" class="bg-dark-7 p-3 rounded mb-2 break-all">
+            <h4 class="uppercase text-dark-2 font-bold mb-1 select-none">Tags</h4>
             <div id="postview-tags-general" v-if="post.tags.general.length">
-              <h5 class="text-gray-500 mb-1">General</h5>
+              <h5 class="text-dark-1 mb-1 select-none">General</h5>
               <ul class="postview-tags-list">
                 <li
-                  class="postview-tag cursor-pointer text-gray-500 inline-block mx-1 my-1 px-3 rounded-full bg-gray-800 hover:underline"
+                  class="postview-tag cursor-pointer text-blue-4 inline-block mx-1 my-1 px-3 rounded-full bg-dark-8 hover:underline"
                   v-for="tag in post.tags.general"
                   :key="tag"
                   @click="searchFor(tag)"
@@ -242,10 +248,10 @@
               </ul>
             </div>
             <div id="postview-tags-species" v-if="post.tags.species.length">
-              <h5 class="text-gray-500 mb-1">Species</h5>
+              <h5 class="text-dark-1 mb-1 select-none">Species</h5>
               <ul class="postview-tags-list">
                 <li
-                  class="postview-tag cursor-pointer text-orange-500 inline-block mx-1 my-1 px-3 rounded-full bg-gray-800 hover:underline"
+                  class="postview-tag cursor-pointer text-orange-4 inline-block mx-1 my-1 px-3 rounded-full bg-dark-8 hover:underline"
                   v-for="tag in post.tags.species"
                   :key="tag"
                   @click="searchFor(tag)"
@@ -254,10 +260,10 @@
               </ul>
             </div>
             <div id="postview-tags-character" v-if="post.tags.character.length">
-              <h5 class="text-gray-500 mb-1">Characters</h5>
+              <h5 class="text-dark-1 mb-1 select-none">Characters</h5>
               <ul class="postview-tags-list">
                 <li
-                  class="postview-tag cursor-pointer text-green-500 inline-block mx-1 my-1 px-3 rounded-full bg-gray-800 hover:underline"
+                  class="postview-tag cursor-pointer text-green-4 inline-block mx-1 my-1 px-3 rounded-full bg-dark-8 hover:underline"
                   v-for="tag in post.tags.character"
                   :key="tag"
                   @click="searchFor(tag)"
@@ -266,10 +272,10 @@
               </ul>
             </div>
             <div id="postview-tags-copyright" v-if="post.tags.copyright.length">
-              <h5 class="text-gray-500 mb-1">Copyrights</h5>
+              <h5 class="text-dark-1 mb-1 select-none">Copyrights</h5>
               <ul class="postview-tags-list">
                 <li
-                  class="postview-tag cursor-pointer text-purple-500 inline-block mx-1 my-1 px-3 rounded-full bg-gray-800 hover:underline"
+                  class="postview-tag cursor-pointer text-pink-3 inline-block mx-1 my-1 px-3 rounded-full bg-dark-8 hover:underline"
                   v-for="tag in post.tags.copyright"
                   :key="tag"
                   @click="searchFor(tag)"
@@ -278,10 +284,10 @@
               </ul>
             </div>
             <div id="postview-tags-meta" v-if="post.tags.meta.length">
-              <h5 class="text-gray-500 mb-1">Meta</h5>
+              <h5 class="text-dark-1 mb-1 select-none">Meta</h5>
               <ul class="postview-tags-list">
                 <li
-                  class="postview-tag cursor-pointer text-indigo-500 inline-block mx-1 my-1 px-3 rounded-full bg-gray-800 hover:underline"
+                  class="postview-tag cursor-pointer text-dark-1 inline-block mx-1 my-1 px-3 rounded-full bg-dark-8 hover:underline"
                   v-for="tag in post.tags.meta"
                   :key="tag"
                   @click="searchFor(tag)"
@@ -301,6 +307,7 @@ import DText from "dtext-parser";
 import * as ptime from "pretty-ms";
 import bytes from "bytes";
 import { mapGetters } from "vuex";
+import Btn from "@/components/Button.vue";
 
 export default {
   name: "postView",
@@ -322,6 +329,9 @@ export default {
       viewHeight: 0,
       nlinks: 0,
     };
+  },
+  components: {
+    Btn
   },
   computed: {
     ...mapGetters("settings", ["setting"]),

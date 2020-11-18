@@ -12,11 +12,11 @@
       />
       <div
         id="radioform-container"
-        class="py-4 px-6 border border-gray-600 mb-2 block rounded-lg cursor-pointer flex items-center"
+        class="py-4 px-6 border border-gray-6 mb-2 block rounded-lg cursor-pointer flex items-center"
       >
         <div
           id="radioform-circle"
-          class="w-4 h-4 bg-gray-600 mr-6 rounded-full"
+          class="w-4 h-4 bg-gray-6 mr-6 rounded-full"
         ></div>
         <span v-text="radio.label"></span>
       </div>

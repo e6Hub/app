@@ -1,7 +1,7 @@
 <template>
   <div
     id="sidebar"
-    class="w-16 bg-gray-900 inset-y-0 left-0 h-full absolute z-10"
+    class="w-16 bg-dark-10 inset-y-0 left-0 h-full absolute z-10 pt-4 border-r border-dark-8"
   >
     <ul id="mainlinks" class="flex flex-wrap justify-center">
       <SidebarLink icon="search" linkto="/search" />
@@ -15,7 +15,7 @@
     <ul
       id="postslistlinks"
       v-if="this.$parent.postsList.length"
-      class="flex flex-wrap justify-center border-t border-gray-700 pt-4"
+      class="flex flex-wrap justify-center border-t border-dark-7 pt-4"
     >
       <SidebarLink
         v-for="(post, index) in this.$parent.postsList"

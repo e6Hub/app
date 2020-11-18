@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3
-      class="text-2xl font-bold uppercase text-gray-500 mb-4"
+      class="text-2xl font-bold uppercase text-gray-2 mb-4"
       v-text="title"
     />
     <slot/>

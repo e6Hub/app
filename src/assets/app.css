@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css?family=Exo+2:400,700&display=swap');
+
 ::-webkit-scrollbar {
   background: transparent;
   background-clip: padding-box;
@@ -11,7 +11,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #667eea;
+  @apply bg-blue-4;
   background-clip: padding-box;
   border: 2px solid transparent;
   border-radius: 9px;
@@ -21,6 +21,10 @@ body {
   font-family: 'Exo 2', sans-serif;
   overflow: hidden;
   border: 1px solid #48545c;
+}
+
+*, *:focus {
+  outline: none !important;
 }
 
 div#main {
@@ -52,17 +56,16 @@ div#main {
 
 .fade-leave-to {
   opacity: 0;
-  transform: translateX(-20px);
+  transform: scale(.95);
 }
 
 .fade-enter {
   opacity: 0;
-  transform: translateX(20px);
+  transform: scale(1.05);
 }
 
 #post_details {
   text-shadow: 0 2px 5px rgba(0, 0, 0, .7);
-  background: linear-gradient(0deg, #2d3748 40%, transparent);
 }
 
 .checkbox-label input:checked+svg {
@@ -74,13 +77,11 @@ li#download-done {
 }
 
 #sidebar-link .router-link-active {
-  background: #718096;
+  @apply bg-blue-7;
 }
 
 #settings-sidebar-link .router-link-active {
-  background: #2d3748;
-  color: #f7fafc;
-  cursor: default;
+  @apply bg-dark-9 text-white cursor-default;
 }
 
 #dPostImg {
@@ -184,15 +185,15 @@ button:focus, input:focus {
 }
 
 label:hover #radioform-container, label input[type="radio"]:checked+#radioform-container {
-  @apply border-indigo-400;
+  @apply border-blue-2;
 }
 
 label:hover #radioform-circle, label input[type="radio"]:checked+#radioform-container #radioform-circle {
-  @apply bg-indigo-400;
+  @apply bg-blue-2;
 }
 
 #postview-description a {
-  @apply text-indigo-300;
+  @apply text-blue-3;
 }
 
 #post_item.blur img, .sidebar_link_post.blur img, #downloads-container ul li.blur img {
@@ -209,4 +210,8 @@ label:hover #radioform-circle, label input[type="radio"]:checked+#radioform-cont
 
 #settings-sidebar {
   width: 22rem;
+}
+
+#post_item img {
+  -webkit-mask-image: linear-gradient(#000 80%, transparent 95%);
 }

@@ -1,7 +1,7 @@
 <template>
   <SettingView id="app-about" title="About">
-    <div id="notice" class="bg-gray-700 px-4 py-2 mb-4 rounded shadow">
-      <h4 class="text-xl text-gray-500 mb-2">
+    <div id="notice" class="bg-dark-10 px-4 py-2 mb-4 rounded shadow">
+      <h4 class="text-xl text-dark-2 mb-2">
         e6Hub isn't an official app of e621.net
       </h4>
       <p>

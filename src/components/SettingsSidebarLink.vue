@@ -2,9 +2,9 @@
   <li id="settings-sidebar-link" class="flex mb-1 mx-3">
     <router-link
       :to="`/settings/${linkto}`"
-      class="h-10 flex items-center rounded text-gray-400 hover:bg-gray-800 hover:text-gray-100 cursor-pointer duration-200 w-full px-3"
+      class="h-10 flex items-center rounded text-dark-2 hover:bg-dark-9 hover:text-dark-1 cursor-pointer duration-100 w-full px-3"
     >
-      <feather v-if="icon" :type="icon" stroke="#718096" class="mr-2" />
+      <feather v-if="icon" :type="icon" stroke="currentColor" class="mr-3 text-dark-5" />
       <span>{{ linkname }}</span>
     </router-link>
   </li>
