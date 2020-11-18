@@ -22,10 +22,6 @@
     <ul id="downloads-panels" class="flex flex-wrap justify-center p-2 w-full">
       <li
         class="m-4 mb-8 w-32 cursor-pointer hover:opacity-75 duration-200"
-        :class="{
-          'blur': (post.rating === 'e' || post.rating === 'q') && blurNsfw,
-          'unblurHover': (post.rating === 'e' || post.rating === 'q') && blurNsfw && unblurNsfw === 'onhover'
-        }"
         v-for="post in this.$parent.downloadsQueue"
         :key="post.id"
       >
@@ -49,10 +45,6 @@
       <ul id="downloaded-panels" class="flex flex-wrap justify-center p-2 w-full">
         <li
           class="m-4 mb-8 w-32 cursor-pointer hover:opacity-75 duration-200"
-          :class="{
-            'blur': (downloadedPost.rating === 'e' || downloadedPost.rating === 'q') && blurNsfw,
-            'unblurHover': (downloadedPost.rating === 'e' || downloadedPost.rating === 'q') && blurNsfw && unblurNsfw === 'onhover'
-          }"
           v-for="(downloadedPost, index) in this.$parent.downloaded"
           :key="index"
           @click="viewPost(downloadedPost)"
