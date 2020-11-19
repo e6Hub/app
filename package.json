@@ -15,7 +15,7 @@
     "@tailwindcss/ui": "^0.7.2",
     "autoprefixer": "^9.8.6",
     "bytes": "^3.1.0",
-    "dtext-parser": "^0.4.0",
+    "dtext-parser": "^0.5.0",
     "electron-updater": "^4.3.1",
     "feather-icons": "^4.28.0",
     "postcss": "^7.0.35",
