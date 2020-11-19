@@ -120,7 +120,7 @@ export default {
       _({
         uri: "https://e621.net/pools.json",
         qs: {
-          name: this.poolName,
+          'search[name_matches]': this.poolName,
           limit: 60,
           page: this.page,
         },

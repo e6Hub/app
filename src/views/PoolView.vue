@@ -15,31 +15,36 @@
       <span id="poolview-poolname">{{ pool.name.replace(/_/g, ' ') }}</span>
     </h2>
     <div
+      id="e6h__global_blacklist_notice"
+      class="text-center text-gray-4 py-1"
+      v-if="posts.filter(p => !p.file.url).length"
+    >
+      There are {{posts.filter(p => !p.file.url).length}} post(s) hidden due to global blacklist rule. <e-link href="https://e621.net/help/global_blacklist"
+      >Learn more about this</e-link>.
+    </div>
+    <div
       id="poolview-content"
       class="flex flex-col flex-auto overflow-y-auto"
     >
       <div
-        id="e6h__global_blacklist_notice"
-        class="text-center text-gray-4 py-1"
-        v-if="posts.filter(p => !p.file.url).length"
-      >
-        There are {{posts.filter(p => !p.file.url).length}} post(s) hidden due to global blacklist rule. <e-link href="https://e621.net/help/global_blacklist"
-        >Learn more about this</e-link>.
-      </div>
+        id="poolview-description"
+        class="border-b border-dark-7 pb-4 mb-4 whitespace-pre"
+        v-text="pool.description"
+      />
       <div
         id="posts-empty"
         class="text-center py-8 text-gray-4"
         v-if="!posts.length"
       >
         <span v-if="fetching">Loading...</span>
-        <span v-else>No posts to see here...</span>
+        <span v-else>This pool is empty... or not?</span>
       </div>
       <ul
         id="poolview-list"
-        class="flex flex-wrap justify-center p-2 w-full overflow-y-auto flex-1"
+        class="flex flex-wrap justify-center p-2 w-full items-start"
       >
         <li
-          v-for="(post, index) in posts.filter(p => p.file.url)"
+          v-for="(post, index) in sortedPosts.filter(p => p).filter(p => p.file.url)"
           v-bind:key="index"
           class="m-4 mb-8 w-32 cursor-pointer hover:opacity-75 duration-200"
           @contextmenu="listPost(post)"
@@ -82,6 +87,7 @@ export default {
   data() {
     return {
       posts: [],
+      sortedPosts: [],
       errors: [],
       fetching: true,
       page: 1,
@@ -129,16 +135,18 @@ export default {
     displayPosts(postsData) {
       this.fetching = false;
       if (!postsData.length) return;
-      postsData.forEach((post) => {
-        this.posts.push(post);
-      });
+
+      this.posts = postsData;
+      this.sortedPosts = [];
+      this.pool.post_ids.forEach(candidateId => { this.sortedPosts.push(this.posts.find(post => post.id == candidateId)) })
+
       localStorage.posts = JSON.stringify(this.posts);
 
-      document.getElementById("poolview-list").addEventListener("scroll", (e) => {
+      document.getElementById("poolview-content").addEventListener("scroll", (e) => {
         if (this.lastPage) return;
-        let el = e.target;
-        let lmt = el.scrollHeight - el.offsetHeight;
-        let scrl = el.scrollTop;
+        const el = e.target,
+          lmt = el.scrollHeight - el.offsetHeight,
+          scrl = el.scrollTop;
         if (scrl > lmt - 150 && !this.fetching) {
           ++this.page;
           this.searchPosts(null, true);
