@@ -13,6 +13,11 @@ export default new Router({
       component: () => import('@/views/Search.vue')
     },
     {
+      path: '/searchpools',
+      name: 'searchpools',
+      component: () => import('@/views/SearchPools.vue')
+    },
+    {
       path: '/downloads',
       name: 'downloads',
       component: () => import('@/views/Downloads.vue')
@@ -49,6 +54,12 @@ export default new Router({
       name: 'postView',
       props: true,
       component: () => import('@/views/PostView.vue')
+    },
+    {
+      path: '/poolview/:id',
+      name: 'poolView',
+      props: true,
+      component: () => import('@/views/PoolView.vue')
     },
     {
       path: '*',

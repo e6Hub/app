@@ -4,13 +4,14 @@
     class="w-16 bg-dark-10 inset-y-0 left-0 h-full absolute z-10 pt-4 border-r border-dark-8"
   >
     <ul id="mainlinks" class="flex flex-wrap justify-center">
-      <SidebarLink icon="search" linkto="/search" />
+      <SidebarLink icon="search" linkto="/search">Search posts</SidebarLink>
+      <SidebarLink icon="layers" linkto="/searchpools">Search pools</SidebarLink>
       <SidebarLink
         icon="download"
         linkto="/downloads"
         :badgevar="this.$parent.downloadsQueue.length"
-      />
-      <SidebarLink icon="settings" linkto="/settings/" />
+      >Downloads</SidebarLink>
+      <SidebarLink icon="settings" linkto="/settings/">Settings</SidebarLink>
     </ul>
     <ul
       id="postslistlinks"

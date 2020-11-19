@@ -1,5 +1,5 @@
 <template>
-  <li id="sidebar-link" class="flex mb-3">
+  <li id="sidebar-link" class="flex mb-3 select-none relative">
     <router-link
       v-if="linkto"
       :to="linkto"
@@ -27,6 +27,10 @@
         :alt="imgalt"
       />
     </div>
+    <div
+      id="sidebar-tooltip"
+      class="bg-black shadow-lg text-white rounded py-1 px-4 absolute left-full transform translate-x-2 opacity-0 w-auto whitespace-nowrap text-sm invisible duration-100 top-1/2 -translate-y-1/2"
+    ><slot/></div>
   </li>
 </template>
 

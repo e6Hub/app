@@ -11,7 +11,7 @@
     >
       <Sidebar ref="sidebar" />
       <transition name="fade" mode="out-in">
-        <keep-alive :exclude="['postView', 'settings']">
+        <keep-alive :exclude="['postView', 'poolView', 'settings']">
           <router-view />
         </keep-alive>
       </transition>

@@ -1,5 +1,4 @@
 @tailwind base;
-@tailwind components;
 @tailwind utilities;
 
 ::-webkit-scrollbar {
@@ -11,16 +10,14 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-blue-4;
+  @apply bg-blue-5;
   background-clip: padding-box;
   border: 2px solid transparent;
   border-radius: 9px;
 }
 
 body {
-  font-family: 'Exo 2', sans-serif;
-  overflow: hidden;
-  border: 1px solid #48545c;
+  @apply border border-dark-8 overflow-hidden;
 }
 
 *, *:focus {
@@ -78,6 +75,10 @@ li#download-done {
 
 #sidebar-link .router-link-active {
   @apply bg-blue-7;
+}
+
+#sidebar-link a:hover ~ #sidebar-tooltip {
+  @apply opacity-100 translate-x-3 visible;
 }
 
 #settings-sidebar-link .router-link-active {
@@ -218,3 +219,4 @@ label:hover #radioform-circle, label input[type="radio"]:checked+#radioform-cont
 #post_item img {
   -webkit-mask-image: linear-gradient(#000 80%, transparent 95%);
 }
+

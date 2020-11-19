@@ -1,42 +1,30 @@
 <template>
-  <div id="search-container" class="inline-block flex-wrap w-full p-6">
-    <h2 class="text-2xl font-bold uppercase text-dark-2 select-none">Search posts</h2>
-    <div id="search-panels" class="flex flex-warp flex-col h-full">
-      <div id="search-opts" class="border-b border-dark-7 w-full py-2 mb-2">
-        <form action="#" @submit="searchPosts">
-          <div v-if="errors.length">
-            <ul>
-              <li v-for="(err, index) in errors" :key="index">
-                <div
-                  class="bg-red-8 text-white px-4 py-3 rounded relative mb-4"
-                >
-                  <span class="block sm:inline">{{ err }}</span>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div
-            id="e6h__inputsearch"
-            class="flex items-center"
-          >
-            <input
-              :value="tags"
-              @input="inputTags"
-              type="text"
-              name="tags"
-              id="search-tags"
-              class="rounded mr-2 px-2 py-1 bg-dark-6 focus:bg-dark-5 outline-none focus:outline-none duration-200 text-base"
-            />
-            <button
-              type="submit"
-              id="search-posts-btn"
-              class="inline-flex items-center bg-blue-6 hover:bg-blue-7 py-1 px-3 rounded duration-200"
-            >
-              <feather type="search" size="16" class="mr-2" />
-              Search
-            </button>
-          </div>
-        </form>
+  <div
+    id="poolview-container"
+    class="inline-flex w-full p-6 pb-0 overflow-hidden inset-y-0 flex-col"
+  >
+    <h2
+      class="inline-flex items-center text-2xl font-bold uppercase text-dark-2 mb-4"
+    >
+      <button
+        class="bg-blue-6 p-1 px-3 rounded-full text-white w-12 h-12 mr-4 hover:bg-blue-7 duration-200"
+        @click="$router.push({ name: 'searchpools' })"
+      >
+        <feather type="arrow-left" />
+      </button>
+      <span id="poolview-poolname">{{ pool.name.replace(/_/g, ' ') }}</span>
+    </h2>
+    <div
+      id="poolview-content"
+      class="flex flex-col flex-auto overflow-y-auto"
+    >
+      <div
+        id="e6h__global_blacklist_notice"
+        class="text-center text-gray-4 py-1"
+        v-if="posts.filter(p => !p.file.url).length"
+      >
+        There are {{posts.filter(p => !p.file.url).length}} post(s) hidden due to global blacklist rule. <e-link href="https://e621.net/help/global_blacklist"
+        >Learn more about this</e-link>.
       </div>
       <div
         id="posts-empty"
@@ -46,18 +34,9 @@
         <span v-if="fetching">Loading...</span>
         <span v-else>No posts to see here...</span>
       </div>
-      <div
-        id="e6h__global_blacklist_notice"
-        class="text-center text-gray-4 py-1"
-        v-if="posts.filter(p => !p.file.url).length"
-      >
-        There are {{posts.filter(p => !p.file.url).length}} post(s) hidden due to global blacklist rule. <e-link href="https://e621.net/help/global_blacklist"
-        >Learn more about this</e-link>.
-      </div>
       <ul
-        id="search-list"
-        ref="posts_container"
-        class="flex flex-wrap justify-center p-2 w-full h-24 overflow-y-auto flex-1"
+        id="poolview-list"
+        class="flex flex-wrap justify-center p-2 w-full overflow-y-auto flex-1"
       >
         <li
           v-for="(post, index) in posts.filter(p => p.file.url)"
@@ -76,55 +55,44 @@
           />
         </li>
         <div
-          id="search-nomore"
+          id="poolview-nomore"
           class="text-center py-8 text-gray-6 w-full"
           v-if="lastPage"
         >
           <span>No more posts here</span>
         </div>
       </ul>
-      <div
-        id="search-notfound"
-        class="text-center py-8 text-gray-6"
-        v-if="noPosts"
-      >
-        <span>Oh? no posts that matches with your tags</span>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Btn from "@/components/Button.vue";
 import PostItem from "@/components/PostItem.vue";
-import eLink from "@/components/ExternalLink.vue";
 import * as _ from "request-promise-native";
 import { version as appVer } from "../../package.json";
-import { mapGetters, mapActions } from "vuex";
 
 export default {
-  replace: false,
-  components: { PostItem, eLink },
+  name: "poolView",
+  props: ["pool"],
+  components: {
+    Btn,
+    PostItem
+  },
   data() {
     return {
       posts: [],
       errors: [],
-      fetching: false,
+      fetching: true,
       page: 1,
       lastPage: false,
       noPosts: false,
-    };
-  },
-  computed: {
-    ...mapGetters("search", ["tags"])
+    }
   },
   methods: {
-    ...mapActions("search", ["setTags"]),
-    inputTags(e) {
-      this.setTags(e.target.value);
-    },
     searchPosts(e, cont = false) {
       if (!cont) this.posts = []; this.page = 1;
-      
+
       this.errors = [];
       this.fetching = true;
       this.noPosts = false;
@@ -133,7 +101,7 @@ export default {
       _({
         uri: "https://e621.net/posts.json",
         qs: {
-          tags: this.tags,
+          tags: `pool:${this.pool.id}`,
           limit: 60,
           page: this.page,
         },
@@ -166,7 +134,7 @@ export default {
       });
       localStorage.posts = JSON.stringify(this.posts);
 
-      document.getElementById("search-list").addEventListener("scroll", (e) => {
+      document.getElementById("poolview-list").addEventListener("scroll", (e) => {
         if (this.lastPage) return;
         let el = e.target;
         let lmt = el.scrollHeight - el.offsetHeight;
@@ -194,10 +162,9 @@ export default {
     },
   },
   mounted() {
-    this.$root.$on("searchByTag", (t) => {
-      this.setTags(t);
+    this.$nextTick(() => {
       this.searchPosts();
-    });
-  },
-};
+    })
+  }
+}
 </script>

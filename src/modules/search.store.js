@@ -16,7 +16,6 @@ function l(s) {
 
 function defaultOptions() {
   return {
-    type: 'posts', // {String} posts, pools
     posts: {
       tags: '', // {String} any
       rating: null, // {String} e, q, s
@@ -58,6 +57,9 @@ export default {
       if (allowedRatings.indexOf(v.toLowerCase()) < 0) return l(`Invalid rating, got ${v}`);
       state.options.posts.rating = v;
     },
+    _setPoolName(state, v) {
+      state.options.pools.name = v;
+    },
     _resetOptions(state) {
       const defaults = defaultOptions();
       Object.keys(defaults).forEach(key => {
@@ -73,6 +75,9 @@ export default {
     setRating({ commit }, rating) {
       commit('_setRating', rating);
     },
+    setPoolName({ commit }, name) {
+      commit('_setPoolName', name);
+    },
     resetOptions({ commit }) {
       commit('_resetOptions');
     }
@@ -81,6 +86,7 @@ export default {
     searchOptions: state => state.options,
     tags: state => state.options.posts.tags,
     tagsArray: state => state.options.posts.tags.split(' '),
-    rating: state => state.options.posts.rating
+    rating: state => state.options.posts.rating,
+    poolName: state => state.options.pools.name
   }
 }
