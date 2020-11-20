@@ -22,6 +22,13 @@
       There are {{posts.filter(p => !p.file.url).length}} post(s) hidden due to global blacklist rule. <e-link href="https://e621.net/help/global_blacklist"
       >Learn more about this</e-link>.
     </div>
+    <btn
+      id="poolview-download-all"
+      class="absolute top-0 right-0 m-8"
+      @click.native="downloadPool"
+    >
+      Download pool
+    </btn>
     <div
       id="poolview-content"
       class="flex flex-col flex-auto overflow-y-auto"
@@ -76,6 +83,7 @@ import Btn from "@/components/Button.vue";
 import PostItem from "@/components/PostItem.vue";
 import * as _ from "request-promise-native";
 import { version as appVer } from "../../package.json";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "poolView",
@@ -95,7 +103,17 @@ export default {
       noPosts: false,
     }
   },
+  computed: {
+    ...mapGetters("downloads", ["queuePools"])
+  },
   methods: {
+    ...mapActions("downloads", ["addQueuePool"]),
+    downloadPool() {
+      if (this.fetching) return;
+      let poolToDownload = this.pool;
+      poolToDownload.posts = this.sortedPosts;
+      this.addQueuePool(poolToDownload);
+    },
     searchPosts(e, cont = false) {
       if (!cont) this.posts = []; this.page = 1;
 
@@ -108,7 +126,7 @@ export default {
         uri: "https://e621.net/posts.json",
         qs: {
           tags: `pool:${this.pool.id}`,
-          limit: 60,
+          limit: 200,
           page: this.page,
         },
         headers: {

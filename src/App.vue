@@ -103,6 +103,10 @@ export default {
       this.$initUpdater();
       this.$initPluginMan();
 
+      this.$store.subscribeAction(({type, payload}) => {
+        console.log({type, payload});
+      })
+
       self.$events.$on("downloadpost", function (p) {
         let indx;
         d(r(p.file.url), {
