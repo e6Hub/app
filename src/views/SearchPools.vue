@@ -49,7 +49,7 @@
       <ul
         id="search-list"
         ref="pools_container"
-        class="flex flex-wrap justify-center p-2 w-full h-24 overflow-y-auto flex-1"
+        class="flex flex-wrap justify-center p-2 w-full overflow-y-auto items-start"
       >
         <li
           v-for="(pool, index) in pools"
@@ -110,8 +110,11 @@ export default {
       this.setPoolName(e.target.value);
     },
     searchPools(e, cont = false) {
-      if (!cont) this.pools = [];
-      if (!cont) this.page = 1;
+      if (!cont) {
+        this.pools = [];
+        this.page = 1;
+      } else ++this.page;
+
       this.errors = [];
       this.fetching = true;
       this.noPools = false;
@@ -155,13 +158,10 @@ export default {
 
       document.getElementById("search-list").addEventListener("scroll", (e) => {
         if (this.lastPage) return;
-        let el = e.target;
-        let lmt = el.scrollHeight - el.offsetHeight;
-        let scrl = el.scrollTop;
-        if (scrl > lmt - 150 && !this.fetching) {
-          ++this.page;
-          this.searchPools(null, true);
-        }
+        const el = e.target,
+          lmt = el.scrollHeight - el.offsetHeight,
+          scrl = el.scrollTop;
+        if (scrl > lmt - 150 && !this.fetching) this.searchPools(null, true);
       });
     },
     viewPool(poolid) {

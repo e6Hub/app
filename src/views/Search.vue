@@ -123,7 +123,10 @@ export default {
       this.setTags(e.target.value);
     },
     searchPosts(e, cont = false) {
-      if (!cont) this.posts = []; this.page = 1;
+      if (!cont) {
+        this.posts = [];
+        this.page = 1;
+      } else ++this.page;
       
       this.errors = [];
       this.fetching = true;
@@ -168,13 +171,11 @@ export default {
 
       document.getElementById("search-list").addEventListener("scroll", (e) => {
         if (this.lastPage) return;
-        let el = e.target;
-        let lmt = el.scrollHeight - el.offsetHeight;
-        let scrl = el.scrollTop;
-        if (scrl > lmt - 150 && !this.fetching) {
-          ++this.page;
-          this.searchPosts(null, true);
-        }
+        const el = e.target,
+          lmt = el.scrollHeight - el.offsetHeight,
+          scrl = el.scrollTop;
+
+        if (scrl > lmt - 150 && !this.fetching) this.searchPosts(null, true);
       });
     },
     viewPost(postid) {
