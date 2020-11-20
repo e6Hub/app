@@ -54,6 +54,7 @@ app.on('ready', () => {
     width: 1024,
     height: 600,
     frame: false,
+    nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION 
   });
 
   if (isDev) {

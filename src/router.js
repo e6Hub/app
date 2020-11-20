@@ -28,7 +28,6 @@ export default new Router({
       children: [
         {
           path: 'downloads',
-          alias: '',
           name: 'settings.downloads',
           component: () => import('@/views/Settings/Downloads.Settings.vue')
         },

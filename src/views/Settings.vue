@@ -46,5 +46,8 @@ export default {
   components: {
     SettingsSidebarLink,
   },
+  mounted() {
+    this.$router.push('/settings/downloads');
+  }
 };
 </script>

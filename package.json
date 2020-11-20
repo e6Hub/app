@@ -1,6 +1,6 @@
 {
   "name": "e6-hub",
-  "version": "3.5.2",
+  "version": "3.6.0-dev",
   "description": "An e621 client based in Chromium",
   "author": "Saektide <real.saektide@gmail.com>",
   "scripts": {
@@ -12,7 +12,6 @@
   },
   "main": "background.js",
   "dependencies": {
-    "@tailwindcss/ui": "^0.7.2",
     "autoprefixer": "^9.8.6",
     "bytes": "^3.1.0",
     "dtext-parser": "^0.5.0",
@@ -23,7 +22,7 @@
     "request": "^2.88.2",
     "request-progress": "^3.0.0",
     "request-promise-native": "^1.0.9",
-    "tailwindcss": "^2.0.1-compat",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
     "vue": "^2.6.11",
     "vue-feather": "^1.0.0",
     "vue-router": "^3.1.6",
@@ -33,7 +32,7 @@
   "devDependencies": {
     "@vue/cli-service": "^4.5.9",
     "electron": "^8.2.4",
-    "vue-cli-plugin-electron-builder": "^1.4.6",
+    "vue-cli-plugin-electron-builder": "^2.0.0-rc.5",
     "vue-template-compiler": "^2.6.11"
   },
   "license": "MIT",

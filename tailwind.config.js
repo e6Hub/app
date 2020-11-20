@@ -1,28 +1,13 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
 module.exports = {
   // Misc
-  plugins: [require("@tailwindcss/ui")],
-  purge: {
-    content: [
-      "./components/**/*.vue",
-      "./views/**/*.vue",
-    ],
-    options: {
-      whitelist: [
-        "body",
-        "html",
-        "img",
-        "a",
-        "active"
-      ],
-    },
-  },
+  purge: false,
   // Theme
   theme: {
     // Replace
     fontFamily: {
       sans: ['"Exo 2"', ...defaultTheme.fontFamily.sans],
-      mono: ['"Operator Mono SSm"', ...defaultTheme.fontFamily.mono]
+      mono: defaultTheme.fontFamily.mono
     },
     colors: {
       // Misc & e621's colors
