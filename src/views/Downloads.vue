@@ -113,7 +113,6 @@ export default {
       });
     },
     downloadListedPosts() {
-      console.log(this.list)
       this.list.forEach((post, i) => {
         setTimeout(() => {
           this.delFromList(post.id);
