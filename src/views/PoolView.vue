@@ -122,6 +122,7 @@ export default {
   },
   computed: {
     ...mapGetters("downloads", ["queuePools"]),
+    ...mapGetters("posts", ["list"]),
     poolInQueue() {
       return this.queuePools.find(p => p.id === this.pool.id);
     },
@@ -140,6 +141,7 @@ export default {
   },
   methods: {
     ...mapActions("downloads", ["addQueuePool"]),
+    ...mapActions("posts", ["pushToList", "delFromList"]),
     downloadPool() {
       if (this.fetching) return;
       let poolToDownload = this.pool;
@@ -214,9 +216,8 @@ export default {
       });
     },
     listPost(post) {
-      let indx = this.$parent.postsList.findIndex((p) => p.id == post.id);
-      if (indx > -1) this.$parent.postsList.splice(indx, 1);
-      else this.$parent.postsList.push(post);
+      if (this.list.findIndex(p => p.id === post.id) > -1) this.delFromList(post.id);
+      else this.pushToList(post);
     },
   },
   mounted() {

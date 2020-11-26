@@ -55,7 +55,6 @@
           v-for="(pool, index) in pools"
           v-bind:key="index"
           class="mb-4 w-full cursor-pointer hover:opacity-75 duration-200"
-          @contextmenu="listPool(pool)"
           @click="viewPool(pool.id)"
         >
           <PoolItem
@@ -150,7 +149,6 @@ export default {
     displayPools(poolsData) {
       this.fetching = false;
       if (!poolsData.length) return;
-      console.log(poolsData);
       poolsData.forEach((pool) => {
         this.pools.push(pool);
       });
@@ -173,11 +171,6 @@ export default {
         name: "poolView",
         params: { pool: thisPool, id: thisPool.id },
       });
-    },
-    listPool(pool) {
-      let indx = this.$parent.poolsList.findIndex((p) => p.id == pool.id);
-      if (indx > -1) this.$parent.poolsList.splice(indx, 1);
-      else this.$parent.poolsList.push(pool);
     },
   }
 };
