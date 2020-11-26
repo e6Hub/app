@@ -30,6 +30,7 @@ export default {
     // Posts mutations
     _addQueuePost(state, postObject) {
       if (!postObject.file.url) return l(`No url file found for ${postObject.id} post, aborting download...`);
+      if (state.queuePosts.findIndex(p => p.id === postObject.id) > -1) return l('Object value cannot be added because another object has the same post ID.');
       postObject.status = 'pending';
       postObject.progress = 0;
 
@@ -42,6 +43,7 @@ export default {
     // Pools mutations
     _addQueuePool(state, poolObject) {
       if (!poolObject.posts) return l(`No posts found in ${poolObject.id} pool, aborting download...`);
+      if (state.queuePools.findIndex(p => p.id === poolObject.id) > -1) return l('Object value cannot be added because another object has the same pool ID.');
       poolObject.status = 'pending';
       poolObject.progress = 0;
 

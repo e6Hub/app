@@ -1,5 +1,5 @@
 <template>
-  <div id="downloads-container" class="inline-block w-full p-6 relative">
+  <div id="downloads-container" class="inline-block w-full p-6 pb-0 relative overflow-y-auto">
     <h2 class="text-2xl font-bold uppercase text-dark-2 select-none">Downloads</h2>
     <div
       id="no-downloads-found"
@@ -32,6 +32,7 @@
           }"
           v-for="(post, index) in queuePosts"
           :key="index"
+          @click="viewPost(post)"
         >
           <div class="mb-2 text-center text-gray-3">
             {{post.progress}}%

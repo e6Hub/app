@@ -34,7 +34,7 @@ export default {
     },
     _pushToList(state, o) {
       if (o.constructor.name !== 'Object') return l(`Object expected but got ${a.constructor.name}.`);
-      if (state.list.findIndex(p => p.id === o.id) > -1) return l('Object value cannot be added because another object has the same post ID.')
+      if (state.list.findIndex(p => p.id === o.id) > -1) return l('Object value cannot be added because another object has the same post ID.');
       state.list.push(o);
       l(`Append post #${o.id} to list`);
     },
