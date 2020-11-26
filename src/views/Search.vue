@@ -115,10 +115,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("search", ["tags"])
+    ...mapGetters("search", ["tags"]),
+    ...mapGetters("posts", ["list"])
   },
   methods: {
     ...mapActions("search", ["setTags"]),
+    ...mapActions("posts", ["pushToList", "delFromList"]),
     inputTags(e) {
       this.setTags(e.target.value);
     },
@@ -189,9 +191,8 @@ export default {
       });
     },
     listPost(post) {
-      let indx = this.$parent.postsList.findIndex((p) => p.id == post.id);
-      if (indx > -1) this.$parent.postsList.splice(indx, 1);
-      else this.$parent.postsList.push(post);
+      if (this.list.findIndex(p => p.id === post.id) > -1) this.delFromList(post.id);
+      else this.pushToList(post);
     },
   },
   mounted() {

@@ -26,8 +26,25 @@
       id="poolview-download-all"
       class="absolute top-0 right-0 m-8"
       @click.native="downloadPool"
+      v-if="!poolInQueue"
     >
       Download pool
+    </btn>
+    <btn
+      id="poolview-download-all"
+      class="absolute top-0 right-0 m-8"
+      role="disabledBusy"
+      v-if="poolDownloading"
+    >
+      Downloading pool... {{poolInQueue.progress}}%
+    </btn>
+    <btn
+      id="poolview-download-all"
+      class="absolute top-0 right-0 m-8"
+      role="disabled"
+      v-if="poolDownloaded"
+    >
+      Downloaded
     </btn>
     <div
       id="poolview-content"
@@ -104,7 +121,22 @@ export default {
     }
   },
   computed: {
-    ...mapGetters("downloads", ["queuePools"])
+    ...mapGetters("downloads", ["queuePools"]),
+    poolInQueue() {
+      return this.queuePools.find(p => p.id === this.pool.id);
+    },
+    poolDownloading() {
+      if (!this.poolInQueue) return;
+      return this.poolInQueue.status === 'downloading';
+    },
+    poolDownloadError() {
+      if (!this.poolInQueue) return;
+      return this.poolInQueue.status === 'error';
+    },
+    poolDownloaded() {
+      if (!this.poolInQueue) return;
+      return this.poolInQueue.status === 'downloaded';
+    }
   },
   methods: {
     ...mapActions("downloads", ["addQueuePool"]),

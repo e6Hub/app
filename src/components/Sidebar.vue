@@ -9,17 +9,17 @@
       <SidebarLink
         icon="download"
         linkto="/downloads"
-        :badgevar="this.$parent.downloadsQueue.length"
+        :badgevar="queuePosts.filter(p => p.status === 'pending').length + queuePosts.filter(p => p.status === 'downloading').length"
       >Downloads</SidebarLink>
       <SidebarLink icon="settings" linkto="/settings/">Settings</SidebarLink>
     </ul>
     <ul
       id="postslistlinks"
-      v-if="this.$parent.postsList.length"
+      v-if="list.length"
       class="flex flex-wrap justify-center border-t border-dark-7 pt-4"
     >
       <SidebarLink
-        v-for="(post, index) in this.$parent.postsList"
+        v-for="(post, index) in this.list"
         :key="index"
         :img="post.preview.url"
         :imgalt="post.id"
@@ -32,11 +32,16 @@
 
 <script>
 import SidebarLink from "@/components/SidebarLink.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "Sidebar",
   components: {
     SidebarLink,
+  },
+  computed: {
+    ...mapGetters("posts", ["list"]),
+    ...mapGetters("downloads", ["queuePosts"]),
   },
   methods: {
     viewPost(p) {

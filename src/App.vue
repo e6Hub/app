@@ -30,14 +30,6 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "App",
-  data() {
-    return {
-      downloadsQueue: [],
-      downloaded: [],
-      updateState: null,
-      postsList: [],
-    };
-  },
   components: { Sidebar, Titlebar },
   watch: {
     $route(to, from) {
@@ -52,49 +44,96 @@ export default {
   },
   computed: {
     ...mapGetters("settings", ["setting"]),
+    ...mapGetters("downloads", ["lastTime", "queuePosts"]),
+    downloadsDirectory() {
+      return this.setting('downloadLocation');
+    }
   },
   methods: {
     ...mapActions("settings", ["verifySettings"]),
     ...mapActions("posts", {setPostId: "setId"}),
-    addDownloadPost(postData) {
-      if (
-        this.downloadsQueue.findIndex((post_id) => post_id.id == postData.id) >
-        -1
-      ) {
-        console.warn("You are downloading this file right now!");
-        return;
+    ...mapActions("downloads", ["updateLastTime", "updatePool", "updatePost"]),
+    downloadPost(post, fn, subDir = null) {
+      if (subDir) fs.mkdirSync(`${this.downloadsDirectory}/${subDir}`, {recursive: true});
+
+      const url = post.file.url,
+        id = post.id,
+        ext = post.file.ext,
+        d_ = () => {
+          this.updateLastTime();
+
+          d(r(url), {
+            throttle: 250,
+          })
+            .on("progress", (status) => {
+              let percent = Math.round(status.percent * 100);
+              fn({type: 'progress', percent, url, id});
+            })
+            .on("error", (err) => {
+              fn({type: 'error', err, url, id});
+            })
+            .on("end", () => {
+              fn({type: 'end', url, id});
+            })
+            .pipe(
+              fs.createWriteStream(
+                `${this.downloadsDirectory}/${subDir ? `${subDir}/`: ''}${id}.${ext}`
+              )
+            );
       }
 
-      if (
-        this.downloaded.findIndex((post_id) => post_id.id == postData.id) > -1
-      ) {
-        console.warn("You has already downloaded this file!");
-        return;
-      }
-
-      this.$set(postData, "download", {});
-      this.$set(postData.download, "state", "downloading");
-      this.$set(postData.download, "progress", 0);
-
-      this.downloadsQueue.push(postData);
-      this.$events.$emit("downloadpost", postData);
+      const now = new Date().getTime(),
+        lt = this.lastTime,
+        toWait = lt + 3000;
+      
+      if (now < toWait) {
+        const diff = toWait - now;
+        console.log(`Cooling down %c${diff}ms`, 'color: #f66');
+        setTimeout(d_, diff);
+      } else d_();
     },
-  },
-  mounted: function () {
-    Array.prototype.so = function (cb) {
-      return new Promise((res, rej) => {
-        try {
-          let c = 0;
-          for (; c < this.length; ) {
-            cb(this[c]);
-            if (c == this.length - 1) return res();
-            ++c;
-          }
-        } catch (e) {
-          return rej(e);
+    downloadFirstPostPending() {
+      const pending_ = this.queuePosts.filter(p => p.status === 'pending');
+      const downloading_ = this.queuePosts.filter(p => p.status === 'downloading');
+      
+      if (!pending_.length) return console.log('No pending posts to download');
+      if (downloading_.length) return console.log('There\'s another post downloading now');
+      let localPayload = pending_[0];
+
+      console.log(`Downloading post #${localPayload.id}...`);
+      localPayload.status = 'downloading';
+      this.updatePost(localPayload);
+      this.downloadPost(pending_[0], (status) => {
+        switch (status.type) {
+          case 'progress':
+            console.log(`#${status.id} // ${status.percent}%`)
+            localPayload.status = 'downloading';
+            localPayload.progress = status.percent;
+            this.updatePost(localPayload);
+            break;
+          case 'error':
+            console.log(`#${status.id} // ERROR`)
+            throw status.err;
+            localPayload.status = 'error';
+            this.updatePost(localPayload);
+            break;
+          case 'end':
+            console.log(`#${status.id} // Done`)
+            localPayload.status = 'done';
+            localPayload.progress = 100;
+            this.updatePost(localPayload);
+            setTimeout(this.downloadFirstPostPending);
+            break;
         }
       });
-    };
+    }
+  },
+  mounted: function () {
+    const each = async function(arr, cb) {
+      for (let i = 0; i < arr.length; i++) {
+        await cb(arr[i], i, arr);
+      }
+    }
 
     let self = this;
 
@@ -104,37 +143,43 @@ export default {
       this.$initPluginMan();
 
       this.$store.subscribeAction(({type, payload}) => {
-        console.log({type, payload});
-      })
-
-      self.$events.$on("downloadpost", function (p) {
-        let indx;
-        d(r(p.file.url), {
-          throttle: 250,
-        })
-          .on("progress", (st) => {
-            indx = self.downloadsQueue.findIndex((idPost) => idPost.id == p.id);
-            let percent = Math.round(st.percent * 100);
-            self.$set(self.downloadsQueue[indx].download, "progress", percent);
-          })
-          .on("error", (err) => {
-            indx = self.downloadsQueue.findIndex((idPost) => idPost.id == p.id);
-            self.downloadsQueue[indx].download.state = "error";
-            console.error(`Failed to download ${p.id} :: ${err}`);
-          })
-          .on("end", () => {
-            indx = self.downloadsQueue.findIndex((idPost) => idPost.id == p.id);
-            self.downloadsQueue[indx].download.state = "downloaded";
-            self.downloaded.push(self.downloadsQueue[indx]);
-            self.downloadsQueue.splice(indx, 1);
-          })
-          .pipe(
-            fs.createWriteStream(
-              `${JSON.parse(localStorage.settings).downloadLocation}/${p.id}.${
-                p.file.ext
-              }`
-            )
-          );
+        switch (type) {
+          case 'downloads/addQueuePool':
+            if (!payload.posts.length) return;
+            let localPayload = payload;
+            each(payload.posts, (post_, postIndex_) => {
+              return new Promise((res, rej) => {
+                this.downloadPost(post_, (status) => {
+                  switch (status.type) {
+                    case 'progress':
+                      localPayload.status = 'downloading';
+                      this.updatePool(localPayload);
+                      break;
+                    case 'error':
+                      rej(status.err);
+                      break;
+                    case 'end':
+                      localPayload.progress = Math.round(((postIndex_ + 1) / payload.posts.length) * 100);
+                      this.updatePool(localPayload);
+                      res(status);
+                      break;
+                  }
+                }, payload.name);
+              })
+            }).then(() => {
+              localPayload.status = 'downloaded'
+              this.updatePool(localPayload);
+              console.log(`Pool ${payload.id} successfully downloaded`);
+            }).catch((error) => {
+              localPayload.status = 'error'
+              this.updatePool(localPayload);
+              throw error;
+            });
+            break;
+          case 'downloads/addQueuePost':
+            setTimeout(this.downloadFirstPostPending);
+            break;
+        }
       });
     });
   },

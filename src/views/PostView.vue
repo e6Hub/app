@@ -151,10 +151,7 @@
       <div id="postview-details" class="m-4 mt-0 w-1/4">
         <div id="postview-actions" class="mb-4">
           <btn
-            v-if="
-              !this.$parent.downloadsQueue.find((p) => p.id == post.id) &&
-              !this.$parent.downloaded.find((p) => p.id == post.id)
-            "
+            v-if="queuePosts.findIndex((p) => p.id == post.id) === -1"
             id="postview-download-btn"
             @click.native="downloadPost"
             class="w-full"
@@ -163,10 +160,15 @@
             Download
           </btn>
           <btn
-            v-else-if="
-              this.$parent.downloadsQueue.find((p) => p.id == post.id) &&
-              !this.$parent.downloaded.find((p) => p.id == post.id)
-            "
+            v-else-if="queuePostsPending.findIndex((p) => p.id == post.id) > -1"
+            id="postview-downloading-btn"
+            class="w-full"
+            role="disabledBusy"
+          >
+            Pending download...
+          </btn>
+          <btn
+            v-else-if="queuePostsDownloading.findIndex((p) => p.id == post.id) > -1"
             id="postview-downloading-btn"
             class="w-full"
             role="busy"
@@ -174,10 +176,7 @@
             Downloading
           </btn>
           <btn
-            v-else-if="
-              !this.$parent.downloadsQueue.find((p) => p.id == post.id) &&
-              this.$parent.downloaded.find((p) => p.id == post.id)
-            "
+            v-else-if="queuePostsDone.findIndex((p) => p.id == post.id) > -1"
             id="postview-downloaded-btn"
             class="w-full"
             role="disabled"
@@ -185,7 +184,7 @@
             Downloaded
           </btn>
           <btn
-            v-if="!this.$parent.postsList.find((p) => p.id == post.id)"
+            v-if="!postInList"
             id="postview-addtolist-btn"
             class="w-full mt-2"
             @click.native="listPost"
@@ -306,7 +305,7 @@
 import DText from "dtext-parser";
 import * as ptime from "pretty-ms";
 import bytes from "bytes";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import Btn from "@/components/Button.vue";
 
 export default {
@@ -335,6 +334,11 @@ export default {
   },
   computed: {
     ...mapGetters("settings", ["setting"]),
+    ...mapGetters("downloads", ["queuePosts", "queuePostsPending", "queuePostsDownloading", "queuePostsDone"]),
+    ...mapGetters("posts", ["list"]),
+    postInList() {
+      return this.list.findIndex(p => p.id === this.post.id) > -1;
+    },
     blurNsfw() {
       return this.setting("blurNsfw");
     },
@@ -344,8 +348,7 @@ export default {
   },
   watch: {
     videoVolume(v) {
-      if (this.videoMuted)
-        document.getElementById("postview-player").muted = false;
+      if (this.videoMuted) document.getElementById("postview-player").muted = false;
       document.getElementById("postview-player").volume = v;
       document.getElementById("pv-volume-sliderbar-current").style.width = `${100 * this.videoVolume - 0.01}%`;
     },
@@ -393,13 +396,14 @@ export default {
     },
   },
   methods: {
+    ...mapActions("downloads", ["addQueuePost"]),
+    ...mapActions("posts", ["pushToList", "delFromList"]),
     downloadPost() {
-      this.$parent.addDownloadPost(this.post);
+      this.addQueuePost(this.post);
     },
     listPost() {
-      let indx = this.$parent.postsList.findIndex((p) => p.id == this.post.id);
-      if (indx > -1) this.$parent.postsList.splice(indx, 1);
-      else this.$parent.postsList.push(this.post);
+      if (this.postInList) this.delFromList(this.post.id);
+      else this.pushToList(this.post);
     },
     searchFor(tagName) {
       this.$router.push({ name: "search" });
