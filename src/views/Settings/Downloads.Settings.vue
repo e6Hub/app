@@ -34,7 +34,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["setSetting"]),
+    ...mapActions("settings", ["setSetting"]),
     manageFolder() {
       dialog
         .showOpenDialog({

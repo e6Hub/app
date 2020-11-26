@@ -1,3 +1,5 @@
+import Vue from 'vue';
+
 /**
  * This is the main entry file of Settings store module,
  * the purpose of this file is store app's settings with
@@ -32,12 +34,12 @@ export default {
   mutations: {
     _setSetting(state, obj) {
       l(`<${obj.key}> changed to "${obj.value}"`);
-      state.settings[obj.key] = obj.value;
+      Vue.set(state.settings, obj.key, obj.value);
     },
     _resetSettings(state) {
       const defaults = defaultSettings()
       Object.keys(defaults).forEach(key => {
-        state.settings[key] = defaults[key]
+        Vue.set(state.settings, key, defaults[key]);
       });
       l('Settings restored');
     },
