@@ -88,7 +88,6 @@ export default {
       
       if (now < toWait) {
         const diff = toWait - now;
-        console.log(`Cooling down %c${diff}ms`, 'color: #f66');
         setTimeout(d_, diff);
       } else d_();
     },
@@ -96,29 +95,25 @@ export default {
       const pending_ = this.queuePosts.filter(p => p.status === 'pending');
       const downloading_ = this.queuePosts.filter(p => p.status === 'downloading');
       
-      if (!pending_.length) return console.log('No pending posts to download');
-      if (downloading_.length) return console.log('There\'s another post downloading now');
+      if (!pending_.length) return;
+      if (downloading_.length) return;
       let localPayload = pending_[0];
 
-      console.log(`Downloading post #${localPayload.id}...`);
       localPayload.status = 'downloading';
       this.updatePost(localPayload);
       this.downloadPost(pending_[0], (status) => {
         switch (status.type) {
           case 'progress':
-            console.log(`#${status.id} // ${status.percent}%`)
             localPayload.status = 'downloading';
             localPayload.progress = status.percent;
             this.updatePost(localPayload);
             break;
           case 'error':
-            console.log(`#${status.id} // ERROR`)
-            throw status.err;
             localPayload.status = 'error';
             this.updatePost(localPayload);
+            throw status.err;
             break;
           case 'end':
-            console.log(`#${status.id} // Done`)
             localPayload.status = 'done';
             localPayload.progress = 100;
             this.updatePost(localPayload);
@@ -169,7 +164,6 @@ export default {
             }).then(() => {
               localPayload.status = 'downloaded'
               this.updatePool(localPayload);
-              console.log(`Pool ${payload.id} successfully downloaded`);
             }).catch((error) => {
               localPayload.status = 'error'
               this.updatePool(localPayload);
