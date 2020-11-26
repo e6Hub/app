@@ -18,15 +18,11 @@
 }
 
 body {
-  @apply border border-dark-8 overflow-hidden;
+  @apply overflow-hidden;
 }
 
 *, *:focus {
   outline: none !important;
-}
-
-div#main {
-  margin: 1px;
 }
 
 #titlebar button>img {
