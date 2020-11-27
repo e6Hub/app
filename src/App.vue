@@ -54,6 +54,8 @@ export default {
     ...mapActions("posts", {setPostId: "setId"}),
     ...mapActions("downloads", ["updateLastTime", "updatePool", "updatePost"]),
     downloadPost(post, fn, subDir = null) {
+      this.verifySettings();
+      
       if (subDir) fs.mkdirSync(`${this.downloadsDirectory}/${subDir}`, {recursive: true});
 
       const url = post.file.url,

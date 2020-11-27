@@ -1,4 +1,5 @@
 import Vue from 'vue';
+import fs from 'fs';
 
 /**
  * This is the main entry file of Settings store module,
@@ -46,7 +47,12 @@ export default {
     _verifySettings(state) {
       if (!state.settings || typeof state.settings != 'object') {
         l('Invalid settings found, reseting');
-        this._resetSettings(state);
+        return this._resetSettings(state);
+      }
+      
+      if (!fs.existsSync(state.settings.downloadLocation)) {
+        l('Custom download folder don\'t exists. Restoring to default...');
+        Vue.set(state.settings, 'downloadLocation', defaultSettings().downloadLocation);
       }
     },
   },
