@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/e6Hub/app/compare/v3.6.0...HEAD)
 
+### Fixed
+
+- Links now should open in your default browser
+
 ## [3.6.0](https://github.com/e6Hub/app/compare/v3.5.2...v3.6.0) - 2020-11-27
 
 ### Added
