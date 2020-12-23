@@ -40,6 +40,18 @@ if (process.platform === 'win32' && fs.existsSync('C:\\Windows\\System32\\Macrom
 );
 
 /**
+ * Open links with HTTP(S) or FTP protocol on your default browser
+ * based in your OS.
+ */
+function handleExterns(e, url) {
+  if (!url) return;
+  if (url.match(/^(http|ftp)s?:\/\//)) {
+    e.preventDefault()
+    require('electron').shell.openExternal(url);
+  }
+}
+
+/**
  * Launch the electron app, it'll open the dev tools window if
  * the app is running under development enviroment.
  */
@@ -65,6 +77,9 @@ app.on('ready', () => {
     createProtocol('app');
     win.loadURL('app://./index.html/');
   }
+
+  win.webContents.on('will-navigate', handleExterns);
+  win.webContents.on('new-window', handleExterns);
 
   updater.checkForUpdates();
 
