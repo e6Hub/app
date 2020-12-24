@@ -13,7 +13,7 @@ Wanna bring e621 to your desktop? You got it, e6Hub is an app that allows you to
 
 ## 🌟 Features
 * Fetch, list (save temporally on your session) and download posts and polls
-* SWF support (see [FAQ](#FAQ) for how to enable it)
+* SWF support (see [FAQ](#-faq) for how to enable it)
 * Webm support
 * Third party plugins support
 * Blur explicit images
