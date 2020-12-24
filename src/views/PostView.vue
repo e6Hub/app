@@ -460,15 +460,7 @@ export default {
     this.$nextTick(() => {
       if (!this.post) return this.$router.push({ name: "search" });
       DText.parse(this.post.description).then((dp) => {
-        let _tmp = document.createElement("div");
-        _tmp.innerHTML = dp;
-        const _links = Array.from(_tmp.getElementsByTagName("a"));
-        this.nlinks = _links.length;
-        _links.forEach((link, i) => {
-          let _link = _tmp.getElementsByTagName("a").item(i);
-          _link.id = `l${i}`;
-        });
-        this.descParsed = _tmp.innerHTML;
+        this.descParsed = dp;
       });
 
       this.viewWidth = document.getElementById("postview-left").offsetWidth;

@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased](https://github.com/e6Hub/app/compare/v3.6.0...HEAD)
 
+### Removed
+
+- Links in posts descriptions will no longer receive an ID
+
 ### Fixed
 
 - Links now should open in your default browser
