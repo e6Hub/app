@@ -4,15 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/e6Hub/app/compare/v3.6.0...HEAD)
+## [Unreleased](https://github.com/e6Hub/app/compare/v3.6.1...HEAD)
+
+## [3.6.1](https://github.com/e6Hub/app/compare/v3.6.0...v3.6.1) - 2020-12-25
 
 ### Removed
 
-- Links in posts descriptions will no longer receive an ID
+- Links in posts descriptions will no longer receive an ID ([7b39565](https://github.com/e6Hub/app/commit/7b39565cb0624b0b4482863ce8ae5c0459272355))
 
 ### Fixed
 
-- Links now should open in your default browser
+- Links now should open in your default browser ([fa4b509](https://github.com/e6Hub/app/commit/fa4b509e2715ebad912fb6a4e32cee37d7ecdf9e))
 
 ## [3.6.0](https://github.com/e6Hub/app/compare/v3.5.2...v3.6.0) - 2020-11-27
 
