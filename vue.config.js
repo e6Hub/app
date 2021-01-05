@@ -22,7 +22,7 @@ module.exports = {
         // Linux
         linux: {
           target: ['deb'],
-          synopsis: 'An e621 client',
+          synopsis: 'An e621/e926 client',
           category: 'Network'
         },
         publish: {
