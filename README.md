@@ -8,7 +8,7 @@ Wanna bring e621/e926 to your desktop? You got it, e6Hub is an app that allows y
 * [Changelog](https://github.com/e6Hub/app/blob/master/CHANGELOG.md#changelog)
 
 ## 🌟 Features
-* Fetch, list (save temporally on your session) and download posts and polls
+* Fetch, list (save temporally on your session) and download posts and pools
 * SWF support (see [FAQ](#-faq) for how to enable it)
 * Webm support
 * Third party plugins support
