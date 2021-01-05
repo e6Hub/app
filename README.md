@@ -2,14 +2,10 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/eawhvp0h2215rqhj?svg=true)](https://ci.appveyor.com/project/Saektide/app)
 [![DeepScan grade](https://deepscan.io/api/teams/9325/projects/11662/branches/175184/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9325&pid=11662&bid=175184)
 
-Wanna bring e621 to your desktop? You got it, e6Hub is an app that allows you to fetch posts, pools and download them from [e621.net](https://e621.net/help/about). It uses [e621's API](https://e621.net/wiki_pages/2425) and it's powered by [Vue.js](https://vuejs.org/). Feel free to contribute to this project!
+Wanna bring e621/e926 to your desktop? You got it, e6Hub is an app that allows you to fetch posts, pools and download them from [e621.net](https://e621.net/help/about) and e926. This app is powered by [Vue.js](https://vuejs.org/) and [Electron](https://www.electronjs.org/). Feel free to contribute to this project!
 
 * [Download](https://github.com/e6Hub/app/releases/latest)
 * [Changelog](https://github.com/e6Hub/app/blob/master/CHANGELOG.md#changelog)
-
-### 💭 Keep in mind...
-* This app interacts with a NSFW site, so, if you don't want to see explicit content... use `rating:s` while you are searching posts or use the blur feature. Learn more about [e621's tag system](https://e621.net/help/tags).
-* Posts (images, animations, videos) are from e621, some are uploaded by his own artist.
 
 ## 🌟 Features
 * Fetch, list (save temporally on your session) and download posts and polls
@@ -17,19 +13,26 @@ Wanna bring e621 to your desktop? You got it, e6Hub is an app that allows you to
 * Webm support
 * Third party plugins support
 * Blur explicit images
-* DText support 
+* DText support
+* i18n support
 
 ## 📸 Showcase / Screenshot
 <p align="center">
   <img src="assets/screenshots/e6HubShowcase1.gif">
 </p>
 
+## 🌎 Translation status
+| Language name | Progress | Translated by |
+| ------------- | -------: | ------------: |
+| English       | 100%     | Saektide      |
+| Spanish       | 100%     | Saektide      |
+
 ## 🖥 Machine requirements
 | Component | Minimum | Recommended |
-| --- | ---: | ---: |
-| RAM | 2 GB | 4 GB |
-| Storage | ~150 MB | 250 MB |
-| CPU |Any single core CPU | Any dual core CPU |
+| --------- | ------: | ----------: |
+| RAM       | 2 GB    | 4 GB        |
+| Storage   | ~150 MB | 250 MB      |
+| CPU       |Any single core CPU | Any dual core CPU |
 | Bandwidth Downstream | 1 MiB | 3 MiB |
 
 ## 🧪 OS Supported
@@ -106,7 +109,9 @@ Use the **Issues** section for bug report (if you are not sure if that's a bug o
 No, all the app (and everything on there) is free and open source.
 
 ### How do i enable SWF on this app?
-Assuming your machine have Windows (7 or greater), Adobe no longer support Flash right now but you still have the possibility to install it on your machine. e6Hub will be able to play SWF posts if you have the proprietary Pepper Flash Player plugin installed and located at `C:Windows\System32\Macromed\Flash`.
+Assuming your machine have Windows (7 or greater), Adobe no longer support Flash right now but you still have the possibility to install it on your machine, since download page isn't available you have to find a file called `pepflashplayer.dll` for 64 bits online*. e6Hub will be able to play SWF posts if you have the proprietary Pepper Flash Player plugin installed and located at `C:\Windows\System32\Macromed\Flash`. If that didn't work, find a Flash Player installer somewhere online then verify if that installer is legit (check the signature).
+
+\* For security reasons, **make sure DLL file have a digital signature** (Right click > Properties > Digital signatures) of "Adobe Inc." or "Adobe Systems Incorporated", must be signed with sha256 algorithm and the issuer should be **DigiCert**.
 
 ### I have questions that doesn't apply to the FAQ...
 You can use **Discussions** and you will receive support from a experimental user or from a project contributor. We don't bite!
