@@ -3,7 +3,7 @@
     <h2 class="text-2xl font-bold uppercase text-dark-2 select-none" v-text="$t('downloads.downloads')"/>
     <div
       id="no-downloads-found"
-      v-if="!queuePools.length || !queuePosts.length"
+      v-if="(queuePosts.length + queuePools.length) < 1"
       class="text-center my-4"
     >
       <span v-text="$t('downloads.nothingYet')"/>
