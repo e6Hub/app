@@ -48,14 +48,13 @@
 
 <script>
 import SettingView from "@/components/SettingView.vue";
-import eLink from "@/components/ExternalLink.vue"
 import Btn from "@/components/Button.vue";
 import { ipcRenderer } from "electron";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "AboutSettings",
-  components: { SettingView, eLink, Btn },
+  components: { SettingView, Btn },
   computed: {
     ...mapGetters("updater", ["updateStatus"]),
   },

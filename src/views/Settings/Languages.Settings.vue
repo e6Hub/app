@@ -22,7 +22,7 @@ import { mapActions } from "vuex";
 import Vue from 'vue';
 
 export default {
-  name: "AppearanceSettings",
+  name: "LanguagesSettings",
   components: { SettingView, LangSelectForm },
   data() {
     return {

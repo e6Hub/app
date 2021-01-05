@@ -82,14 +82,13 @@
 
 <script>
 import PoolItem from "@/components/PoolItem.vue";
-import eLink from "@/components/ExternalLink.vue";
 import * as _ from "request-promise-native";
 import { version as appVer } from "../../package.json";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   replace: false,
-  components: { PoolItem, eLink },
+  components: { PoolItem },
   data() {
     return {
       pools: [],
@@ -101,7 +100,11 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("search", ["poolName"])
+    ...mapGetters("search", ["poolName"]),
+    ...mapGetters("settings", ["setting"]),
+    searchMode() {
+      return this.setting("searchMode");
+    },
   },
   methods: {
     ...mapActions("search", ["setPoolName"]),
@@ -120,7 +123,7 @@ export default {
       this.lastPage = false;
 
       _({
-        uri: "https://e621.net/pools.json",
+        uri: `https://e${this.searchMode}.net/pools.json`,
         qs: {
           'search[name_matches]': this.poolName,
           limit: 60,

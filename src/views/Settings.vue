@@ -12,6 +12,11 @@
           linki18n="settings.sidebar.downloads"
         />
         <SettingsSidebarLink
+          icon="search"
+          linkto="search"
+          linki18n="settings.sidebar.search"
+        />
+        <SettingsSidebarLink
           icon="layout"
           linkto="appearance"
           linki18n="settings.sidebar.appearance"

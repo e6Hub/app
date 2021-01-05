@@ -71,6 +71,7 @@ export default {
     sidebar: {
       appSettings: 'Ajustes de la app',
       downloads: 'Descargas',
+      search: 'Búsqueda',
       appearance: 'Apariencia',
       plugins: 'Extensiones',
       language: 'Idioma',
@@ -80,6 +81,14 @@ export default {
       title: 'Descargas',
       currentDownloadsDir: 'Carpeta actual de descargas',
       manageDir: 'Administrar carpeta'
+    },
+    search: {
+      title: 'Búsqueda',
+      searchMode: 'Modo de búsqueda',
+      mode: {
+        safe: 'Seguro (e926)',
+        unsafe: 'Inseguro (e621)'
+      }
     },
     appearance: {
       title: 'Apariencia',
@@ -117,7 +126,7 @@ export default {
     about: {
       title: 'Acerca de',
       aboutTitle: 'e6Hub no es una aplicación oficial de e621.net',
-      aboutBody: 'Esta app fue creada por usuarios de e621.net, no por el staff de e621. Si quieres repotar un error o dar tus comentarios puedes ir a {0}. Esta aplicación no provee ninguna garantía ya que es de código abierto. El autor de este proyecto es {1} y está licenciado bajo la {2}.',
+      aboutBody: 'Esta app fue creada por usuarios de e621.net, no por el staff de e621. Si quieres repotar un error o dar tus comentarios puedes ir a {0}. Esta aplicación no provee ninguna garantía ya que es de código abierto. El proyecto fue creado por {1} y está bajo la {2}.',
       aboutIssues: 'Conflictos',
       aboutLicense: 'Licencia MIT',
       restartToUpdate: 'Reiniciar para actualizar',

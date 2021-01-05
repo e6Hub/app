@@ -15,12 +15,7 @@
 </template>
 
 <script>
-import eLink from "./ExternalLink.vue";
-
 export default {
-  name: "BetaFeature",
-  components: {
-    eLink
-  }
+  name: "BetaFeature"
 };
 </script>

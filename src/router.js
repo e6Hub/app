@@ -32,6 +32,11 @@ export default new Router({
           component: () => import('@/views/Settings/Downloads.Settings.vue')
         },
         {
+          path: 'search',
+          name: 'settings.search',
+          component: () => import('@/views/Settings/Search.Settings.vue')
+        },
+        {
           path: 'appearance',
           name: 'settings.appearance',
           component: () => import('@/views/Settings/Appearance.Settings.vue')

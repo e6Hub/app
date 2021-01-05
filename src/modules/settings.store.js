@@ -24,7 +24,8 @@ function defaultSettings() {
     blurNsfw: false,
     unblurNsfw: 'onhover',
     searchViewMode: 'compact',
-    lang: 'en'
+    lang: 'en',
+    searchMode: '926'
   }
 }
 

@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add internationalization (i18n). Check [CONTRIBUTING.md](https://github.com/e6Hub/app/blob/master/.github/CONTRIBUTING.md) for more information about this
   - Added English
   - Added Spanish (Español)
+- Add safe mode (e926) and enabled by default, you can disable this on **Search** settings
+
+### Removed
+
+- Removed external link component (which is deprecated)
 
 ### Fixed
 - Fix for development environments an issue with openExternal handle, it won't open `localhost` domains on your browser anymore

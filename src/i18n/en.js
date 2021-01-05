@@ -71,6 +71,7 @@ export default {
     sidebar: {
       appSettings: 'App settings',
       downloads: 'Downloads',
+      search: 'Search',
       appearance: 'Appearance',
       plugins: 'Plugins',
       language: 'Language',
@@ -80,6 +81,14 @@ export default {
       title: 'Downloads',
       currentDownloadsDir: 'Current download folder',
       manageDir: 'Manage folder'
+    },
+    search: {
+      title: 'Search',
+      searchMode: 'Search mode',
+      mode: {
+        safe: 'Safe (e926)',
+        unsafe: 'Unsafe (e621)'
+      }
     },
     appearance: {
       title: 'Appearance',

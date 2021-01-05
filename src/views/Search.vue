@@ -98,14 +98,13 @@
 
 <script>
 import PostItem from "@/components/PostItem.vue";
-import eLink from "@/components/ExternalLink.vue";
 import * as _ from "request-promise-native";
 import { version as appVer } from "../../package.json";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   replace: false,
-  components: { PostItem, eLink },
+  components: { PostItem },
   data() {
     return {
       posts: [],
@@ -118,7 +117,11 @@ export default {
   },
   computed: {
     ...mapGetters("search", ["tags"]),
-    ...mapGetters("posts", ["list"])
+    ...mapGetters("posts", ["list"]),
+    ...mapGetters("settings", ["setting"]),
+    searchMode() {
+      return this.setting("searchMode");
+    },
   },
   methods: {
     ...mapActions("search", ["setTags"]),
@@ -138,7 +141,7 @@ export default {
       this.lastPage = false;
 
       _({
-        uri: "https://e621.net/posts.json",
+        uri: `https://e${this.searchMode}.net/posts.json`,
         qs: {
           tags: this.tags,
           limit: 60,
