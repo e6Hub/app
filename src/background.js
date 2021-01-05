@@ -45,7 +45,7 @@ if (process.platform === 'win32' && fs.existsSync('C:\\Windows\\System32\\Macrom
  */
 function handleExterns(e, url) {
   if (!url) return;
-  if (url.match(/^(http|ftp)s?:\/\//)) {
+  if (url.match(/^(http|ftp)s?:\/\/(?!localhost)/)) {
     e.preventDefault()
     require('electron').shell.openExternal(url);
   }

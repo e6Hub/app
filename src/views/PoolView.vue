@@ -19,33 +19,30 @@
       class="text-center text-gray-4 py-1"
       v-if="posts.filter(p => !p.file.url).length"
     >
-      There are {{posts.filter(p => !p.file.url).length}} post(s) hidden due to global blacklist rule. <e-link href="https://e621.net/help/global_blacklist"
-      >Learn more about this</e-link>.
+      {{$tc('blacklist.count', posts.filter(p => !p.file.url).length, { count: posts.filter(p => !p.file.url).length })}} {{$t('blacklist.dueTo')}} <a href="https://e621.net/help/global_blacklist"
+        >{{$t('blacklist.learnMore')}}</a>.
     </div>
     <btn
       id="poolview-download-all"
       class="absolute top-0 right-0 m-8"
       @click.native="downloadPool"
       v-if="!poolInQueue"
-    >
-      Download pool
-    </btn>
+      v-text="$t('poolview.download')"
+    />
     <btn
       id="poolview-download-all"
       class="absolute top-0 right-0 m-8"
       role="disabledBusy"
       v-if="poolDownloading"
-    >
-      Downloading pool... {{poolInQueue.progress}}%
-    </btn>
+      v-text="$t('poolview.downloading', { progress: poolInQueue.progress })"
+    />
     <btn
       id="poolview-download-all"
       class="absolute top-0 right-0 m-8"
       role="disabled"
       v-if="poolDownloaded"
-    >
-      Downloaded
-    </btn>
+      v-text="$t('poolview.downloaded')"
+    />
     <div
       id="poolview-content"
       class="flex flex-col flex-auto overflow-y-auto"
@@ -60,8 +57,8 @@
         class="text-center py-8 text-gray-4"
         v-if="!posts.length"
       >
-        <span v-if="fetching">Loading...</span>
-        <span v-else>This pool is empty... or not?</span>
+        <span v-if="fetching" v-text="$t('search.loading')"/>
+        <span v-else v-text="$t('poolview.nothingHere')"/>
       </div>
       <ul
         id="poolview-list"
@@ -88,7 +85,7 @@
           class="text-center py-8 text-gray-6 w-full"
           v-if="lastPage"
         >
-          <span>No more posts here</span>
+          <span v-text="$t('search.posts.lastPage')"/>
         </div>
       </ul>
     </div>

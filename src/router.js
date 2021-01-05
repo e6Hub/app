@@ -42,6 +42,11 @@ export default new Router({
           component: () => import('@/views/Settings/Plugins.Settings.vue')
         },
         {
+          path: 'languages',
+          name: 'settings.languages',
+          component: () => import('@/views/Settings/Languages.Settings.vue')
+        },
+        {
           path: 'about',
           name: 'settings.about',
           component: () => import('@/views/Settings/About.Settings.vue')

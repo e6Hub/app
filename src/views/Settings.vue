@@ -4,29 +4,32 @@
       id="settings-sidebar"
       class="bg-dark-10 inset-y-0 left-0 h-full inline-block select-none border-r border-dark-8 select-none"
     >
-      <h4 class="text-sm font-bold uppercase text-gray-6 m-4">
-        App settings
-      </h4>
+      <h4 class="text-sm font-bold uppercase text-gray-6 m-4" v-text="$t('settings.sidebar.appSettings')"/>
       <ul class="flex justify-center flex-col">
         <SettingsSidebarLink
           icon="download"
           linkto="downloads"
-          linkname="Downloads"
+          linki18n="settings.sidebar.downloads"
         />
         <SettingsSidebarLink
           icon="layout"
           linkto="appearance"
-          linkname="Appearance"
+          linki18n="settings.sidebar.appearance"
         />
         <SettingsSidebarLink
           icon="grid"
           linkto="plugins"
-          linkname="Plugins"
+          linki18n="settings.sidebar.plugins"
+        />
+        <SettingsSidebarLink
+          icon="globe"
+          linkto="languages"
+          linki18n="settings.sidebar.language"
         />
         <SettingsSidebarLink
           icon="info"
           linkto="about"
-          linkname="About"
+          linki18n="settings.sidebar.about"
         />
       </ul>
     </div>

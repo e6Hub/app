@@ -1,10 +1,8 @@
 <template>
-  <SettingView id="appearance-settings" title="Appearance">
+  <SettingView id="appearance-settings" :title="$t('settings.appearance.title')">
     <div id="appearance-topbar-style-section">
       <section>
-        <h4 class="text-sm font-bold uppercase text-gray-3 mb-2">
-          Titlebar style
-        </h4>
+        <h4 class="text-sm font-bold uppercase text-gray-3 mb-2" v-text="$t('settings.appearance.titlebarStyle')"/>
         <RadioForm
           id="appearance-topbar-style-form"
           name="topbar-style"
@@ -14,18 +12,14 @@
         />
       </section>
       <section class="mt-4">
-        <h4 class="text-sm font-bold uppercase text-gray-3 mb-2">
-          Post views
-        </h4>
+        <h4 class="text-sm font-bold uppercase text-gray-3 mb-2" v-text="$t('settings.appearance.postviews')"/>
         <Checkbox
           :evar="this.setting('blurNsfw')"
           name="enable_blurNsfw"
           :onchange="blurNsfwChange"
-        >Blur explicit posts</Checkbox>
+        >{{$t('settings.appearance.blurNsfwPosts')}}</Checkbox>
         <div v-if="this.setting('blurNsfw')" class="mt-3">
-          <h4 class="text-sm font-bold uppercase text-gray-3 mb-2">
-            Unblur when
-          </h4>
+          <h4 class="text-sm font-bold uppercase text-gray-3 mb-2" v-text="$t('settings.appearance.unblurWhen')"/>
           <RadioForm
             id="appearance-unblurnsfw"
             name="unblurnsfw-when"
@@ -36,9 +30,7 @@
         </div>
       </section>
       <section class="mt-4">
-        <h4 class="text-sm font-bold uppercase text-gray-600 mb-2">
-          Search view mode
-        </h4>
+        <h4 class="text-sm font-bold uppercase text-gray-600 mb-2" v-text="$t('settings.appearance.searchviewMode')"/>
         <RadioForm
           id="appearance-searchview"
           name="searchview-mode"
@@ -65,35 +57,35 @@ export default {
       titlebarStyleOptions: [
         {
           value: "win10",
-          label: "Windows 10 (Default)",
+          label: "settings.appearance.titlebar.windows10",
         },
         {
           value: "small",
-          label: "Small",
+          label: "settings.appearance.titlebar.small",
         },
       ],
       unblurNsfwOptions: [
         {
           value: "onhover",
-          label: "On hover"
+          label: "settings.appearance.unblur.onhover"
         },
         {
           value: "onclick",
-          label: "On post's view"
+          label: "settings.appearance.unblur.onpostview"
         },
         {
           value: "never",
-          label: "Never"
+          label: "settings.appearance.unblur.never"
         },
       ],
       searchViewModeOptions: [
         {
           value: "classic",
-          label: "Classic view"
+          label: "settings.appearance.searchview.classic"
         },
         {
           value: "compact",
-          label: "Compact view, all posts have same height and width"
+          label: "settings.appearance.searchview.compact"
         }
       ]
     };

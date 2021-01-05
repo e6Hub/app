@@ -1,28 +1,23 @@
 <template>
   <div id="downloads-container" class="inline-block w-full p-6 pb-0 relative overflow-y-auto">
-    <h2 class="text-2xl font-bold uppercase text-dark-2 select-none">Downloads</h2>
+    <h2 class="text-2xl font-bold uppercase text-dark-2 select-none" v-text="$t('downloads.downloads')"/>
     <div
       id="no-downloads-found"
-      v-if="!queuePosts.length"
+      v-if="!queuePools.length || !queuePosts.length"
       class="text-center my-4"
     >
-      No downloads found in this session...
-      <router-link tag="a" to="/" class="text-blue-3"
-        >wanna try?</router-link
-      >
+      <span v-text="$t('downloads.nothingYet')"/>
+      <router-link to="/" class="text-blue-3" v-text="$t('downloads.wannaTry')"/>
     </div>
     <btn
       v-if="list.length"
       id="download-posts-in-list"
       class="absolute top-0 right-0 m-8"
       @click.native="downloadListedPosts"
-    >
-      Download {{ list.length }} listed post(s)
-    </btn>
+      v-text="$tc('downloads.downloadList', list.length, { count: list.length })"
+    />
     <div id="downloaded-posts-container" v-if="queuePosts.length">
-      <h3 class="text-xl font-bold uppercase text-dark-3 select-none">
-        Posts
-      </h3>
+      <h3 class="text-xl font-bold uppercase text-dark-3 select-none" v-text="$t('downloads.posts')"/>
       <ul id="downloads-panels" class="flex flex-wrap justify-center p-2 w-full">
         <li
           class="m-4 mb-8 w-32 cursor-pointer duration-200"
@@ -49,9 +44,7 @@
       </ul>
     </div>
     <div id="downloaded-posts-container" v-if="queuePools.length">
-      <h3 class="text-xl font-bold uppercase text-dark-3 select-none">
-        Pools
-      </h3>
+      <h3 class="text-xl font-bold uppercase text-dark-3 select-none" v-text="$t('downloads.pools')"/>
       <ul id="downloaded-panels" class="flex flex-wrap justify-center p-2 w-full">
         <li
           class="m-4 mb-8 w-32 cursor-pointer hover:opacity-75 duration-200"

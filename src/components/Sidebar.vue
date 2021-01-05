@@ -4,14 +4,14 @@
     class="w-16 bg-dark-10 inset-y-0 left-0 h-full absolute z-10 pt-4 border-r border-dark-8"
   >
     <ul id="mainlinks" class="flex flex-wrap justify-center">
-      <SidebarLink icon="search" linkto="/search">Search posts</SidebarLink>
-      <SidebarLink icon="layers" linkto="/searchpools">Search pools</SidebarLink>
+      <SidebarLink icon="search" linkto="/search">{{$t('search.posts.search')}}</SidebarLink>
+      <SidebarLink icon="layers" linkto="/searchpools">{{$t('search.pools.search')}}</SidebarLink>
       <SidebarLink
         icon="download"
         linkto="/downloads"
         :badgevar="queuePosts.filter(p => p.status === 'pending').length + queuePosts.filter(p => p.status === 'downloading').length"
-      >Downloads</SidebarLink>
-      <SidebarLink icon="settings" linkto="/settings/">Settings</SidebarLink>
+      >{{$t('downloads.downloads')}}</SidebarLink>
+      <SidebarLink icon="settings" linkto="/settings/">{{$t('settings.settings')}}</SidebarLink>
     </ul>
     <ul
       id="postslistlinks"

@@ -182,11 +182,13 @@ button:focus, input:focus {
   top: -2rem;
 }
 
-label:hover #radioform-container, label input[type="radio"]:checked+#radioform-container {
+label:hover #radioform-container, label input[type="radio"]:checked+#radioform-container,
+label:hover #langselectform-container, label input[type="radio"]:checked+#langselectform-container {
   @apply border-blue-2;
 }
 
-label:hover #radioform-circle, label input[type="radio"]:checked+#radioform-container #radioform-circle {
+label:hover #radioform-circle, label input[type="radio"]:checked+#radioform-container #radioform-circle,
+label:hover #langselectform-circle, label input[type="radio"]:checked+#langselectform-container #langselectform-circle {
   @apply bg-blue-2;
 }
 
@@ -217,3 +219,6 @@ label:hover #radioform-circle, label input[type="radio"]:checked+#radioform-cont
   -webkit-mask-image: linear-gradient(#000 80%, transparent 95%);
 }
 
+p a {
+  color: #7bc7ff;
+}

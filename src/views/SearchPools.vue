@@ -1,6 +1,6 @@
 <template>
   <div id="search-container" class="inline-block flex-wrap w-full p-6">
-    <h2 class="text-2xl font-bold uppercase text-dark-2 select-none">Search pools</h2>
+    <h2 class="text-2xl font-bold uppercase text-dark-2 select-none" v-text="$t('search.pools.search')"/>
     <div id="search-panels" class="flex flex-warp flex-col h-full">
       <div id="search-opts" class="border-b border-dark-7 w-full py-2 mb-2">
         <form action="#" @submit="searchPools">
@@ -33,7 +33,7 @@
               class="inline-flex items-center bg-blue-6 hover:bg-blue-7 py-1 px-3 rounded duration-200"
             >
               <feather type="search" size="16" class="mr-2" />
-              Search
+              <span v-text="$t('search.submit')"/>
             </button>
           </div>
         </form>
@@ -43,8 +43,8 @@
         class="text-center py-8 text-gray-4"
         v-if="!pools.length"
       >
-        <span v-if="fetching">Loading...</span>
-        <span v-else>No pools to see here...</span>
+        <span v-if="fetching" v-text="$t('search.loading')"/>
+        <span v-else v-text="$t('search.pools.noFetching')"/>
       </div>
       <ul
         id="search-list"
@@ -66,7 +66,7 @@
           class="text-center py-8 text-gray-6 w-full"
           v-if="lastPage"
         >
-          <span>No more pools here</span>
+          <span v-text="$t('search.pools.lastPage')"/>
         </div>
       </ul>
       <div
@@ -74,7 +74,7 @@
         class="text-center py-8 text-gray-6"
         v-if="noPools"
       >
-        <span>Oh? no pools that matches with your filters</span>
+        <span v-text="$t('search.pools.nothingHere')"/>
       </div>
     </div>
   </div>

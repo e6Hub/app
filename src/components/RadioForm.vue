@@ -18,7 +18,7 @@
           id="radioform-circle"
           class="w-4 h-4 bg-gray-6 mr-6 rounded-full"
         ></div>
-        <span v-text="radio.label"></span>
+        <span v-text="!radio.noI18n ? $t(radio.label) : radio.label"/>
       </div>
     </label>
   </div>

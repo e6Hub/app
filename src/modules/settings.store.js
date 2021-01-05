@@ -23,7 +23,8 @@ function defaultSettings() {
     titlebarStyle: 'win10',
     blurNsfw: false,
     unblurNsfw: 'onhover',
-    searchViewMode: 'compact'
+    searchViewMode: 'compact',
+    lang: 'en'
   }
 }
 

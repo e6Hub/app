@@ -7,9 +7,9 @@
       <feather type="alert-triangle" />
     </div>
     <div>
-      This feature is experimental and may not be 100% functional, feedbacks are
-      welcome at
-      <e-link href="https://github.com/e6Hub/app/issues">Issues</e-link> page.
+      <i18n path="betaWarn" tag="p">
+        <a href="https://github.com/e6Hub/app/issues" v-text="$t('settings.about.aboutIssues')"/>
+      </i18n>
     </div>
   </div>
 </template>

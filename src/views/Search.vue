@@ -1,6 +1,6 @@
 <template>
   <div id="search-container" class="inline-block flex-wrap w-full p-6">
-    <h2 class="text-2xl font-bold uppercase text-dark-2 select-none">Search posts</h2>
+    <h2 class="text-2xl font-bold uppercase text-dark-2 select-none" v-text="$t('search.posts.search')"/>
     <div id="search-panels" class="flex flex-warp flex-col h-full">
       <div id="search-opts" class="border-b border-dark-7 w-full py-2 mb-2">
         <form action="#" @submit="searchPosts">
@@ -33,7 +33,7 @@
               class="inline-flex items-center bg-blue-6 hover:bg-blue-7 py-1 px-3 rounded duration-200"
             >
               <feather type="search" size="16" class="mr-2" />
-              Search
+              <span v-text="$t('search.submit')"/>
             </button>
           </div>
         </form>
@@ -43,16 +43,18 @@
         class="text-center py-8 text-gray-4"
         v-if="!posts.length"
       >
-        <span v-if="fetching">Loading...</span>
-        <span v-else>No posts to see here...</span>
+        <span v-if="fetching" v-text="$t('search.loading')"/>
+        <span v-else v-text="$t('search.posts.noFetching')"/>
       </div>
       <div
         id="e6h__global_blacklist_notice"
         class="text-center text-gray-4 py-1"
         v-if="posts.filter(p => !p.file.url).length"
       >
-        There are {{posts.filter(p => !p.file.url).length}} post(s) hidden due to global blacklist rule. <e-link href="https://e621.net/help/global_blacklist"
-        >Learn more about this</e-link>.
+        <p>
+          {{$tc('blacklist.count', posts.filter(p => !p.file.url).length, { count: posts.filter(p => !p.file.url).length })}} {{$t('blacklist.dueTo')}} <a href="https://e621.net/help/global_blacklist"
+          >{{$t('blacklist.learnMore')}}</a>.
+        </p>
       </div>
       <ul
         id="search-list"
@@ -80,7 +82,7 @@
           class="text-center py-8 text-gray-6 w-full"
           v-if="lastPage"
         >
-          <span>No more posts here</span>
+          <span v-text="$t('search.posts.lastPage')"/>
         </div>
       </ul>
       <div
@@ -88,7 +90,7 @@
         class="text-center py-8 text-gray-6"
         v-if="noPosts"
       >
-        <span>Oh? no posts that matches with your tags</span>
+        <span v-text="$t('search.posts.nothingHere')"/>
       </div>
     </div>
   </div>

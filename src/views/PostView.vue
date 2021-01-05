@@ -17,10 +17,10 @@
       <a
         v-if="post.sources.length"
         :href="post.sources[0]"
-        @click="openExternal"
         class="rounded py-1 px-3 flex items-center ml-4 text-base normal-case font-normal text-dark-2 hover:bg-dark-8 duration-200"
       >
-        <feather type="external-link" class="mr-2" />Open original
+        <feather type="external-link" class="mr-2" />
+        <span v-text="$t('postview.openOriginal')"/>
       </a>
     </h2>
     <div id="postview-general" class="flex flex-wrap overflow-y-auto">
@@ -144,7 +144,7 @@
           id="postview-description"
           class="bg-dark-7 p-3 rounded mt-4 break-all whitespace-pre-line"
         >
-          <h4 class="uppercase text-dark-2 font-bold mb-1 select-none">Description</h4>
+          <h4 class="uppercase text-dark-2 font-bold mb-1 select-none" v-text="$t('postview.description')"/>
           <span v-html="this.descParsed"></span>
         </div>
       </div>
@@ -156,56 +156,50 @@
             @click.native="downloadPost"
             class="w-full"
             role="safe"
-          >
-            Download
-          </btn>
+            v-text="$t('postview.download')"
+          />
           <btn
             v-else-if="queuePostsPending.findIndex((p) => p.id == post.id) > -1"
             id="postview-downloading-btn"
             class="w-full"
             role="disabledBusy"
-          >
-            Pending download...
-          </btn>
+            v-text="$t('postview.downloadPending')"
+          />
           <btn
             v-else-if="queuePostsDownloading.findIndex((p) => p.id == post.id) > -1"
             id="postview-downloading-btn"
             class="w-full"
             role="busy"
-          >
-            Downloading
-          </btn>
+            v-text="$t('postview.downloading')"
+          />
           <btn
             v-else-if="queuePostsDone.findIndex((p) => p.id == post.id) > -1"
             id="postview-downloaded-btn"
             class="w-full"
             role="disabled"
-          >
-            Downloaded
-          </btn>
+            v-text="$t('postview.downloaded')"
+          />
           <btn
             v-if="!postInList"
             id="postview-addtolist-btn"
             class="w-full mt-2"
             @click.native="listPost"
-          >
-            Add to list
-          </btn>
+            v-text="$t('postview.list')"
+          />
           <btn
             v-else
             id="postview-removefromlist-btn"
             class="w-full mt-2"
             role="danger"
             @click.native="listPost"
-          >
-            Remove from list
-          </btn>
+            v-text="$t('postview.unlist')"
+          />
         </div>
         <ul id="postview-details-list" class="flex flex-col">
           <li
             id="postview-size"
             class="bg-dark-7 p-3 rounded mb-2 break-all">
-            <h4 class="uppercase text-dark-2 font-bold mb-1 select-none">File size</h4>
+            <h4 class="uppercase text-dark-2 font-bold mb-1 select-none" v-text="$t('postview.details.fileSize')"/>
             <span v-text="convertBytes(post.file.size)"></span>
           </li>
           <li
@@ -213,7 +207,7 @@
             id="postview-artists"
             class="bg-dark-7 p-3 rounded mb-2 break-all"
           >
-            <h4 class="uppercase text-dark-2 font-bold mb-1 select-none">Artists</h4>
+            <h4 class="uppercase text-dark-2 font-bold mb-1 select-none" v-text="$tc('postview.details.artist', post.tags.artist.length)"/>
             <ul id="postview-artists-list">
               <li
                 id="artist"
@@ -229,13 +223,13 @@
             id="postview-artist"
             class="bg-dark-7 p-3 rounded mb-2 break-all"
           >
-            <h4 class="uppercase text-dark-2 font-bold mb-1 select-none">Artist</h4>
+            <h4 class="uppercase text-dark-2 font-bold mb-1 select-none" v-text="$tc('postview.details.artist', 1)"/>
             <span>{{ post.tags.artist[0] }}</span>
           </li>
           <li id="postview-tags" class="bg-dark-7 p-3 rounded mb-2 break-all">
-            <h4 class="uppercase text-dark-2 font-bold mb-1 select-none">Tags</h4>
+            <h4 class="uppercase text-dark-2 font-bold mb-1 select-none" v-text="$t('postview.details.tags.tags')"/>
             <div id="postview-tags-general" v-if="post.tags.general.length">
-              <h5 class="text-dark-1 mb-1 select-none">General</h5>
+              <h5 class="text-dark-1 mb-1 select-none" v-text="$t('postview.details.tags.general')"/>
               <ul class="postview-tags-list">
                 <li
                   class="postview-tag cursor-pointer text-blue-4 inline-block mx-1 my-1 px-3 rounded-full bg-dark-8 hover:underline"
@@ -247,7 +241,7 @@
               </ul>
             </div>
             <div id="postview-tags-species" v-if="post.tags.species.length">
-              <h5 class="text-dark-1 mb-1 select-none">Species</h5>
+              <h5 class="text-dark-1 mb-1 select-none" v-text="$t('postview.details.tags.species')"/>
               <ul class="postview-tags-list">
                 <li
                   class="postview-tag cursor-pointer text-orange-4 inline-block mx-1 my-1 px-3 rounded-full bg-dark-8 hover:underline"
@@ -259,7 +253,7 @@
               </ul>
             </div>
             <div id="postview-tags-character" v-if="post.tags.character.length">
-              <h5 class="text-dark-1 mb-1 select-none">Characters</h5>
+              <h5 class="text-dark-1 mb-1 select-none" v-text="$t('postview.details.tags.characters')"/>
               <ul class="postview-tags-list">
                 <li
                   class="postview-tag cursor-pointer text-green-4 inline-block mx-1 my-1 px-3 rounded-full bg-dark-8 hover:underline"
@@ -271,7 +265,7 @@
               </ul>
             </div>
             <div id="postview-tags-copyright" v-if="post.tags.copyright.length">
-              <h5 class="text-dark-1 mb-1 select-none">Copyrights</h5>
+              <h5 class="text-dark-1 mb-1 select-none" v-text="$t('postview.details.tags.copyright')"/>
               <ul class="postview-tags-list">
                 <li
                   class="postview-tag cursor-pointer text-pink-3 inline-block mx-1 my-1 px-3 rounded-full bg-dark-8 hover:underline"
@@ -283,7 +277,7 @@
               </ul>
             </div>
             <div id="postview-tags-meta" v-if="post.tags.meta.length">
-              <h5 class="text-dark-1 mb-1 select-none">Meta</h5>
+              <h5 class="text-dark-1 mb-1 select-none" v-text="$t('postview.details.tags.meta')"/>
               <ul class="postview-tags-list">
                 <li
                   class="postview-tag cursor-pointer text-dark-1 inline-block mx-1 my-1 px-3 rounded-full bg-dark-8 hover:underline"
@@ -387,13 +381,6 @@ export default {
         millisecondsDecimalDigits: 1000,
       });
     },
-    descParsed(v) {
-      this.$nextTick(() => {
-        for (let i = 0; i < this.nlinks; i++) {
-          document.getElementById(`l${i}`).onclick = this.openExternal;
-        }
-      });
-    },
   },
   methods: {
     ...mapActions("downloads", ["addQueuePost"]),
@@ -450,10 +437,6 @@ export default {
     },
     convertBytes(n) {
       return bytes(n, { unitSeparator: " " });
-    },
-    openExternal(e) {
-      e.preventDefault();
-      require("electron").shell.openExternal(e.target.getAttribute("href"));
     },
   },
   mounted() {

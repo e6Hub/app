@@ -1,20 +1,12 @@
 <template>
-  <SettingView id="app-about" title="About">
+  <SettingView id="app-about" :title="$t('settings.about.title')">
     <div id="notice" class="bg-dark-10 px-4 py-2 mb-4 rounded shadow">
-      <h4 class="text-xl text-dark-2 mb-2">
-        e6Hub isn't an official app of e621.net
-      </h4>
-      <p>
-        This app was created by users, not by e621's staff. If you want to
-        report bug or give your feedback go to <e-link
-        href="https://github.com/e6Hub/app/issues">Issues</e-link>. This app
-        doesn't provide any warranty since it's open source. The
-        author of the project is <e-link
-        href="https://e621.net/user/show/418103">AerysSaektide</e-link>
-        and it's licensed under <e-link
-        href="https://raw.githubusercontent.com/e6Hub/app/master/LICENSE"
-        >MIT license</e-link>.
-      </p>
+      <h4 class="text-xl text-dark-2 mb-2" v-text="$t('settings.about.aboutTitle')"/>
+      <i18n path="settings.about.aboutBody" tag="p">
+        <a href="https://github.com/e6Hub/app/issues" v-text="$t('settings.about.aboutIssues')"/>
+        <a href="https://e621.net/user/show/418103">AerysSaektide</a>
+        <a href="https://raw.githubusercontent.com/e6Hub/app/master/LICENSE" v-text="$t('settings.about.aboutLicense')"/>
+      </i18n>
     </div>
     <p>{{ require("../../../package.json").version }}</p>
     <div id="e6h__about_actions" class="mt-4">
@@ -22,28 +14,34 @@
         v-if="updateStatus == 'pendingRestart'"
         @click.native="restartForUpdate"
         role="safe"
-      >Restart to update</btn>
+        v-text="$t('settings.about.restartToUpdate')"
+      />
       <btn
         v-else-if="updateStatus == 'downloading'"
         role="busy"
-      >Downloading</btn>
+        v-text="$t('settings.about.downloadingUpdate')"
+      />
       <btn
         v-else-if="updateStatus == 'uptodate'"
         @click.native="checkForUpdate"
-      >Check for updates</btn>
+        v-text="$t('settings.about.checkForUpdate')"
+      />
       <btn
         v-else-if="updateStatus == 'checking'"
         role="disabledBusy"
-      >Checking update...</btn>
+        v-text="$t('settings.about.checkingForUpdate')"
+      />
       <btn
         v-else-if="updateStatus == 'dev'"
         role="disabled"
-      >Development build</btn>
+        v-text="$t('settings.about.devBuild')"
+      />
       <btn
         @click.native="resetSets"
         role="warn"
         class="ml-4"
-      >Reset settings</btn>
+        v-text="$t('settings.about.resetSettings')"
+      />
     </div>
   </SettingView>
 </template>
