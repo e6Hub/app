@@ -120,6 +120,10 @@ export default {
   computed: {
     ...mapGetters("downloads", ["queuePools"]),
     ...mapGetters("posts", ["list"]),
+    ...mapGetters("settings", ["setting"]),
+    searchMode() {
+      return this.setting("searchMode");
+    },
     poolInQueue() {
       return this.queuePools.find(p => p.id === this.pool.id);
     },
@@ -157,7 +161,7 @@ export default {
       this.lastPage = false;
 
       _({
-        uri: "https://e621.net/posts.json",
+        uri: `https://e${this.searchMode}.net/posts.json`,
         qs: {
           tags: `pool:${this.pool.id}`,
           limit: 200,
