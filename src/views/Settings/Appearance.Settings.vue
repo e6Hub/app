@@ -1,7 +1,7 @@
 <template>
   <SettingView id="appearance-settings" :title="$t('settings.appearance.title')">
     <div id="appearance-settings-content">
-      <section>
+      <section v-if="$isWindows">
         <h4 class="text-sm font-bold uppercase text-gray-3 mb-2" v-text="$t('settings.appearance.titlebarStyle')"/>
         <RadioForm
           id="appearance-topbar-style-form"

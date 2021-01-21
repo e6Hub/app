@@ -8,6 +8,7 @@ import i18n from './i18n';
 import './assets/app.css';
 
 import Updater from './plugins/updater';
+import Platform from './plugins/platform';
 import PluginManager from './pluginman';
 
 Vue.prototype.$events = new Vue();
@@ -17,6 +18,7 @@ Vue.use(VueFeather);
 
 // App plugins
 Vue.use(Updater);
+Vue.use(Platform);
 Vue.use(PluginManager);
 
 Vue.config.productionTip = false;

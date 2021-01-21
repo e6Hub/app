@@ -1,9 +1,11 @@
-import { app, protocol, BrowserWindow, ipcMain } from 'electron';
+import { app, protocol, BrowserWindow, ipcMain, Menu } from 'electron';
 import { createProtocol } from 'vue-cli-plugin-electron-builder/lib';
 import { autoUpdater as updater } from 'electron-updater';
 import fs from 'fs';
+import path from 'path';
 
 const isDev = process.env.NODE_ENV !== 'production';
+Menu.setApplicationMenu(null);
 
 /**
  * Register a protocol for the app.
@@ -58,21 +60,21 @@ function handleExterns(e, url) {
 app.on('ready', () => {
   win = new BrowserWindow({
     webPreferences: {
-      nodeIntegration: true,
+      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
       plugins: true
     },
     minWidth: 1024,
     minHeight: 600,
     width: 1024,
     height: 600,
-    frame: false,
-    nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION 
+    frame: process.platform === 'win32' ? false : true,
+    icon: path.join(__static, 'icon.png')
   });
 
   if (isDev) {
     win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
     if (!process.env.IS_TEST) win.webContents.openDevTools();
-    win.setIcon('e6hub.ico');
+    if (process.platform === 'win32') win.setIcon('e6hub.ico');
   } else {
     createProtocol('app');
     win.loadURL('app://./index.html/');
@@ -81,7 +83,8 @@ app.on('ready', () => {
   win.webContents.on('will-navigate', handleExterns);
   win.webContents.on('new-window', handleExterns);
 
-  updater.checkForUpdates();
+  const supportedPlatforms = ['win32', 'linux'];
+  if (supportedPlatforms.indexOf(process.platform) >= 0) updater.checkForUpdates();
 
   /**
    * Set the win variable to null

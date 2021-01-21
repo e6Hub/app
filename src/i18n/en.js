@@ -134,7 +134,9 @@ export default {
       checkForUpdate: 'Check for updates',
       checkingForUpdate: 'Checking for updates...',
       devBuild: 'Development build',
+      unsupportedBuild: 'Unsupported build',
       resetSettings: 'Reset settings',
+      versionDetail: 'e6Hub {0}, running on {1} ({2}/{3})'
     }
   },
   // Other

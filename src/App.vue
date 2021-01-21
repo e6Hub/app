@@ -1,12 +1,12 @@
 <template>
   <div id="main" class="bg-dark-9 inset-0 absolute">
-    <Titlebar />
+    <Titlebar v-if="$isWindows"/>
     <div
       id="app-container"
       class="absolute flex inset-0 text-white pl-16 duration-200"
       :class="{
-        'mt-6': this.setting('titlebarStyle') === 'small',
-        'mt-8': this.setting('titlebarStyle') === 'win10'
+        'mt-6': $isWindows && this.setting('titlebarStyle') === 'small',
+        'mt-8': $isWindows && this.setting('titlebarStyle') === 'win10'
       }"
     >
       <Sidebar ref="sidebar" />

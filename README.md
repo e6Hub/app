@@ -40,22 +40,27 @@ Wanna bring e621/e926 to your desktop? You got it, e6Hub is an app that allows y
 
 | OS Name    | Status | Type |
 | ---------- | :----: | ---: |
-| Windows 7  |:heavy_exclamation_mark:     | .exe |
+| Windows 7  |✔<sup>1</sup>     | .exe |
 | Windows 8  |✔     | .exe |
 | Windows 10 |✔     | .exe |
-| Debian     |❌     | .deb |
-| Fedora     |❌     | .rpm |
-| Arch       |❌     | .tar |
+| Debian     |✔     | .AppImage |
+| Fedora     |✔     | .AppImage |
+| Arch       |✔     | .AppImage |
 | macOS      |⚠     | .dmg |
 
 * ✔ Supported
 * ❌ Not supported but can compile it
-* ✖ Unstable
 * ⚠ Not tested yet
-* :heavy_exclamation_mark: Unstable since some version of Electron (mostly Electron 6 or 8)
 
+1. A clean installation of Windows 7 (w/o recent updates) have the black screen issue. Learn more about [this Electron issue](https://github.com/electron/electron/issues/19569).
 
-## 💾 Install
+### 🍎 macOS support
+We still looking for macOS testers, if you are a macOS user you can make a development build in your machine and let us know about it. If you want to provide private feedback reach out to the project author at Discord ( `saek#3000` )
+
+## 💾 Development build
+### 🚧 Requirements
+* Node.js ( v12 or above )
+* Git
 ### 💽 Clone
 ```
 git clone https://github.com/e6Hub/app.git

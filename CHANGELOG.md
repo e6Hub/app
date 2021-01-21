@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Added English
   - Added Spanish (Español)
 - Add safe mode (e926) and enabled by default, you can disable this on **Search** settings
+- Add support to Linux using AppImage
 
 ### Removed
 

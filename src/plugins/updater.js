@@ -33,24 +33,32 @@ const updaterController = {
    * the events with ipcRenderer.
    */
   init() {
+    const supportedPlatforms = ['win32', 'linux'];
+    this.l(`Initialized on <${process.platform}> platform`);
+
     if (process.env.NODE_ENV !== 'production') {
       this.l('Development build');
       this.setStatus('dev');
     }
 
-    ipcRenderer.on('updateCheck', (e) => {
+    if (supportedPlatforms.indexOf(process.platform) === -1) {
+      this.l(`Unsupported build for platform: ${process.platform}`);
+      this.setStatus('unsupported');
+    }
+
+    ipcRenderer.on('updateCheck', () => {
       this.setStatus('checking');
     });
 
-    ipcRenderer.on('updateAlert', (e) => {
+    ipcRenderer.on('updateAlert', () => {
       this.setStatus('pendingRestart');
     });
 
-    ipcRenderer.on('updateUpToDate', (e) => {
+    ipcRenderer.on('updateUpToDate', () => {
       this.setStatus('uptodate');
     });
 
-    ipcRenderer.on('updateAvailable', (e, ver) => {
+    ipcRenderer.on('updateAvailable', () => {
       this.setStatus('downloading');
     });
   },

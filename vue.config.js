@@ -8,7 +8,7 @@ module.exports = {
         productName: 'e6Hub',
         // Windows
         win: {
-          target: ['nsis'],
+          target: 'nsis',
           icon: './e6hub.ico'
         },
         nsis: {
@@ -21,9 +21,13 @@ module.exports = {
         },
         // Linux
         linux: {
-          target: ['deb'],
+          target: 'AppImage',
           synopsis: 'An e621/e926 client',
-          category: 'Network'
+          category: 'Network',
+          icon: './build/icons'
+        },
+        appImage: {
+          artifactName: "e6hub-Linux-${arch}.AppImage"
         },
         publish: {
           provider: 'github',

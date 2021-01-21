@@ -17,7 +17,7 @@ function l(s) {
 export default {
   namespaced: true,
   state: {
-    updateStatus: null
+    updateStatus: 'uptodate'
   },
   mutations: {
     _setUpdateStatus(state, v) {
