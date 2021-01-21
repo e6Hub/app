@@ -4,21 +4,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/e6Hub/app/compare/v3.6.1...HEAD)
+## [Unreleased](https://github.com/e6Hub/app/compare/v3.7.0...HEAD)
+
+## [3.7.0](https://github.com/e6Hub/app/compare/v3.6.1...v3.7.0) - 2021-01-21
 
 ### Added
-- Add internationalization (i18n). Check [CONTRIBUTING.md](https://github.com/e6Hub/app/blob/master/.github/CONTRIBUTING.md) for more information about this
+- Add internationalization (i18n). Check [CONTRIBUTING.md](https://github.com/e6Hub/app/blob/master/.github/CONTRIBUTING.md) for more information about this ([96ed215](https://github.com/e6Hub/app/commit/96ed2150e7d2eb5c1ed5de245d7429be2114a212))
   - Added English
   - Added Spanish (Español)
-- Add safe mode (e926) and enabled by default, you can disable this on **Search** settings
-- Add support to Linux using AppImage
+- Add safe mode (e926) and enabled by default, you can disable this on **Search** settings ([5b7ec48](https://github.com/e6Hub/app/commit/5b7ec48065626cc32f6f65590cfa21d4146ddb17))
+- Add support to Linux using AppImage ([44d0cd0](https://github.com/e6Hub/app/commit/44d0cd0a8297d5df1535d73c8c5855484fe43acb))
 
 ### Removed
 
-- Removed external link component (which is deprecated)
+- Removed external link component (which is deprecated) ([5b7ec48](https://github.com/e6Hub/app/commit/5b7ec48065626cc32f6f65590cfa21d4146ddb17))
 
 ### Fixed
-- Fix for development environments an issue with openExternal handle, it won't open `localhost` domains on your browser anymore
+- Fix for development environments an issue with openExternal handle, it won't open `localhost` domains on your browser anymore ([96ed215](https://github.com/e6Hub/app/commit/96ed2150e7d2eb5c1ed5de245d7429be2114a212))
 
 ## [3.6.1](https://github.com/e6Hub/app/compare/v3.6.0...v3.6.1) - 2020-12-25
 
