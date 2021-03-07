@@ -55,7 +55,7 @@ Wanna bring e621/e926 to your desktop? You got it, e6Hub is an app that allows y
 1. A clean installation of Windows 7 (w/o recent updates) have the black screen issue. Learn more about [this Electron issue](https://github.com/electron/electron/issues/19569).
 
 ### 🍎 macOS support
-We still looking for macOS testers, if you are a macOS user you can make a development build in your machine and let us know about it. If you want to provide private feedback reach out to the project author at Discord ( `saek#3000` )
+We still looking for macOS testers, if you are a macOS user you can make a development build in your machine and let us know about it. If you want to provide private feedback reach out to the project author at Discord ( you can find it at https://saek.work/contact )
 
 ## 💾 Development build
 ### 🚧 Requirements
