@@ -1,6 +1,8 @@
 # Project status
 I will discontinue this project since I don't have time for this anymore in my life. Feel free to fork it and modify this software (and please keep the LICENSE and authors intact). You can also use this as a base for a project Vue + Electron but I don't recommend it since some features are deprecated. Support for dtext-parser will stop too since it's part of e6Hub integrity. Translation will stop too, the app will stop including new features and updates (including hotfixes). In case of doubt [contact me](https://saek.work/contact). **This repository will be deleted at December 2021 without exceptions**.
 
+**UPDATE 2022:** This repo won't be deleted but will stay archived.
+
 # e6Hub
 [![Build status](https://ci.appveyor.com/api/projects/status/eawhvp0h2215rqhj?svg=true)](https://ci.appveyor.com/project/Saektide/app)
 [![DeepScan grade](https://deepscan.io/api/teams/9325/projects/11662/branches/175184/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=9325&pid=11662&bid=175184)
